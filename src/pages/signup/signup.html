@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Signup</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card>
+        <ion-card-header>
+         SIGNUP
+        </ion-card-header>
+        <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-label floating>
+                    <ion-icon name="person-add"></ion-icon>
+                    Username</ion-label>
+                  <ion-input  #username type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>
+                      <ion-icon name="mail"></ion-icon>
+                      Email</ion-label>
+                    <ion-input  #emailId type="text"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label floating>
+                        <ion-icon name="call"></ion-icon>
+                        Mobile No</ion-label>
+                    <ion-input  #mobileNo type="number"></ion-input>
+                  </ion-item>
+
+
+                <ion-item>
+                  <ion-label floating>
+                      <ion-icon name="key"></ion-icon>
+                      Password</ion-label>
+                  <ion-input  #password type="password"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>
+                        <ion-icon name="key"></ion-icon>
+                        Confirm Password</ion-label>
+                    <ion-input #confirmPassword type="password"></ion-input>
+                  </ion-item>
+            </ion-list>
+            <br><br>
+        </ion-card-content>
+        <button ion-button outline (click)="signupCredentials(username.value,emailId.value,password.value,confirmPassword.value,mobileNo.value)">SIGNUP </button>
+
+      </ion-card>
+</ion-content>
