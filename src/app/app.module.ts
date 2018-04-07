@@ -1,3 +1,4 @@
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -10,6 +11,10 @@ import { SignupPage } from '../pages/signup/signup';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireModule} from 'angularfire2';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+
+//interfaces
+
 
 
 
@@ -28,14 +33,15 @@ var firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    HttpClientModule
+    HttpClientModule,
+    AngularFireAuthModule,
 
 
   ],
@@ -43,7 +49,8 @@ var firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
+
   ],
   providers: [
     StatusBar,

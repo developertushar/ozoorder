@@ -1,8 +1,8 @@
 import { AngularFireList } from 'angularfire2/database';
-import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import {AngularFireDatabase} from 'angularfire2/database';
 
 
@@ -16,7 +16,8 @@ import {AngularFireDatabase} from 'angularfire2/database';
 
 export class LoginPage {
 
-  items: Observable<any[]>;
+
+  userDetails = [];
 
   constructor(
     public navCtrl: NavController,
@@ -27,9 +28,21 @@ export class LoginPage {
 
 
 
+    // const data = this.firebaseDb.list('/userDetails/').valueChanges();
+    // data.subscribe((getData)=>{
+
+    //   getData.forEach((item)=>{
+
+    //     console.log(item.email);
 
 
-    console.log(this.items);
+    //   })
+
+
+    // });
+
+
+
 
 
 
