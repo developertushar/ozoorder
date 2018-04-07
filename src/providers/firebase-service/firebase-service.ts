@@ -19,6 +19,13 @@ export class FirebaseServiceProvider {
   }
 
 
+  getUserDetails()
+  {
+    return  this.firebaseDb.list('/userDetails/').valueChanges();
+
+
+  }
+
   AddSignupDetails(username,email,phone,authority)
   {
 
@@ -29,10 +36,7 @@ export class FirebaseServiceProvider {
           email: email,
           authority: authority,
           phoneNo: phone
-
     })
-
-
   }
 
 }

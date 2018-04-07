@@ -38,9 +38,15 @@
         </ion-card-content>
         <button ion-button outline >Login</button>
 
+      <ion-list *ngFor="let item of items | async">
+        <div>{{item.$value}}</div>
+      </ion-list>
+
       </ion-card>
 
 
 
 
 </ion-content>
+
+

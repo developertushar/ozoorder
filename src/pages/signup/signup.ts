@@ -76,9 +76,6 @@ export class SignupPage {
 
         //getting Data
         this.firebaseService.AddSignupDetails(username,email,mobile,data);
-
-
-
       }
     });
     alert.present();
