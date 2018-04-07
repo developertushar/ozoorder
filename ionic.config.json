@@ -1,0 +1,8 @@
+{
+  "name": "OzoOrder",
+  "app_id": "856c78fa",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
