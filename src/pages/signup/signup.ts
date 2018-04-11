@@ -1,5 +1,7 @@
+
 import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 
 
 
@@ -7,11 +9,14 @@ import {
    NavController,
    NavParams,
    AlertController,
-   ToastController
+   ToastController,
+   LoadingController
+
    } from 'ionic-angular';
 
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-signup',
@@ -33,9 +38,11 @@ export class SignupPage {
   constructor(
     public alertCtrl :AlertController,
     public toastCtrl: ToastController,
+    public navCtrl :NavController,
     public firebasedb: AngularFireDatabase,
     public firebaseService: FirebaseServiceProvider,
-    public firebaseAuth :AngularFireAuth
+    public firebaseAuth :AngularFireAuth,
+    public loadCtrl :LoadingController
 
   )
   {
@@ -84,21 +91,52 @@ export class SignupPage {
       {
 
 
+        const load = this.loadCtrl.create({
+          content: 'Signing you up...',
+          spinner: 'dot'
+        })
+
+        load.present();
 
         const result = await this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
 
 
           if(result.uid)
           {
+            load.dismiss();
             const setToDatabase = await this.firebaseService.AddSignupDetails(username,email,mobile,authority);
             if(setToDatabase === true)
             {
+
               let alert = this.alertCtrl.create({
                 title: 'OZO ORDER!',
                 subTitle: 'Thank you so much for signing up for ' + authority,
-                buttons: ['OK']
+                buttons: [{
+                  text: 'Done',
+                  handler: ()=>{
+                    const loader = this.loadCtrl.create({
+                      content:'Thank you..',
+                      dismissOnPageChange: true,
+                      spinner: 'dot'
+                    })
+
+                    loader.present();
+
+                    //pushing to the Login Page
+                    setTimeout(()=>{
+                      this.navCtrl.setRoot(LoginPage);
+                    },1000)
+
+                  }
+
+                }]
+
               });
               alert.present();
+
+
+
+
 
 
             }

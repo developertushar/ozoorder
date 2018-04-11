@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, ViewChild } from '@angular/core';
+import { HttpClient  } from '@angular/common/http';
+import { Injectable, ViewChild , OnInit } from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { ToastController , Nav} from 'ionic-angular';
@@ -12,10 +12,16 @@ import { LoginPage } from '../../pages/login/login';
   and Angular DI.
 */
 @Injectable()
-export class FirebaseServiceProvider {
+export class FirebaseServiceProvider implements OnInit {
 
+  // allUserDetails = [];
 
   loginPage = LoginPage;
+
+
+  //All about users
+  alluserDetails = [];
+
 
   constructor(
     public http: HttpClient,
@@ -23,13 +29,22 @@ export class FirebaseServiceProvider {
     public firebaseAuth: AngularFireAuth,
     public Toast: ToastController,
   ) {
-    console.log('Hello FirebaseServiceProvider Provider');
+
   }
+
+  ngOnInit()
+  {
+      // this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
+      //      console.log(data);
+      // })
+  }
+
+
 
 
   getUserDetails()
   {
-    return  this.firebaseDb.list('/userDetails/').valueChanges();
+    return this.firebaseDb.list('/userDetails/').valueChanges();
 
 
   }
@@ -76,11 +91,10 @@ export class FirebaseServiceProvider {
 
 
     return true;
-
-
-
-
     // return true;
   }
+
+
+
 
 }

@@ -22,8 +22,8 @@
                 <ion-item>
                   <ion-label floating>
                     <ion-icon name="person-add"></ion-icon>
-                    Username</ion-label>
-                  <ion-input #username type="text"></ion-input>
+                    email</ion-label>
+                  <ion-input #email type="text" ></ion-input>
                 </ion-item>
 
 
@@ -31,19 +31,13 @@
                   <ion-label floating>
                       <ion-icon name="key"></ion-icon>
                       Password</ion-label>
-                  <ion-input type="password"></ion-input>
+                  <ion-input #password type="password"></ion-input>
                 </ion-item>
             </ion-list>
             <br><br>
         </ion-card-content>
-        <button ion-button outline >Login</button>
-
-      <ion-list *ngFor="let item of items | async">
-        <div>{{item.$value}}</div>
-      </ion-list>
-
+        <button ion-button outline (click)="loginToApp(email.value,password.value)" >Login</button>
       </ion-card>
-
 
 
 
