@@ -10,9 +10,12 @@ import {IonicStorageModule} from '@ionic/storage';
 
 // native plugins
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { SplashPage } from '../pages/splash/splash';
+
+
+import { SplashScreen  } from '@ionic-native/splash-screen';
 
 //firebase
 import {AngularFireDatabaseModule} from 'angularfire2/database';
@@ -29,7 +32,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     MyApp,
     LoginPage,
     SignupPage,
-    HomePage
+    HomePage,
+    SplashPage
   ],
   imports: [
     BrowserModule,
@@ -47,15 +51,17 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     MyApp,
     LoginPage,
     SignupPage,
-    HomePage
+    HomePage,
+    SplashPage
 
   ],
   providers: [
     StatusBar,
-    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
-    Storage
+    SplashScreen,
+    Storage,
+
 
   ]
 })

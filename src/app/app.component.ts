@@ -1,11 +1,15 @@
+import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild ,OnInit} from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import {Storage} from '@ionic/storage';
+
+
+
 
 
 //firebase
@@ -33,7 +37,8 @@ export class MyApp implements OnInit{
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public firebaseAuth :AngularFireAuth,
-    public storage :Storage
+    public storage :Storage,
+    public modal :ModalController
 
   ) {
     this.initializeApp();
@@ -76,8 +81,11 @@ export class MyApp implements OnInit{
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+
+      let splash = this.modal.create(SplashPage);
+      splash.present();
+      // this.splashScreen.hide();
+  })
   }
 
   openPage(page) {
