@@ -25,6 +25,8 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireModule} from 'angularfire2';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import { DataServiceProvider } from '../providers/data-service/data-service';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 //interfaces
 
@@ -66,6 +68,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     FirebaseServiceProvider,
     SplashScreen,
     Storage,
+    DataServiceProvider,
+    AuthServiceProvider,
 
 
   ]

@@ -1,11 +1,13 @@
+
 import { HomePage } from './../home/home';
 import { AngularFireList } from 'angularfire2/database';
 import { Component , OnInit } from '@angular/core';
 import { NavController, Platform, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
+import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 
 
@@ -31,7 +33,8 @@ export class LoginPage  implements OnInit {
     public firebaseDb: AngularFireDatabase,
     public firebaseAuth: AngularFireAuth,
     public toastCtrl: ToastController,
-    public loader :LoadingController
+    public loader :LoadingController,
+    public dataService: DataServiceProvider,
 
   ) {  }
 
@@ -73,9 +76,9 @@ export class LoginPage  implements OnInit {
               {
                 if(this.alluserDetails[index].email === email)
                 {
-                  this.navCtrl.setRoot(HomePage);
 
-                  // window.localStorage.setItem('token',email);
+                  this.dataService.storeUserDetails(this.alluserDetails[index]);
+                  this.navCtrl.setRoot(HomePage);
 
 
                 }

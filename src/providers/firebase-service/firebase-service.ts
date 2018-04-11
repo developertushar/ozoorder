@@ -34,9 +34,7 @@ export class FirebaseServiceProvider implements OnInit {
 
   ngOnInit()
   {
-      // this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
-      //      console.log(data);
-      // })
+
   }
 
 
