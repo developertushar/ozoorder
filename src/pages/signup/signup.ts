@@ -51,8 +51,10 @@ export class SignupPage {
 
   }
 
-  async signupCredentials(username :string,email :string,password :string,confirmPassword :string,mobile :number)
+  async signupCredentials(user,myForm)
   {
+
+
 
 
     const alert = this.alertCtrl.create();
@@ -77,7 +79,7 @@ export class SignupPage {
 
         this.authority = data;
 
-        this.getAuthenticated(email,password,mobile ,this.authority,username );
+        this.getAuthenticated(user.email,user.password,user.mobile ,this.authority,user.username );
 
       }
     });
@@ -98,7 +100,7 @@ export class SignupPage {
 
         load.present();
 
-        const result = await this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
+        const result = await  this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
 
 
           if(result.uid)
@@ -111,28 +113,14 @@ export class SignupPage {
               let alert = this.alertCtrl.create({
                 title: 'OZO ORDER!',
                 subTitle: 'Thank you so much for signing up for ' + authority,
-                buttons: [{
-                  text: 'Done',
-                  handler: ()=>{
-                    const loader = this.loadCtrl.create({
-                      content:'Thank you..',
-                      dismissOnPageChange: true,
-                      spinner: 'dot'
-                    })
-
-                    loader.present();
-
-                    //pushing to the Login Page
-                    setTimeout(()=>{
-                      this.navCtrl.setRoot(LoginPage);
-                    },1000)
-
-                  }
-
-                }]
+                 buttons:['ok']
 
               });
               alert.present();
+
+              //fix for that
+              this.firebaseAuth.auth.signOut();
+              this.navCtrl.setRoot(LoginPage);
 
 
 

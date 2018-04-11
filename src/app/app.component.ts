@@ -1,3 +1,4 @@
+import { ServicesPage } from './../pages/services/services';
 import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild ,OnInit} from '@angular/core';
@@ -33,7 +34,7 @@ export class MyApp implements OnInit{
   pages: Array<{title: string, component: any,authToken :boolean}>;
 
   constructor(
-    public platform: Platform,
+  public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public firebaseAuth :AngularFireAuth,
@@ -44,16 +45,20 @@ export class MyApp implements OnInit{
     this.initializeApp();
 
     this.firebaseAuth.auth.onAuthStateChanged((user)=>{
+
       if(user)
       {
 
         this.authenticationToken = true;
         this.nav.setRoot(HomePage);
+
       }
       else
       {
-         this.authenticationToken = false;
-         this.nav.setRoot(LoginPage);
+        this.authenticationToken = false;
+        this.nav.setRoot(LoginPage);
+
+
       }
     })
 
@@ -69,7 +74,7 @@ export class MyApp implements OnInit{
     this.pages = [
       { title: 'Login', component: LoginPage, authToken: false },
       { title: 'Signup', component: SignupPage,authToken: false },
-      { title: 'Services', component: SignupPage,authToken: true },
+      { title: 'Services', component: ServicesPage,authToken: true },
       { title: 'Logout', component: LoginPage,authToken: true },
 
     ];

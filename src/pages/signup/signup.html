@@ -9,6 +9,25 @@
 
 <ion-content>
 
+    <!-- <form  id=formId (ngSubmit)="signup(myForm.value,myForm)" #myForm="ngForm">
+        <ion-list>
+
+              <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" name="email" ngModel required ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" name="password" required ngModel ></ion-input>
+              </ion-item>
+            </ion-list>
+            <button id="loginbtn" ion-button type="submit" color="danger" outline [disabled]="!myForm.valid">SIGNUP</button>
+
+
+    </form> -->
+  <form id="signupForm"  #myForm="ngForm"  (ngSubmit)="signupCredentials(myForm.value,myForm)">
+
     <ion-card>
         <ion-card-header>
          SIGNUP
@@ -19,19 +38,19 @@
                   <ion-label floating>
                     <ion-icon name="person-add"></ion-icon>
                     Username</ion-label>
-                  <ion-input  #username type="text"></ion-input>
+                  <ion-input name="username" type="text" required ngModel></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating>
                       <ion-icon name="mail"></ion-icon>
                       Email</ion-label>
-                    <ion-input  #emailId type="text"></ion-input>
+                    <ion-input name="email"  type="text" required ngModel></ion-input>
                   </ion-item>
                   <ion-item>
                     <ion-label floating>
                         <ion-icon name="call"></ion-icon>
                         Mobile No</ion-label>
-                    <ion-input  #mobileNo type="number"></ion-input>
+                    <ion-input name="mobile" type="number" required ngModel></ion-input>
                   </ion-item>
 
 
@@ -39,19 +58,21 @@
                   <ion-label floating>
                       <ion-icon name="key"></ion-icon>
                       Password</ion-label>
-                  <ion-input  #password type="password"></ion-input>
+                  <ion-input name="password"  type="password"  required ngModel></ion-input>
                 </ion-item>
 
                 <ion-item>
                     <ion-label floating>
                         <ion-icon name="key"></ion-icon>
                         Confirm Password</ion-label>
-                    <ion-input #confirmPassword type="password"></ion-input>
+                    <ion-input name="confirmPassword"  type="password" required ngModel></ion-input>
                   </ion-item>
             </ion-list>
             <br><br>
         </ion-card-content>
-        <button ion-button outline (click)="signupCredentials(username.value,emailId.value,password.value,confirmPassword.value,mobileNo.value)">SIGNUP </button>
+        <button ion-button outline type="submit" [disabled]="!myForm.valid" >SIGNUP </button>
 
       </ion-card>
+
+    </form>
 </ion-content>
