@@ -22,8 +22,6 @@ export class HomePage implements OnInit {
 
   alluserDetails = [];
 
-  getCurrentUserDetails = [];
-
   username :string;
   email :string;
   authority: string;
@@ -42,7 +40,7 @@ export class HomePage implements OnInit {
 
   }
 
-  ionViewWillLoad() {
+  ionViewDidLoad() {
 
 
 
@@ -62,10 +60,9 @@ export class HomePage implements OnInit {
        if(this.alluserDetails[index].email === email)
        {
 
-        this.getCurrentUserDetails.push(this.alluserDetails[index]);
-        this.username = this.getCurrentUserDetails[index].username;
-        this.email = this.getCurrentUserDetails[index].email;
-        this.authority = this.getCurrentUserDetails[index].authority;
+        this.username = this.alluserDetails[index].username;
+        this.email = this.alluserDetails[index].email;
+        this.authority = this.alluserDetails[index].authority;
 
        }
      }

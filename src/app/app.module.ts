@@ -1,3 +1,8 @@
+import { ServiceTrackOrderPage } from './../pages/service-track-order/service-track-order';
+import { ServicePlaceOrderPage } from './../pages/service-place-order/service-place-order';
+import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
+import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
+
 import { ServicesPage } from './../pages/services/services';
 import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebaseConfig';
@@ -15,9 +20,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SplashPage } from '../pages/splash/splash';
-
-
-
 import { SplashScreen  } from '@ionic-native/splash-screen';
 
 //firebase
@@ -27,6 +29,7 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { OrderDetailsProvider } from '../providers/order-details/order-details';
 
 //interfaces
 
@@ -39,7 +42,11 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SignupPage,
     HomePage,
     SplashPage,
-    ServicesPage
+    ServicesPage,
+    ServicePastOrderPage,
+    ServiceApprovalCheckPage,
+    ServicePlaceOrderPage,
+    ServiceTrackOrderPage
   ],
   imports: [
     BrowserModule,
@@ -49,8 +56,6 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     HttpClientModule,
     AngularFireAuthModule,
     IonicStorageModule.forRoot()
-
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,8 +64,11 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SignupPage,
     HomePage,
     SplashPage,
-    ServicesPage
-
+    ServicesPage,
+    ServicePastOrderPage,
+    ServiceApprovalCheckPage,
+    ServicePlaceOrderPage,
+    ServiceTrackOrderPage
   ],
   providers: [
     StatusBar,
@@ -70,6 +78,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     Storage,
     DataServiceProvider,
     AuthServiceProvider,
+    OrderDetailsProvider,
 
 
   ]

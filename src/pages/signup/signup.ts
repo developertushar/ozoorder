@@ -119,8 +119,8 @@ export class SignupPage {
               alert.present();
 
               //fix for that
+              // this.navCtrl.setRoot(LoginPage);
               this.firebaseAuth.auth.signOut();
-              this.navCtrl.setRoot(LoginPage);
 
 
 

@@ -90,6 +90,7 @@ export class MyApp implements OnInit{
       let splash = this.modal.create(SplashPage);
       splash.present();
       // this.splashScreen.hide();
+
   })
   }
 
@@ -100,6 +101,7 @@ export class MyApp implements OnInit{
     if(page.title == 'Logout') {
         this.firebaseAuth.auth.signOut();
         this.storage.clear();
+        window.localStorage.clear();
         this.nav.setRoot(page.component);
     }
     else

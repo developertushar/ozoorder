@@ -9,23 +9,6 @@
 
 <ion-content>
 
-    <!-- <form  id=formId (ngSubmit)="signup(myForm.value,myForm)" #myForm="ngForm">
-        <ion-list>
-
-              <ion-item>
-                <ion-label floating>Email</ion-label>
-                <ion-input type="email" name="email" ngModel required ></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label floating>Password</ion-label>
-                <ion-input type="password" name="password" required ngModel ></ion-input>
-              </ion-item>
-            </ion-list>
-            <button id="loginbtn" ion-button type="submit" color="danger" outline [disabled]="!myForm.valid">SIGNUP</button>
-
-
-    </form> -->
   <form id="signupForm"  #myForm="ngForm"  (ngSubmit)="signupCredentials(myForm.value,myForm)">
 
     <ion-card>

@@ -9,12 +9,19 @@
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
-      <ion-title>Field Officer Services</ion-title>
+      <ion-title>Services </ion-title>
     </ion-navbar>
   </ion-header>
 
-
-
 <ion-content padding>
+
+
+  <div id="button">
+    <ion-list *ngFor="let service of services">
+      <button ion-button full (click)="openPage(service.page)" >{{service.serviceName}}</button>
+    </ion-list>
+
+  </div>
+
 
 </ion-content>
