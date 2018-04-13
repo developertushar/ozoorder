@@ -79,8 +79,8 @@ export class FirebaseServiceProvider implements OnInit {
   {
 
 
-
-    this.firebaseDb.list('/userDetails/').push({
+    const emailId = email.substr(0,email.indexOf('@'));
+    this.firebaseDb.list('/userDetails/').set(emailId,{
           username: username,
           email: email,
           authority: authority,

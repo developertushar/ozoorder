@@ -18,6 +18,7 @@ export class DataServiceProvider {
   storeUserDetails(gettingData)
   {
 
+    console.log(gettingData.email);
     console.log(gettingData.email+ 'under storage Details');
      window.localStorage.setItem('email',gettingData.email);
 

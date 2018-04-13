@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar color="primary" >
+      <ion-title item-center>Product Summary</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content>
+
+         <ion-list>
+          <ion-item item-end *ngFor="let item of items">
+            <ion-label color="dark" >{{item.name |uppercase}}:{{item.value}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+              <ion-label color="dark"> ADDRESS:</ion-label><br>
+                <ion-textarea [disabled]="true" color="dark" [value]="newAddress" ></ion-textarea>
+          </ion-item>
+
+        </ion-list>
+
+          <ion-list>
+              <ion-item>PRODUCTS</ion-item>
+              <ion-item-sliding *ngFor="let product of products" >
+                <ion-item>
+                   {{product}}
+                </ion-item>
+                <ion-item-options side="right">
+                  <button ion-button color="danger" (click)="delItem(product)">
+                      <ion-icon name="trash"></ion-icon>Delete</button>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+
+
+
+
+
+
+    <button ion-button full  (click)="placeOrder()">Confirm Order</button> <br>
+    <button ion-button full (click)="closeModal()">Cancel Order</button>
+</ion-content>
+

@@ -16,10 +16,9 @@
 <ion-content padding>
 
 
-  <div id="button">
-    <ion-list *ngFor="let service of services">
-      <button ion-button full (click)="openPage(service.page)" >{{service.serviceName}}</button>
-    </ion-list>
+  <div id="button" *ngFor="let service of services">
+
+      <button ion-button full (click)="openPage(service.page)"  activator="highlight" >{{service.serviceName}}</button>
 
   </div>
 

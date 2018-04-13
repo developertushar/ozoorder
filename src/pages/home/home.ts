@@ -49,24 +49,7 @@ export class HomePage implements OnInit {
   ngOnInit()
   {
 
-    console.log(window.localStorage.getItem('email'));
-    const email = window.localStorage.getItem('email');
-    const getData = this.authenService.getUserDetails();
-    getData.subscribe((data)=>{
-     this.alluserDetails = data;
 
-     for(var index=0;index < this.alluserDetails.length ; index++ )
-     {
-       if(this.alluserDetails[index].email === email)
-       {
-
-        this.username = this.alluserDetails[index].username;
-        this.email = this.alluserDetails[index].email;
-        this.authority = this.alluserDetails[index].authority;
-
-       }
-     }
-    })
 
   }
 

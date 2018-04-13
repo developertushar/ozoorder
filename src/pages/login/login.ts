@@ -1,4 +1,4 @@
-
+import { ServicesPage } from './../services/services';
 import { HomePage } from './../home/home';
 import { AngularFireList } from 'angularfire2/database';
 import { Component , OnInit } from '@angular/core';
@@ -69,16 +69,22 @@ export class LoginPage  implements OnInit {
 
 
           const allUser = this.firebaseService.getUserDetails();
+
+          console.log(email);
           allUser.subscribe((data) => {
               this.alluserDetails = data;
+              console.log(this.alluserDetails);
 
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
                 if(this.alluserDetails[index].email === email)
                 {
 
+
+
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
-                  this.navCtrl.setRoot(HomePage);
+                  window.localStorage.setItem('email',email);
+                  this.navCtrl.setRoot(ServicesPage,{email: email});
 
 
                 }

@@ -136,6 +136,7 @@ export class SignupPage {
                 buttons: ['OK']
               });
               alert.present();
+              load.dismiss();
             }
 
           }

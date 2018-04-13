@@ -48,9 +48,10 @@ export class MyApp implements OnInit{
 
       if(user)
       {
-
+        const email = window.localStorage.getItem('email');
+        console.log(email)
         this.authenticationToken = true;
-        this.nav.setRoot(HomePage);
+        this.nav.setRoot(ServicesPage,{email: email});
 
       }
       else

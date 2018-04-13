@@ -4,14 +4,10 @@ import { ServiceApprovalCheckPage } from './../service-approval-check/service-ap
 import { ServiceTrackOrderPage } from './../service-track-order/service-track-order';
 import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
 
-/**
- * Generated class for the ServicesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -20,11 +16,52 @@ import { Component } from '@angular/core';
 })
 export class ServicesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  alluserDetails = [];
+
+  username :string;
+  email :any;
+  authority: string;
+
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authenService :AuthServiceProvider
+  ) {
+
+
+    const email = this.navParams.get('email');
+
+
+
+
+
+    const getData = this.authenService.getUserDetails();
+    getData.subscribe((data)=>{
+
+     this.alluserDetails = data;
+     for(var index=0;index < this.alluserDetails.length ; index++ )
+     {
+
+       if(this.alluserDetails[index].email === email)
+       {
+
+
+        this.username = this.alluserDetails[index].username;
+        this.email = this.alluserDetails[index].email;
+
+        this.authority = this.alluserDetails[index].authority;
+
+       }
+     }
+    })
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ServicesPage');
+
+
+
   }
 
 
@@ -40,6 +77,7 @@ export class ServicesPage {
   openPage(page)
   {
 
-    this.navCtrl.push(page);
+   console.log(this.email);
+    this.navCtrl.push(page,{emailId: this.email});
   }
 }

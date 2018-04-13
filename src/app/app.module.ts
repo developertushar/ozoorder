@@ -1,3 +1,4 @@
+import { ProductDetails } from '../modals/modal.productsDetails';
 import { ServiceTrackOrderPage } from './../pages/service-track-order/service-track-order';
 import { ServicePlaceOrderPage } from './../pages/service-place-order/service-place-order';
 import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
@@ -10,9 +11,10 @@ import { FIREBASE_CONFIG } from './app.firebaseConfig';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule ,ModalController, NavParams} from 'ionic-angular';
 import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
+
 
 
 // native plugins
@@ -46,7 +48,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServicePastOrderPage,
     ServiceApprovalCheckPage,
     ServicePlaceOrderPage,
-    ServiceTrackOrderPage
+    ServiceTrackOrderPage,
+    ProductDetails
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServicePastOrderPage,
     ServiceApprovalCheckPage,
     ServicePlaceOrderPage,
-    ServiceTrackOrderPage
+    ServiceTrackOrderPage,
+    ProductDetails
   ],
   providers: [
     StatusBar,
@@ -79,6 +83,7 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     DataServiceProvider,
     AuthServiceProvider,
     OrderDetailsProvider,
+    ModalController,
 
 
   ]
