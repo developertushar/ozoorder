@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import {ProductDetails} from '../../modals/modal.productsDetails';
+import {AngularFireDatabase} from 'angularfire2/database';
+
 
 
 @IonicPage()
@@ -13,15 +15,20 @@ export class ServicePlaceOrderPage {
 
   email :any;
 
+  allOrderKeys :any;
+
   gaming ;
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
      public actionSheetCtrl: ActionSheetController,
-     public modalCtrl: ModalController
+     public modalCtrl: ModalController,
+     public firebaseDb: AngularFireDatabase
   ) {
 
-    this.email = this.navParams.get('emailId');
+   this.email = this.navParams.get('emailId');
+   console.log('in constructor'+ this.email);
+
 
 
 
@@ -38,11 +45,6 @@ export class ServicePlaceOrderPage {
 
   getProductDetails(value,myForm)
   {
-
-
-
-
-
 
     console.log('place order'+ this.email);
     let actionSheet = this.actionSheetCtrl.create({

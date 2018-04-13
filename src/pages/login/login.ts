@@ -80,8 +80,6 @@ export class LoginPage  implements OnInit {
                 if(this.alluserDetails[index].email === email)
                 {
 
-
-
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
                   window.localStorage.setItem('email',email);
                   const emailId = email.substr(0,email.indexOf('@')) + 'orders';
@@ -105,7 +103,14 @@ export class LoginPage  implements OnInit {
         }
         catch(e)
         {
+          const toast = this.toastCtrl.create({
+            message: e,
+            duration:1000,
+            position: 'bottom'
 
+          })
+
+          toast.present();
         }
       }
 

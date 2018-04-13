@@ -4,6 +4,7 @@ import { ServicePlaceOrderPage } from './../pages/service-place-order/service-pl
 import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
 import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
 
+
 import { ServicesPage } from './../pages/services/services';
 import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebaseConfig';
@@ -11,7 +12,7 @@ import { FIREBASE_CONFIG } from './app.firebaseConfig';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule ,ModalController, NavParams} from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, ModalController, NavParams, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
 
@@ -72,7 +73,7 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServiceApprovalCheckPage,
     ServicePlaceOrderPage,
     ServiceTrackOrderPage,
-    ProductDetails
+    ProductDetails,
   ],
   providers: [
     StatusBar,
@@ -84,8 +85,6 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     AuthServiceProvider,
     OrderDetailsProvider,
     ModalController,
-
-
   ]
 })
 export class AppModule {}

@@ -36,6 +36,7 @@ export class ServicesPage {
 
 
 
+
     const getData = this.authenService.getUserDetails();
     getData.subscribe((data)=>{
 

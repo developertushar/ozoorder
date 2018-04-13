@@ -1,7 +1,9 @@
+import { ServicesPage } from './../pages/services/services';
 import { OrderDetailsProvider } from './../providers/order-details/order-details';
 import { Component , OnInit } from '@angular/core';
-import { NavController, Platform, NavParams, ToastController, LoadingController,ViewController } from 'ionic-angular';
+import { NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
+import { DataEvent } from '@firebase/database/dist/esm/src/core/view/Event';
 
 //services
   OrderDetailsProvider
@@ -15,6 +17,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 
 export class ProductDetails  implements OnInit {
 
+  orderId :any;
   email :any;
   userDetails = [];
 
@@ -35,31 +38,15 @@ export class ProductDetails  implements OnInit {
     public viewCtrl :ViewController,
     public navCtrl: NavController,
     public orderDetailService: OrderDetailsProvider,
-    public firebaseDb: AngularFireDatabase
+    public firebaseDb: AngularFireDatabase,
+    public loader: LoadingController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController
 
   ) {
 
       this.getProductDetails = this.navParams.get('Products');
-
-      console.log(this.getProductDetails);
-
-      let key = this.firebaseDb.list('/questions/').push({}).key;
-
-
-      const allDatabases = this.firebaseDb.list('/orderDetails/').valueChanges();
-      allDatabases.subscribe((data)=>{
-
-        const allData = data;
-        for(var index=0;index < this.alluserDetails.length ; index++ )
-        {
-          console.log(this.alluserDetails[index].$key);
-        }
-
-
-      })
-
-
-
+      this.email = this.getProductDetails.userEmail;
       this.items = [
         {name: 'Party',value: this.getProductDetails.partyName},
         {name: 'Transport Media',value: this.getProductDetails.transportMedia},
@@ -68,18 +55,12 @@ export class ProductDetails  implements OnInit {
       const getProducts = this.getProductDetails.productName;
       this.newAddress = this.getProductDetails.deliveryAddress;
 
-      this.email = this.getProductDetails.userEmail;
 
       // console.log(getProducts);
       for(var i=0;i < getProducts.length ; i++)
       {
         this.products.push(getProducts[i]);
       }
-
-
-
-
-
 
 
     }
@@ -105,8 +86,77 @@ export class ProductDetails  implements OnInit {
   placeOrder()
   {
    // firebase database of orderDetail
-   this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.newAddress,this.products,this.email);
-  //  this.orderDetailService.updateOrderDetails(this.items[0].value,this.items[1].value,this.items[2].value,this.newAddress,this.products,this.email);
+
+  try{
+    const orderId = Math.floor(Math.random() * 899999 + 100000);
+    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.newAddress,this.products,this.email,orderId);
+    console.log(result);
+    if(result)
+    {
+      const load  = this.loader.create({
+        content: 'Saving and generating order id please wait..',
+        spinner:'dot',
+        duration: 3000
+      })
+
+      load.present();
+
+      setTimeout(() => {
+
+        load.dismiss();
+        return false;
+          },2000)
+
+      setTimeout(()=>{
+        const alert = this.alertCtrl.create({
+          message: 'You generated order id:'+  orderId,
+          buttons: [
+            {
+              text: 'OK',
+              handler: ()=>{
+                this.navCtrl.setRoot(ServicesPage,{email: this.email});
+
+              }
+
+            }
+          ]
+        })
+
+        alert.present();
+
+      },2000)
+
+    }
+
+
+  }
+  catch(e)
+  {
+
+    const toast = this.toastCtrl.create({
+      message: e,
+      position:'bottom',
+      duration: 1000
+    })
+    toast.present();
+  }
+
+
+
+
+
+
+
+
+
+
+        //  console.log(this.orderId);
+
+
+
+
+
+      // this.navCtrl.setRoot(ServicesPage,{email: this.email});
 
 
 
