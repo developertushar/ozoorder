@@ -1,7 +1,7 @@
 import { OrderDetailsProvider } from './../providers/order-details/order-details';
 import { Component , OnInit } from '@angular/core';
 import { NavController, Platform, NavParams, ToastController, LoadingController,ViewController } from 'ionic-angular';
-
+import {AngularFireDatabase} from 'angularfire2/database';
 
 //services
   OrderDetailsProvider
@@ -34,13 +34,30 @@ export class ProductDetails  implements OnInit {
     public navParams :NavParams,
     public viewCtrl :ViewController,
     public navCtrl: NavController,
-    public orderDetailService: OrderDetailsProvider
+    public orderDetailService: OrderDetailsProvider,
+    public firebaseDb: AngularFireDatabase
 
   ) {
 
       this.getProductDetails = this.navParams.get('Products');
 
       console.log(this.getProductDetails);
+
+      let key = this.firebaseDb.list('/questions/').push({}).key;
+
+
+      const allDatabases = this.firebaseDb.list('/orderDetails/').valueChanges();
+      allDatabases.subscribe((data)=>{
+
+        const allData = data;
+        for(var index=0;index < this.alluserDetails.length ; index++ )
+        {
+          console.log(this.alluserDetails[index].$key);
+        }
+
+
+      })
+
 
 
       this.items = [
@@ -53,15 +70,14 @@ export class ProductDetails  implements OnInit {
 
       this.email = this.getProductDetails.userEmail;
 
-
-
-
-
       // console.log(getProducts);
       for(var i=0;i < getProducts.length ; i++)
       {
         this.products.push(getProducts[i]);
       }
+
+
+
 
 
 

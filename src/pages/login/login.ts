@@ -84,6 +84,9 @@ export class LoginPage  implements OnInit {
 
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
                   window.localStorage.setItem('email',email);
+                  const emailId = email.substr(0,email.indexOf('@')) + 'orders';
+                  this.firebaseDb.list('/orderDetails/').set(emailId,'');
+                  this.firebaseDb.list('/ord/')
                   this.navCtrl.setRoot(ServicesPage,{email: email});
 
 

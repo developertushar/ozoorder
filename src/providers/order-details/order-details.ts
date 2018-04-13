@@ -15,20 +15,19 @@ export class OrderDetailsProvider {
     public firebaseDb: AngularFireDatabase,
 
   ) {
+
+
+
   }
 
 
   SaveOrder(partyName,transportMedia,transportName,address,products,email)
   {
 
-
-
-
-
     const emailId = email.substr(0,email.indexOf('@')) + 'orders';
 
 
-    const result = this.firebaseDb.list('/orderDetails/').set(emailId,{
+    const result = this.firebaseDb.list('/orderDetails/'+emailId).push({
       partyname : partyName,
       transportmedia: transportMedia,
       transportname: transportName,
@@ -43,6 +42,13 @@ export class OrderDetailsProvider {
 
 
 
+  }
+
+  createDatabase(email)
+  {
+
+    const emailId = email.substr(0,email.indexOf('@')) + 'orders';
+    this.firebaseDb.list('/orderDetails/').set(emailId,'');
   }
 
   updateOrderDetails(partyName,transportMedia,transportName,address,products,email)
