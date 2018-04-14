@@ -2,7 +2,7 @@ import { ServicesPage } from './../pages/services/services';
 import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild ,OnInit} from '@angular/core';
-import { Nav, Platform, ModalController } from 'ionic-angular';
+import { Nav, Platform, ModalController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
@@ -39,7 +39,8 @@ export class MyApp implements OnInit{
     public splashScreen: SplashScreen,
     public firebaseAuth :AngularFireAuth,
     public storage :Storage,
-    public modal :ModalController
+    public modal :ModalController,
+    public menuCtrl: MenuController
 
   ) {
     this.initializeApp();
@@ -95,6 +96,10 @@ export class MyApp implements OnInit{
   })
   }
 
+  ionViewDidEnter() {
+    this.menuCtrl.enable(true, "menuCtrl");
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -111,5 +116,12 @@ export class MyApp implements OnInit{
     }
 
 
+  }
+
+
+  checkMenu()
+  {
+    this.menuCtrl.enable(true);
+    this.menuCtrl.toggle();
   }
 }

@@ -3,9 +3,10 @@ import { ServicePastOrderPage } from './../service-past-order/service-past-order
 import { ServiceApprovalCheckPage } from './../service-approval-check/service-approval-check';
 import { ServiceTrackOrderPage } from './../service-track-order/service-track-order';
 import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 
 
@@ -26,11 +27,24 @@ export class ServicesPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public authenService :AuthServiceProvider
+    public authenService :AuthServiceProvider,
+    public menu :MenuController,
+    public firebaseAuth: AngularFireAuth
   ) {
 
 
-    const email = this.navParams.get('email');
+
+    // const email = this.navParams.get('email');
+    this.firebaseAuth.auth.onAuthStateChanged((user)=>{
+
+      if(user)
+      {
+        this.email = window.localStorage.getItem('email');
+        console.log(this.email);
+      }
+    })
+
+
 
 
 
@@ -44,7 +58,7 @@ export class ServicesPage {
      for(var index=0;index < this.alluserDetails.length ; index++ )
      {
 
-       if(this.alluserDetails[index].email === email)
+       if(this.alluserDetails[index].email === this.email)
        {
 
 
@@ -60,6 +74,8 @@ export class ServicesPage {
   }
 
   ionViewDidLoad() {
+
+
 
 
 

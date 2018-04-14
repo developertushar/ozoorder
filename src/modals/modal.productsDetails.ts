@@ -1,9 +1,10 @@
 import { ServicesPage } from './../pages/services/services';
 import { OrderDetailsProvider } from './../providers/order-details/order-details';
 import { Component , OnInit } from '@angular/core';
-import { NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
+import {App, NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { DataEvent } from '@firebase/database/dist/esm/src/core/view/Event';
+
 
 //services
   OrderDetailsProvider
@@ -41,7 +42,9 @@ export class ProductDetails  implements OnInit {
     public firebaseDb: AngularFireDatabase,
     public loader: LoadingController,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public appCtrl: App,
+
 
   ) {
 
@@ -114,7 +117,8 @@ export class ProductDetails  implements OnInit {
             {
               text: 'OK',
               handler: ()=>{
-                this.navCtrl.setRoot(ServicesPage,{email: this.email});
+                this.viewCtrl.dismiss();
+                this.appCtrl.getRootNav().setRoot(ServicesPage);
 
               }
 

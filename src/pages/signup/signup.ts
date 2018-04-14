@@ -123,10 +123,6 @@ export class SignupPage {
               this.firebaseAuth.auth.signOut();
 
 
-
-
-
-
             }
             else
             {
