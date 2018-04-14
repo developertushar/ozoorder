@@ -95,17 +95,24 @@ export class SignupPage {
 
         const load = this.loadCtrl.create({
           content: 'Signing you up...',
-          spinner: 'dot'
+          spinner: 'dot',
+          duration: 3000
         })
 
         load.present();
 
         const result = await  this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
 
+         try{
+
+
+
 
           if(result.uid)
           {
-            load.dismiss();
+
+
+
             const setToDatabase = await this.firebaseService.AddSignupDetails(username,email,mobile,authority);
             if(setToDatabase === true)
             {
@@ -120,22 +127,40 @@ export class SignupPage {
 
               //fix for that
               // this.navCtrl.setRoot(LoginPage);
+              load.dismiss();
               this.firebaseAuth.auth.signOut();
+
+
+
 
 
             }
             else
             {
+              load.dismiss();
               let alert = this.alertCtrl.create({
                 title: 'NETWORK ERROR!',
                 subTitle: 'Check you internet connection and try again' + authority,
                 buttons: ['OK']
               });
               alert.present();
-              load.dismiss();
+
             }
 
           }
+
+         }
+         catch(e)
+         {
+
+          let alert = this.alertCtrl.create({
+            title: e,
+            buttons: ['OK']
+          });
+          alert.present();
+
+         }
+
 
 
 

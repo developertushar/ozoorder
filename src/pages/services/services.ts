@@ -34,22 +34,8 @@ export class ServicesPage {
 
 
 
-    // const email = this.navParams.get('email');
-    this.firebaseAuth.auth.onAuthStateChanged((user)=>{
-
-      if(user)
-      {
-        this.email = window.localStorage.getItem('email');
-        console.log(this.email);
-      }
-    })
-
-
-
-
-
-
-
+    const email = this.navParams.get('email');
+    console.log('in service'+ email);
 
     const getData = this.authenService.getUserDetails();
     getData.subscribe((data)=>{
@@ -58,7 +44,7 @@ export class ServicesPage {
      for(var index=0;index < this.alluserDetails.length ; index++ )
      {
 
-       if(this.alluserDetails[index].email === this.email)
+       if(this.alluserDetails[index].email === email)
        {
 
 

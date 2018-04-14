@@ -30,7 +30,7 @@ export class OrderDetailsProvider {
   SaveOrder(partyName,transportMedia,transportName,address,products,email,orderId)
   {
 
-    
+
 
     const emailId = email.substr(0,email.indexOf('@')) + 'orders';
     const result = this.firebaseDb.list('/orderDetails/'+emailId).push({

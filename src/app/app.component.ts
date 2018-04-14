@@ -76,7 +76,6 @@ export class MyApp implements OnInit{
     this.pages = [
       { title: 'Login', component: LoginPage, authToken: false },
       { title: 'Signup', component: SignupPage,authToken: false },
-      { title: 'Services', component: ServicesPage,authToken: true },
       { title: 'Logout', component: LoginPage,authToken: true },
 
     ];
@@ -112,7 +111,7 @@ export class MyApp implements OnInit{
     }
     else
     {
-      this.nav.setRoot(page.component);
+      this.nav.setRoot(page.component);  
     }
 
 

@@ -21,9 +21,9 @@
 
           <ion-list>
               <ion-item>PRODUCTS</ion-item>
-              <ion-item-sliding *ngFor="let product of products" >
+              <ion-item-sliding *ngFor="let product of products; let i of index" >
                 <ion-item>
-                   {{product}}
+                   {{product |uppercase}}
                 </ion-item>
                 <ion-item-options side="right">
                   <button ion-button color="danger" (click)="delItem(product)">

@@ -3,7 +3,7 @@ import { OrderDetailsProvider } from './../providers/order-details/order-details
 import { Component , OnInit } from '@angular/core';
 import {App, NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
-import { DataEvent } from '@firebase/database/dist/esm/src/core/view/Event';
+
 
 
 //services
@@ -66,6 +66,7 @@ export class ProductDetails  implements OnInit {
       }
 
 
+
     }
 
 
@@ -118,7 +119,7 @@ export class ProductDetails  implements OnInit {
               text: 'OK',
               handler: ()=>{
                 this.viewCtrl.dismiss();
-                this.appCtrl.getRootNav().setRoot(ServicesPage);
+                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email});
 
               }
 
@@ -168,7 +169,17 @@ export class ProductDetails  implements OnInit {
 
   delItem(productItem){
 
-    this.products.splice(productItem,1);
+
+    // this.products.splice(productItem,1);
+    for(var i=0;i<this.products.length;i++)
+    {
+      if(this.products[i] === productItem)
+      {
+        this.products.splice(i,1);
+      }
+    }
+
+
   }
 
 
