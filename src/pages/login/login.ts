@@ -49,20 +49,21 @@ export class LoginPage  implements OnInit {
   async loginToApp(email: string,password :string)
   {
 
+    console.log('hi');
 
+    const loader = this.loader.create({
+      content: 'Signing you in...',
+      spinner: 'dot',
+      duration: 1000
+    })
+
+    loader.present();
     try
     {
       let result = await this.firebaseAuth.auth.signInWithEmailAndPassword(email,password);
-
       if(result.uid)
       {
-        const loader = this.loader.create({
-          content: 'Signing you in...',
-          spinner: 'dot',
-          duration: 1000
-        })
 
-        loader.present();
 
         try{
 
@@ -70,10 +71,10 @@ export class LoginPage  implements OnInit {
 
           const allUser = this.firebaseService.getUserDetails();
 
-          console.log(email);
+
           allUser.subscribe((data) => {
               this.alluserDetails = data;
-              console.log(this.alluserDetails);
+
 
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
@@ -81,10 +82,14 @@ export class LoginPage  implements OnInit {
                 {
 
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
+                  const authority = this.alluserDetails[index].authority;
                   window.localStorage.setItem('email',email);
+                  window.localStorage.setItem('authority',authority);
                   const emailId = email.substr(0,email.indexOf('@')) + 'orders';
                   this.firebaseDb.list('/orderDetails/').set(emailId,'');
-                  this.navCtrl.setRoot(ServicesPage,{email: email});
+                  this.navCtrl.setRoot(ServicesPage,{email: email,authority: authority });
+                  loader.dismiss();
+                  return false;
 
 
                 }

@@ -46,13 +46,16 @@ export class MyApp implements OnInit{
     this.initializeApp();
 
     this.firebaseAuth.auth.onAuthStateChanged((user)=>{
+      this.nav.setRoot(LoginPage);
+
 
       if(user)
       {
         const email = window.localStorage.getItem('email');
-        console.log(email)
+        const authority = window.localStorage.getItem('authority');
+        console.log(email + 'authority:'+ authority)
         this.authenticationToken = true;
-        this.nav.setRoot(ServicesPage,{email: email});
+        this.nav.setRoot(ServicesPage,{email: email,authority: authority});
 
       }
       else
@@ -111,7 +114,7 @@ export class MyApp implements OnInit{
     }
     else
     {
-      this.nav.setRoot(page.component);  
+      this.nav.setRoot(page.component);
     }
 
 

@@ -19,6 +19,8 @@ export class ServicesPage {
 
   alluserDetails = [];
 
+  userAuthority :string;
+
   username :string;
   email :any;
   authority: string;
@@ -35,7 +37,9 @@ export class ServicesPage {
 
 
     const email = this.navParams.get('email');
+    this.userAuthority = this.navParams.get('authority');
     console.log('in service'+ email);
+    console.log('in service'+ this.userAuthority);
 
     const getData = this.authenService.getUserDetails();
     getData.subscribe((data)=>{

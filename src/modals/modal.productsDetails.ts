@@ -21,6 +21,7 @@ export class ProductDetails  implements OnInit {
   orderId :any;
   email :any;
   userDetails = [];
+  authority :string;
 
   getProductDetails :any;
 
@@ -57,6 +58,7 @@ export class ProductDetails  implements OnInit {
       ]
       const getProducts = this.getProductDetails.productName;
       this.newAddress = this.getProductDetails.deliveryAddress;
+      this.authority = this.getProductDetails.authority;
 
 
       // console.log(getProducts);
@@ -119,7 +121,7 @@ export class ProductDetails  implements OnInit {
               text: 'OK',
               handler: ()=>{
                 this.viewCtrl.dismiss();
-                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email});
+                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email,authority: this.authority});
 
               }
 

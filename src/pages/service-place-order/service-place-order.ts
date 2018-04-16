@@ -14,6 +14,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 export class ServicePlaceOrderPage {
 
   email :any;
+  userAuthority :string;
 
   allOrderKeys :any;
 
@@ -27,7 +28,9 @@ export class ServicePlaceOrderPage {
   ) {
 
    this.email = this.navParams.get('emailId');
+   this.userAuthority = this.navParams.get('emailId');
    console.log('in constructor'+ this.email);
+   console.log('in constructor'+ this.userAuthority);
 
 
 
@@ -61,7 +64,8 @@ export class ServicePlaceOrderPage {
                 deliveryAddress : value.deliveryAddress,
                 transportMedia: value.transportMedia,
                 transportMediaName: value.transportMediaName,
-                userEmail :this.email
+                userEmail :this.email,
+                authority:this.userAuthority
               }
             });
              profileModal.present();
