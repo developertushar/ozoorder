@@ -15,11 +15,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ServiceApprovalCheckPage {
 
+  email :string;
+  authority: string;
+  showAuthority: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServiceApprovalCheckPage');
+     this.email = this.navParams.get('emailId');
+     this.authority = this.navParams.get('authority');
+
+     if(this.authority == 'fieldofficer')
+     {
+       this.showAuthority = true;
+     }
+
   }
 
 }

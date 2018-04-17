@@ -1,36 +1,19 @@
-<ion-header>
-  <ion-navbar color="primary" >
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-</ion-header>
 
-
-
-
-<ion-content>
-
-
-
-
-    <ion-card>
-        <ion-card-header>
-         LOGIN
+<ion-content  id="bg" style="background-image: url('assets/imgs/bg1.jpg')">
+        <ion-card-header class="header">
+          <img style="height:30%;width: 30%;position: relative;left:30%" src="assets/imgs/logo.png" alt="">
         </ion-card-header>
         <ion-card-content>
               <ion-list>
-                <ion-item>
-                  <ion-label floating>
+                <ion-item  class="username">
+                  <ion-label floating class="colorItem">
                     <ion-icon name="person-add"></ion-icon>
                     email</ion-label>
                   <ion-input #email type="text" ></ion-input>
                 </ion-item>
 
-
-                <ion-item>
-                  <ion-label floating>
+                <ion-item class="password">
+                  <ion-label floating class="colorItem">
                       <ion-icon name="key"></ion-icon>
                       Password</ion-label>
                   <ion-input #password type="password"></ion-input>
@@ -38,8 +21,10 @@
             </ion-list>
             <br><br>
         </ion-card-content>
-        <button ion-button outline align-items-center (click)="loginToApp(email.value,password.value)" >Login</button>
-      </ion-card>
+
+        <button class="login-button" ion-button outline align-items-center (click)="loginToApp(email.value,password.value)">Login</button>
+        <button class="login-button" ion-button outline align-items-center [navPush]="signuppage">Signup</button>
+
 
 
 

@@ -96,7 +96,7 @@ export class SignupPage {
         const load = this.loadCtrl.create({
           content: 'Signing you up...',
           spinner: 'dot',
-          duration: 3000
+          duration: 2000
         })
 
         load.present();
@@ -116,19 +116,29 @@ export class SignupPage {
             const setToDatabase = await this.firebaseService.AddSignupDetails(username,email,mobile,authority);
             if(setToDatabase === true)
             {
-
+              load.dismiss();
               let alert = this.alertCtrl.create({
                 title: 'OZO ORDER!',
                 subTitle: 'Thank you so much for signing up for ' + authority,
-                 buttons:['ok']
+                 buttons: [{
+                   text: 'ok',
+                   handler: () =>{
+
+                    // this.navCtrl.push(LoginPage);
+                   }
+                 }]
 
               });
+              this.firebaseAuth.auth.signOut();
               alert.present();
 
+
               //fix for that
-              // this.navCtrl.setRoot(LoginPage);
-              load.dismiss();
-              this.firebaseAuth.auth.signOut();
+
+
+
+              return false;
+
 
 
 

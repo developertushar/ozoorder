@@ -33,8 +33,6 @@ export class AuthServiceProvider {
   getUserDetails()
   {
     return this.firebaseDb.list('/userDetails/').valueChanges();
-
-
   }
 
 

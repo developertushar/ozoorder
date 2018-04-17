@@ -1,13 +1,15 @@
+import { SignupPage } from './../signup/signup';
 import { ServicesPage } from './../services/services';
 import { HomePage } from './../home/home';
 import { AngularFireList } from 'angularfire2/database';
 import { Component , OnInit } from '@angular/core';
-import { NavController, Platform, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import {App, NavController, Platform, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+
 
 
 
@@ -18,6 +20,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 
 
 export class LoginPage  implements OnInit {
+  signuppage = SignupPage
 
   gettingEmail :string;
   userDetails = [];
@@ -35,6 +38,7 @@ export class LoginPage  implements OnInit {
     public toastCtrl: ToastController,
     public loader :LoadingController,
     public dataService: DataServiceProvider,
+    public appCtrl: App
 
   ) {  }
 
@@ -54,7 +58,7 @@ export class LoginPage  implements OnInit {
     const loader = this.loader.create({
       content: 'Signing you in...',
       spinner: 'dot',
-      duration: 1000
+      duration: 3000
     })
 
     loader.present();
@@ -87,7 +91,7 @@ export class LoginPage  implements OnInit {
                   window.localStorage.setItem('authority',authority);
                   const emailId = email.substr(0,email.indexOf('@')) + 'orders';
                   this.firebaseDb.list('/orderDetails/').set(emailId,'');
-                  this.navCtrl.setRoot(ServicesPage,{email: email,authority: authority });
+                  this.appCtrl.getRootNav().setRoot(ServicesPage,{email: email,authority: authority });
                   loader.dismiss();
                   return false;
 

@@ -7,7 +7,9 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title >Approval Check</ion-title>
+    <ion-title *ngIf="showAuthority == true;" >Approval Check</ion-title>
+    <ion-title *ngIf="showAuthority != true;" >Approve Order</ion-title>
+
   </ion-navbar>
 
 </ion-header>

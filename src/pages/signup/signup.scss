@@ -1,3 +1,67 @@
 page-signup {
 
+
+  ion-content{
+
+
+
+
+    form.signupForm{
+      position: relative;
+      top:0px;
+    }
+    button.login-button{
+      color: white;
+      border-color: white;
+      position: relative;
+      border-radius: 20px;
+      left: 20%;
+      top: -5%;
+      width: 50%;
+      transition: 1s;
+
+     }
+
+     //button hover
+     button.login-button:hover{
+       border-color:#3c638a ;
+       color:black;
+       position: relative;
+       border-radius: 20px;
+       left: 20%;
+       top: -5%;
+       width: 50%;
+
+      }
+
+  }
+
+
+  ion-card-content{
+    ion-list{
+
+       ion-item.username , ion-item.password,
+       ion-item.email, ion-item.mobile, ion-item.confirmpassword
+        {
+         background-color:rgba(255,255,255,0.0);
+           width: 70%;
+           position: relative;
+           left: 10%;
+
+       }
+
+       ion-item{
+         ion-label.colorItem{
+          ion-icon{
+            color: white;
+
+          }
+         }
+       }
+
+
+
+    }
+  }
+
 }

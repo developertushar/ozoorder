@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { LoginPage } from './../login/login';
+import { IntroPage } from './../intro/intro';
+import { Component} from '@angular/core';
+import {App, IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 /**
@@ -15,17 +17,37 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   templateUrl: 'splash.html',
 })
 export class SplashPage {
+ splashToken :string;
+
 
   constructor(
-    public navCtrl: NavController, public navParams: NavParams,  public splashScreen: SplashScreen,public viewCtrl: ViewController) {
+    public navCtrl: NavController,
+     public navParams: NavParams,
+      public splashScreen: SplashScreen,
+      public viewCtrl: ViewController,
+    public appCtrl: App) {
   }
 
   ionViewDidLoad() {
-    this.splashScreen.hide();
 
-      setTimeout(() => {
-        this.viewCtrl.dismiss();
-      }, 4000);
+
+    this.splashToken = window.localStorage.getItem('splashToken');
+
+    console.log(this.splashToken + 'splashToken');
+
+    setTimeout(() => {
+      this.viewCtrl.dismiss();
+
+      if(this.splashToken != 'true')
+      {
+
+        this.appCtrl.getRootNav().setRoot(IntroPage);
+
+      }
+
+
+
+    }, 4000);
   }
 
 }

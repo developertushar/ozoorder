@@ -25,6 +25,11 @@ export class ServicesPage {
   email :any;
   authority: string;
 
+  approvalCheck = ServiceApprovalCheckPage;
+  pastOrder = ServicePastOrderPage;
+
+
+
 
   constructor(
     public navCtrl: NavController,
@@ -72,19 +77,24 @@ export class ServicesPage {
   }
 
 
-  services = [
+  servicesForAll = [
     {serviceName: 'Place Order',page: ServicePlaceOrderPage},
     {serviceName: 'Track Order',page: ServiceTrackOrderPage},
-    {serviceName: 'Approval Check',page: ServiceApprovalCheckPage},
-    {serviceName: 'Past Orders',page: ServicePastOrderPage},
+
+  ]
+
+  servicesForSpecific = [
+    {serviceName: 'Approve Order',page: ServicePlaceOrderPage,forSpecific: 'all'},
+    {serviceName: 'Past Approved Orders',page: ServiceTrackOrderPage,forSpecific: 'all'},
+    {serviceName: 'Check Approval',page: ServicePlaceOrderPage,forSpecific: 'fieldofficer'},
+    {serviceName: 'Past Orders',page: ServiceTrackOrderPage,forSpecific: 'fieldofficer'},
+
 
   ]
 
 
-  openPage(page)
+  openPage(page,authority)
   {
-
-   console.log(this.email);
-    this.navCtrl.push(page,{emailId: this.email});
+    this.navCtrl.push(page,{emailId: this.email,authority: authority});
   }
 }

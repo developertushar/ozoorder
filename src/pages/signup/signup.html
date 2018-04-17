@@ -1,61 +1,50 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Signup</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content>
+
+<ion-content  style="background-image: url('assets/imgs/bg1.jpg')">
 
   <form id="signupForm"  #myForm="ngForm"  (ngSubmit)="signupCredentials(myForm.value,myForm)">
-
-    <ion-card>
         <ion-card-header>
-         SIGNUP
+            <img style="height:30%;width: 30%;position: relative;left:30%" src="assets/imgs/logo.png" alt="">
         </ion-card-header>
         <ion-card-content>
               <ion-list>
-                <ion-item>
-                  <ion-label floating>
+                <ion-item class="username">
+                  <ion-label floating class="colorItem">
                     <ion-icon name="person-add"></ion-icon>
-                    Username</ion-label>
+                    <span class="username">Username</span></ion-label>
                   <ion-input name="username" type="text" required ngModel></ion-input>
                 </ion-item>
-                <ion-item>
-                    <ion-label floating>
+                <ion-item class="email">
+                    <ion-label floating class="colorItem">
                       <ion-icon name="mail"></ion-icon>
                       Email</ion-label>
                     <ion-input name="email"  type="text" required ngModel></ion-input>
                   </ion-item>
-                  <ion-item>
-                    <ion-label floating>
+                  <ion-item class="mobile">
+                    <ion-label floating class="colorItem">
                         <ion-icon name="call"></ion-icon>
                         Mobile No</ion-label>
                     <ion-input name="mobile" type="number" required ngModel></ion-input>
                   </ion-item>
 
 
-                <ion-item>
-                  <ion-label floating>
+                <ion-item class="password">
+                  <ion-label  floating class="colorItem">
                       <ion-icon name="key"></ion-icon>
                       Password</ion-label>
                   <ion-input name="password"  type="password"  required ngModel></ion-input>
                 </ion-item>
 
-                <ion-item>
-                    <ion-label floating>
+                <ion-item class="confirmpassword">
+                    <ion-label floating class="colorItem">
                         <ion-icon name="key"></ion-icon>
                         Confirm Password</ion-label>
                     <ion-input name="confirmPassword"  type="password" required ngModel></ion-input>
                   </ion-item>
             </ion-list>
             <br><br>
+            <button class="login-button"  ion-button outline type="submit" [disabled]="!myForm.valid"  title="fi">SIGNUP </button>
         </ion-card-content>
-        <button ion-button outline type="submit" [disabled]="!myForm.valid" >SIGNUP </button>
-
-      </ion-card>
 
     </form>
 </ion-content>

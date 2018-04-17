@@ -4,7 +4,6 @@ import { ServicePlaceOrderPage } from './../pages/service-place-order/service-pl
 import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
 import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
 
-
 import { ServicesPage } from './../pages/services/services';
 import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebaseConfig';
@@ -15,6 +14,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, ModalController, NavParams, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
+import { SplashScreen  } from '@ionic-native/splash-screen';
 
 
 
@@ -23,7 +23,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SplashPage } from '../pages/splash/splash';
-import { SplashScreen  } from '@ionic-native/splash-screen';
+import {IntroPage} from '../pages/intro/intro';
 
 //firebase
 import {AngularFireDatabaseModule} from 'angularfire2/database';
@@ -50,7 +50,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServiceApprovalCheckPage,
     ServicePlaceOrderPage,
     ServiceTrackOrderPage,
-    ProductDetails
+    ProductDetails,
+    IntroPage
   ],
   imports: [
     BrowserModule,
@@ -74,6 +75,7 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServicePlaceOrderPage,
     ServiceTrackOrderPage,
     ProductDetails,
+    IntroPage
   ],
   providers: [
     StatusBar,
