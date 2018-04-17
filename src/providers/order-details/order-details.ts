@@ -1,10 +1,16 @@
+import { Observable } from 'rxjs/Observable';
 import { ServicesPage } from './../../pages/services/services';
 
 import { HttpClient } from '@angular/common/http';
+import { Http, Response } from '@angular/http';
 import { Injectable  } from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { Component , OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import 'rxjs/Rx';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/do'
+import 'rxjs/add/operator/catch'
 
 /*
   Generated class for the OrderDetailsProvider provider.
@@ -16,9 +22,10 @@ import { ToastController } from 'ionic-angular';
 export class OrderDetailsProvider {
 
   constructor(
-    public http: HttpClient,
+    public https: HttpClient,
     public firebaseDb: AngularFireDatabase,
     public toastCtrl : ToastController,
+    public http : Http,
 
   ) {
 
@@ -30,20 +37,39 @@ export class OrderDetailsProvider {
   SaveOrder(partyName,transportMedia,transportName,address,products,email,orderId)
   {
 
+    // getting the date
+    var date = new Date();
+    const modifiedDate = date.toUTCString();
+    const newModifiedDate = modifiedDate.substr(0,modifiedDate.indexOf('G'));
+
 
 
     const emailId = email.substr(0,email.indexOf('@')) + 'orders';
-    const result = this.firebaseDb.list('/orderDetails/'+emailId).push({
+    const setTheData = {
       partyname : partyName,
       transportmedia: transportMedia,
       transportname: transportName,
       deliveryaddress: address,
       productnames: products,
       useremail: email,
-      Orderid: orderId
-    });
+      Orderid: orderId,
+      placeDate: newModifiedDate
+    };
 
-      if(result)
+    const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
+    set.subscribe(
+      (response) =>{
+          console.log(response);
+      },
+     (error) =>{
+
+     }
+    )
+
+
+
+
+      if(set)
       {
         return true;
       }
@@ -80,8 +106,19 @@ export class OrderDetailsProvider {
 
   }
 
-  getOrderDetails()
+  getOrderDetails(emailId)
   {
+    return this.http.get('https://ozoorderfinal.firebaseio.com/Orders/'+ emailId + '.json')
+    .map(
+
+      (response: Response)=> {
+          const data = response.json();
+          return data;
+      },
+      (error) =>{
+          console.log(error);
+      }
+    );
 
   }
 
@@ -90,5 +127,6 @@ export class OrderDetailsProvider {
   {
 
   }
+
 
 }

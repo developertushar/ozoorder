@@ -1,14 +1,11 @@
 import { ProductDetails } from '../modals/modal.productsDetails';
-import { ServiceTrackOrderPage } from './../pages/service-track-order/service-track-order';
-import { ServicePlaceOrderPage } from './../pages/service-place-order/service-place-order';
-import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
-import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
 
 import { ServicesPage } from './../pages/services/services';
 import { HomePage } from '../pages/home/home';
 import { FIREBASE_CONFIG } from './app.firebaseConfig';
 // Main Modules
 import { HttpClientModule } from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, ModalController, NavParams, NavController } from 'ionic-angular';
@@ -24,6 +21,10 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SplashPage } from '../pages/splash/splash';
 import {IntroPage} from '../pages/intro/intro';
+import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
+import { ServiceTrackOrderPage } from './../pages/service-track-order/service-track-order';
+import { ServicePlaceOrderPage } from './../pages/service-place-order/service-place-order';
+import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
 
 //firebase
 import {AngularFireDatabaseModule} from 'angularfire2/database';
@@ -60,7 +61,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     HttpClientModule,
     AngularFireAuthModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -87,6 +89,7 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     AuthServiceProvider,
     OrderDetailsProvider,
     ModalController,
+    HttpModule
   ]
 })
 export class AppModule {}

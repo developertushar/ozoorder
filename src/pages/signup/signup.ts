@@ -102,11 +102,10 @@ export class SignupPage {
         load.present();
 
         const result = await  this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
-
          try{
 
 
-
+            console.log(result);
 
           if(result.uid)
           {

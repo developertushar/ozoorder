@@ -7,12 +7,36 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title >Past Orders</ion-title>
+      <ion-title *ngIf="showAuthority == true;" >Past Orders</ion-title>
+      <ion-title *ngIf="showAuthority != true;" >Past Approval Order</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+
+
+   <!-- <div *ngFor="let message of getAllData">
+        <h1>{{message.Orderid}}</h1>
+    </div> -->
+ <div *ngIf="showAuthority == true;">
+    <ion-list *ngFor="let data of getData">
+        <ion-item>
+          {{data.partyname}}
+
+        </ion-item>
+      </ion-list>
+ </div>
+
+ <div *ngIf="showAuthority != true;">
+    <ion-list *ngFor="let data of getData">
+        <ion-item>
+          {{data.partyname}}
+
+        </ion-item>
+      </ion-list>
+ </div>
 
 </ion-content>

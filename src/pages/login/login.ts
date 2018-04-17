@@ -80,6 +80,8 @@ export class LoginPage  implements OnInit {
               this.alluserDetails = data;
 
 
+
+
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
                 if(this.alluserDetails[index].email === email)
@@ -90,12 +92,9 @@ export class LoginPage  implements OnInit {
                   window.localStorage.setItem('email',email);
                   window.localStorage.setItem('authority',authority);
                   const emailId = email.substr(0,email.indexOf('@')) + 'orders';
-                  this.firebaseDb.list('/orderDetails/').set(emailId,'');
                   this.appCtrl.getRootNav().setRoot(ServicesPage,{email: email,authority: authority });
                   loader.dismiss();
                   return false;
-
-
                 }
               }
            })

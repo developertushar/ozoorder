@@ -54,7 +54,7 @@ export class ProductDetails  implements OnInit {
       this.items = [
         {name: 'Party',value: this.getProductDetails.partyName},
         {name: 'Transport Media',value: this.getProductDetails.transportMedia},
-        {name: 'Transport Media',value: this.getProductDetails.transportMedia},
+        {name: 'Transport Name',value: this.getProductDetails.transportMediaName},
       ]
       const getProducts = this.getProductDetails.productName;
       this.newAddress = this.getProductDetails.deliveryAddress;
