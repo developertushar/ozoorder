@@ -107,7 +107,7 @@ export class ServicesPage {
   openPage(page,authority)
   {
     // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';?
-    this.navCtrl.push(page,{emailId: this.email,authority: authority,orderEmail: this.orderEmail });
+    this.navCtrl.push(page,{emailId: this.email,authority:this.userAuthority,orderEmail: this.orderEmail });
   }
 
 

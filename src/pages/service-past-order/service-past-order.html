@@ -22,31 +22,38 @@
 
  <div *ngIf="showAuthority == true;">
     <div *ngFor="let data  of getAllData">
-      <ion-card >
+      <ion-card (click)="cardClickCheckDetailEvent(data.products,data)" >
           <ion-card-header>
             <ion-row>
               <ion-col>
-
+                  {{data.party}}
                 </ion-col>
                 <ion-col col-8>
-                    {{data.email}}
+                    {{data.orderid}}
               </ion-col>
              </ion-row>
+             <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
           </ion-card-header>
           <ion-list>
+            <ion-row>
+              <ion-col col-12>
+                <p>Date: {{data.placedate}}</p>
+              </ion-col>
+            </ion-row>
               <ion-row class="row-only"  >
-                <ion-col (swipe)="swipeEvent($event)">
+                <ion-col (swipe)="swipeEvent($event,data)">
                     &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
                    &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
                    &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
                    &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
-                    &nbsp;swipe to send Approval
+                    &nbsp;swipe left request Approval
                 </ion-col>
               </ion-row>
           </ion-list>
         </ion-card>
       </div>
  </div>
+
  <div *ngIf="showAuthority != true;">
     <div *ngFor="let data  of getAllData">
       <ion-card >

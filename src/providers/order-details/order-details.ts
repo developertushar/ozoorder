@@ -53,7 +53,10 @@ export class OrderDetailsProvider {
       productnames: products,
       useremail: email,
       Orderid: orderId,
-      placeDate: newModifiedDate
+      placeDate: newModifiedDate,
+      isApproved: '',
+      approveTime: '',
+      deliveryTime: ''
     };
 
     const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);

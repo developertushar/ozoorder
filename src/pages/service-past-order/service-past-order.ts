@@ -1,9 +1,10 @@
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
-import { Component , } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController, ToastController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams,LoadingController, ToastController, ActionSheetController} from 'ionic-angular';
 import {Http,Response} from '@angular/http';
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import {AngularFireDatabase} from 'angularfire2/database';
+
 
 
 
@@ -45,6 +46,7 @@ export class ServicePastOrderPage {
      public loading: LoadingController,
      public toastCtrl: ToastController,
      public firebaseService: FirebaseServiceProvider,
+     public actionCtrl: ActionSheetController,
     ) {
 
         this.email = this.navParams.get('emailId');
@@ -53,10 +55,12 @@ export class ServicePastOrderPage {
         console.log(this.email + 'past order');
         console.log(this.authority + 'autority');
 
+
         if(this.authority == 'fieldofficer')
         {
           this.showAuthority = true;
         }
+
 
         // console.log(this.email);
 
@@ -94,18 +98,7 @@ export class ServicePastOrderPage {
     allUser.subscribe((data) => {
         this.alluserDetails = data;
 
-
-
-
-        for(var index=0;index < this.alluserDetails.length ; index++ )
-        {
-          console.log(this.alluserDetails[index]);
-          const email = this.alluserDetails[index].Orderid;
-          // const authority = this.alluserDetails[index].transportname;
-          this.getAllData.push({
-            email: email,
-          })
-        }
+        this.fetchOrderDetails();
 
 
      })
@@ -126,9 +119,11 @@ export class ServicePastOrderPage {
       e.preventDefault();
      let toast = this.toastCtrl.create({
       message: 'sent for approval',
-      duration: 3000
+      duration: 1500
     });
     toast.present();
+
+
 
      }
 
@@ -137,6 +132,96 @@ export class ServicePastOrderPage {
 
        ev.preventDefault();
        let val = ev.target.value;
+
+
+
+     }
+
+
+     fetchOrderDetails()
+     {
+
+      for(var index=0;index < this.alluserDetails.length ; index++ )
+      {
+        console.log(this.alluserDetails[index]);
+
+        // const authority = this.alluserDetails[index].transportname;
+        this.getAllData.push({
+          orderid:this.alluserDetails[index].Orderid,
+          party:this.alluserDetails[index].partyname,
+          placedate:this.alluserDetails[index].placeDate,
+          products:this.alluserDetails[index].productnames,
+          address:this.alluserDetails[index].deliveryaddress,
+          transportMedia:this.alluserDetails[index].transportmedia,
+          transportName:this.alluserDetails[index].transportname,
+        })
+      }
+
+     }
+
+
+     cardClickCheckDetailEvent(products,data)
+     {
+
+         console.log(data);
+        const actionSheet1 = this.actionCtrl.create({
+          title: 'Details',
+          buttons: [
+            {
+              text: 'Products',
+              handler: ()=>{
+                const actionSheet = this.actionCtrl.create();
+                for(var i=0;i < products.length ; i++)
+                {
+                  actionSheet.addButton(products[i]);
+
+                }
+                actionSheet.addButton('Cancel');
+
+
+                actionSheet.present();
+              }
+            },
+            {
+              text: 'Transport Media',
+              handler: () =>
+              {
+                const actionSheet = this.actionCtrl.create();
+                actionSheet.setTitle(data.transportMedia)
+                actionSheet.addButton('Cancel');
+
+
+                actionSheet.present();
+
+
+              }
+            },
+            {
+              text: 'Transport Name',
+              handler: () =>
+              {
+                const actionSheet = this.actionCtrl.create();
+                actionSheet.setTitle(data.transportName);
+                actionSheet.addButton('Cancel');
+                actionSheet.present();
+
+              }
+            },
+            {
+              text: 'Address',
+              handler: () =>
+              {
+                const actionSheet = this.actionCtrl.create();
+                actionSheet.setTitle(data.address);
+                actionSheet.addButton('Cancel');
+                actionSheet.present();
+
+              }
+            }
+          ]
+        })
+
+        actionSheet1.present();
 
 
 

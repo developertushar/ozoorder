@@ -117,7 +117,7 @@ export class ProductDetails  implements OnInit {
 
       setTimeout(()=>{
         const alert = this.alertCtrl.create({
-          message: 'You generated order id:'+  orderId,
+          message: 'You generated order id:'+  orderId + 'you can go to Past orders to send request for approval ',
           buttons: [
             {
               text: 'OK',
