@@ -1,3 +1,4 @@
+import { PopoverPage } from './../pages/popover/popover';
 import { ProductDetails } from '../modals/modal.productsDetails';
 
 import { ServicesPage } from './../pages/services/services';
@@ -52,7 +53,9 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServicePlaceOrderPage,
     ServiceTrackOrderPage,
     ProductDetails,
-    IntroPage
+    IntroPage,
+    PopoverPage
+
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServicePlaceOrderPage,
     ServiceTrackOrderPage,
     ProductDetails,
-    IntroPage
+    IntroPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,

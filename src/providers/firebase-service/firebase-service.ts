@@ -52,6 +52,7 @@ export class FirebaseServiceProvider implements OnInit {
   async setAuthentication(email :string,password :string,mobile :number,authority :string,username :string)
   {
 
+    console.log(email);
     try{
          let result = await this.firebaseAuth.auth.createUserWithEmailAndPassword(email,password);
           return {uid: result.uid,email: result.email}

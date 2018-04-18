@@ -52,10 +52,11 @@ export class MyApp implements OnInit{
       if(user)
       {
         const email = window.localStorage.getItem('email');
+        const orderEmail = window.localStorage.getItem('orderEmail');
         const authority = window.localStorage.getItem('authority');
-        console.log(email + 'authority:'+ authority)
+        console.log(orderEmail+ 'ORDER EMAIL IN APP.COMPONENT.TS');
         this.authenticationToken = true;
-        this.nav.setRoot(ServicesPage,{email: email,authority: authority});
+        this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});
 
       }
       else
@@ -108,7 +109,6 @@ export class MyApp implements OnInit{
     console.log();
     if(page.title == 'Logout') {
         this.firebaseAuth.auth.signOut();
-        this.storage.clear();
         window.localStorage.clear();
         this.nav.setRoot(page.component);
     }

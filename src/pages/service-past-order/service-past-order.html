@@ -16,27 +16,79 @@
 
 <ion-content padding>
 
+  <ion-searchbar ></ion-searchbar>
 
 
-   <!-- <div *ngFor="let message of getAllData">
-        <h1>{{message.Orderid}}</h1>
-    </div> -->
+
  <div *ngIf="showAuthority == true;">
-    <ion-list *ngFor="let data of getData">
-        <ion-item>
-          {{data.partyname}}
+    <div *ngFor="let data  of getAllData">
+      <ion-card >
+          <ion-card-header>
+            <ion-row>
+              <ion-col>
 
-        </ion-item>
-      </ion-list>
+                </ion-col>
+                <ion-col col-8>
+                    {{data.email}}
+              </ion-col>
+             </ion-row>
+          </ion-card-header>
+          <ion-list>
+              <ion-row class="row-only"  >
+                <ion-col (swipe)="swipeEvent($event)">
+                    &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                    &nbsp;swipe to send Approval
+                </ion-col>
+              </ion-row>
+          </ion-list>
+        </ion-card>
+      </div>
  </div>
-
  <div *ngIf="showAuthority != true;">
-    <ion-list *ngFor="let data of getData">
-        <ion-item>
-          {{data.partyname}}
+    <div *ngFor="let data  of getAllData">
+      <ion-card >
+          <ion-card-header>
+            <ion-row>
+              <ion-col>
 
-        </ion-item>
-      </ion-list>
+                </ion-col>
+                <ion-col col-8>
+                    {{data.email}}
+              </ion-col>
+             </ion-row>
+          </ion-card-header>
+          <ion-list>
+              <ion-row class="row-only"  >
+                <ion-col col-6>
+                  <span>
+                      <ion-icon name="checkmark-circle" class="check"></ion-icon>
+                      <span>Accepted</span>
+                  </span>
+                  <span>
+                      <!-- <ion-icon name="close-circle" class="cancel"></ion-icon>
+                      <span>Rejected</span> -->
+                  </span>
+
+                </ion-col>
+                <ion-col col-6>
+                    <!-- <span>
+                        <ion-icon name="checkmark-circle" class="check"></ion-icon>
+                        <span>Accepted</span>
+                    </span> -->
+                    <span>
+                        <ion-icon name="close-circle" class="cancel"></ion-icon>
+                        <span>Rejected</span>
+                    </span>
+
+                  </ion-col>
+              </ion-row>
+          </ion-list>
+        </ion-card>
+      </div>
  </div>
+
 
 </ion-content>

@@ -101,7 +101,7 @@ export class SignupPage {
 
         load.present();
 
-        const result = await  this.firebaseService.setAuthentication(email,password,mobile,this.authority,username);
+        const result = await  this.firebaseService.setAuthentication(email.toLowerCase(),password,mobile,this.authority,username);
          try{
 
 
@@ -112,7 +112,7 @@ export class SignupPage {
 
 
 
-            const setToDatabase = await this.firebaseService.AddSignupDetails(username,email,mobile,authority);
+            const setToDatabase = await this.firebaseService.AddSignupDetails(username,email.toLowerCase(),mobile,authority);
             if(setToDatabase === true)
             {
               load.dismiss();

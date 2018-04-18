@@ -1,3 +1,4 @@
+import { PopoverPage } from './../popover/popover';
 //page which need to be pushed to the next page
 import { ServicePastOrderPage } from './../service-past-order/service-past-order';
 import { ServiceApprovalCheckPage } from './../service-approval-check/service-approval-check';
@@ -7,6 +8,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
+import { PopoverController } from 'ionic-angular';
+
 
 
 
@@ -17,9 +20,13 @@ import {AngularFireAuth} from 'angularfire2/auth';
 })
 export class ServicesPage {
 
+
+
+
   alluserDetails = [];
 
   userAuthority :string;
+  orderEmail :string;
 
   username :string;
   email :any;
@@ -36,15 +43,19 @@ export class ServicesPage {
     public navParams: NavParams,
     public authenService :AuthServiceProvider,
     public menu :MenuController,
-    public firebaseAuth: AngularFireAuth
+    public firebaseAuth: AngularFireAuth,
+    public popoverCtrl: PopoverController
   ) {
 
 
 
     const email = this.navParams.get('email');
     this.userAuthority = this.navParams.get('authority');
+    this.orderEmail = this.navParams.get('orderEmail');
+    console.log(this.orderEmail + 'ORDER EMAIL');
     console.log('in service'+ email);
     console.log('in service'+ this.userAuthority);
+
 
     const getData = this.authenService.getUserDetails();
     getData.subscribe((data)=>{
@@ -95,6 +106,16 @@ export class ServicesPage {
 
   openPage(page,authority)
   {
-    this.navCtrl.push(page,{emailId: this.email,authority: authority});
+    // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';?
+    this.navCtrl.push(page,{emailId: this.email,authority: authority,orderEmail: this.orderEmail });
   }
+
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present();
+
+  }
+
+
 }

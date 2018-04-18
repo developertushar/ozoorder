@@ -64,6 +64,7 @@ export class LoginPage  implements OnInit {
     loader.present();
     try
     {
+
       let result = await this.firebaseAuth.auth.signInWithEmailAndPassword(email,password);
       if(result.uid)
       {
@@ -84,15 +85,16 @@ export class LoginPage  implements OnInit {
 
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
-                if(this.alluserDetails[index].email === email)
+                if(this.alluserDetails[index].email === email.toLowerCase())
                 {
 
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
                   const authority = this.alluserDetails[index].authority;
-                  window.localStorage.setItem('email',email);
+                  window.localStorage.setItem('email',email.toLowerCase());
                   window.localStorage.setItem('authority',authority);
-                  const emailId = email.substr(0,email.indexOf('@')) + 'orders';
-                  this.appCtrl.getRootNav().setRoot(ServicesPage,{email: email,authority: authority });
+                  const emailId = email.toLowerCase().substr(0,email.toLowerCase().indexOf('@')) + 'orders';
+                  window.localStorage.setItem('orderEmail',emailId);
+                  this.appCtrl.getRootNav().setRoot(ServicesPage,{email: email,authority: authority,orderEmail :emailId });
                   loader.dismiss();
                   return false;
                 }

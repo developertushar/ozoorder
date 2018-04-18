@@ -22,6 +22,7 @@ export class ProductDetails  implements OnInit {
   email :any;
   userDetails = [];
   authority :string;
+  orderEmail: string
 
   getProductDetails :any;
 
@@ -59,6 +60,7 @@ export class ProductDetails  implements OnInit {
       const getProducts = this.getProductDetails.productName;
       this.newAddress = this.getProductDetails.deliveryAddress;
       this.authority = this.getProductDetails.authority;
+      this.orderEmail = this.getProductDetails.orderEmail;
 
 
       // console.log(getProducts);
@@ -121,7 +123,7 @@ export class ProductDetails  implements OnInit {
               text: 'OK',
               handler: ()=>{
                 this.viewCtrl.dismiss();
-                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email,authority: this.authority});
+                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email,authority: this.authority,orderEmail: this.orderEmail});
 
               }
 

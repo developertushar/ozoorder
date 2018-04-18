@@ -1,3 +1,21 @@
 page-service-past-order {
 
+    ion-content{
+    
+        .row-only{
+            background-color: blue;
+        }
+
+        .swipe-arrow{
+            color: white;
+            position: relative;
+            top:2px;
+        }
+
+        .arrow-left{
+            position:relative;
+            
+        }
+    }
+
 }

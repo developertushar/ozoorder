@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+import { Component , } from '@angular/core';
+import { IonicPage, NavController, NavParams,LoadingController, ToastController} from 'ionic-angular';
 import {Http,Response} from '@angular/http';
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import {AngularFireDatabase} from 'angularfire2/database';
@@ -20,11 +21,19 @@ import {AngularFireDatabase} from 'angularfire2/database';
 })
 export class ServicePastOrderPage {
 
+
+
+  //search buttons
+  shouldShowCancel :string;
+  myInput :string;
+   searchQuery: string = '';
+
   email :string;
   authority: string;
   showAuthority: boolean;
   getAllData = [];
   getData :any;
+  alluserDetails :any;
 
 
   constructor(
@@ -33,11 +42,16 @@ export class ServicePastOrderPage {
      public http: Http,
      public orderService: OrderDetailsProvider,
      public firebaseDb: AngularFireDatabase,
-     public loading: LoadingController
+     public loading: LoadingController,
+     public toastCtrl: ToastController,
+     public firebaseService: FirebaseServiceProvider,
     ) {
 
         this.email = this.navParams.get('emailId');
         this.authority = this.navParams.get('authority');
+
+        console.log(this.email + 'past order');
+        console.log(this.authority + 'autority');
 
         if(this.authority == 'fieldofficer')
         {
@@ -63,23 +77,69 @@ export class ServicePastOrderPage {
 
     const loader = this.loading.create({
       content: 'Loading Orders..',
-      duration: 3000
+      duration: 4000
     })
 
     loader.present();
 
-    const emailId = this.email.substr(0,this.email.indexOf('@')) + 'orders';
+
+    // const emailId = 'tusharorders'
+
+    const emailId = this.navParams.get('orderEmail');
     console.log(emailId);
 
-    this.firebaseDb.list('/Orders/'+ emailId  ).valueChanges().subscribe(
-      (data)=> {
-        this.getData = data;
-        loader.dismiss();
-      }
-    )
 
+    const allUser = this.firebaseDb.list('/Orders/'+ emailId).valueChanges();
+
+    allUser.subscribe((data) => {
+        this.alluserDetails = data;
+
+
+
+
+        for(var index=0;index < this.alluserDetails.length ; index++ )
+        {
+          console.log(this.alluserDetails[index]);
+          const email = this.alluserDetails[index].Orderid;
+          // const authority = this.alluserDetails[index].transportname;
+          this.getAllData.push({
+            email: email,
+          })
+        }
+
+
+     })
+
+     console.log(this.getAllData);
+     setTimeout(() => {
+      loader.dismiss();
+
+    },2000)
 
 
   }
+
+
+
+
+    swipeEvent(e) {
+      e.preventDefault();
+     let toast = this.toastCtrl.create({
+      message: 'sent for approval',
+      duration: 3000
+    });
+    toast.present();
+
+     }
+
+
+     getItems(ev :any){
+
+       ev.preventDefault();
+       let val = ev.target.value;
+
+
+
+     }
 
 }
