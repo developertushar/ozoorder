@@ -3,7 +3,7 @@ import { ServicesPage } from './../pages/services/services';
 import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild ,OnInit} from '@angular/core';
-import { Nav, Platform, ModalController, MenuController } from 'ionic-angular';
+import { Nav, Platform, ModalController, MenuController, Tabs } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
@@ -49,13 +49,14 @@ export class MyApp implements OnInit{
     this.firebaseAuth.auth.onAuthStateChanged((user)=>{
       if(user)
       {
-        const email = window.localStorage.getItem('email');
-        const orderEmail = window.localStorage.getItem('orderEmail');
-        const authority = window.localStorage.getItem('authority');
-        console.log(orderEmail+ 'ORDER EMAIL IN APP.COMPONENT.TS');
+        // const email = window.localStorage.getItem('email');
+        // const orderEmail = window.localStorage.getItem('orderEmail');
+        // const authority = window.localStorage.getItem('authority');
+        // console.log(orderEmail+ 'ORDER EMAIL IN APP.COMPONENT.TS');
         this.authenticationToken = true;
         // this.nav.setRoot(TabsPage,);
-        this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});
+        // this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});
+        this.nav.setRoot(TabsPage);
 
       }
       else

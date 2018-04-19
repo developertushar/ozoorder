@@ -15,21 +15,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ServiceApprovalCheckPage {
 
+  userAuthority :string;
   email :string;
   authority: string;
-  showAuthority: boolean;
+  showAuthority: string;
+  orderEmail :string;
+  orderType :string = 'approved';
+  orderType2 :string = 'approve';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.userAuthority = window.localStorage.getItem('authority');
+    const email = window.localStorage.getItem('email');
+    this.orderEmail = window.localStorage.getItem('orderEmail');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServiceApprovalCheckPage');
-     this.email = this.navParams.get('emailId');
-     this.authority = this.navParams.get('authority');
 
-     if(this.authority == 'fieldofficer')
+
+     if(this.userAuthority == 'fieldofficer')
      {
-       this.showAuthority = true;
+       this.showAuthority = 'true';
      }
 
   }

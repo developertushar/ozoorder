@@ -4,17 +4,79 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header color="primary">
 
-  <ion-navbar color="primary">
-    <ion-title *ngIf="showAuthority == true;" >Approval Check</ion-title>
-    <ion-title *ngIf="showAuthority != true;" >Approve Order</ion-title>
+    <ion-toolbar no-border-top *ngIf="showAuthority == 'true'">
+      <ion-segment [(ngModel)]="orderType">
+        <ion-segment-button value="approved">
+            <ion-icon name="checkmark-circle" class="check"></ion-icon>
+          Approved
+        </ion-segment-button>
+        <ion-segment-button value="pending">
+            <ion-icon name="alert"></ion-icon>
+          Pending
+        </ion-segment-button>
+        <ion-segment-button value="rejected">
+            <ion-icon name="close-circle" class="cancel"></ion-icon>
+          Rejected
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
 
-  </ion-navbar>
+    <ion-toolbar no-border-top *ngIf="showAuthority != 'true'">
+        <ion-segment [(ngModel)]="orderType2">
+          <ion-segment-button value="approve">
+              <ion-icon name="checkmark-circle" class="check"></ion-icon>
+            Approve
+          </ion-segment-button>
+          <ion-segment-button value="sendapprove">
+              <ion-icon name="alert"></ion-icon>
+            Send Approval
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
 
-</ion-header>
+  </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-</ion-content>
+
+    <div [ngSwitch]="orderType"  *ngIf="showAuthority == 'true'">
+      <ion-list *ngSwitchCase="'approved'">
+
+        <ion-item>
+          <h2>Zoey</h2>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'pending'">
+
+          <ion-item>
+            <h2>tushar</h2>
+          </ion-item>
+        </ion-list>
+
+      <ion-list *ngSwitchCase="'rejected'">
+        <ion-item>
+          <h2>Luna</h2>
+        </ion-item>
+
+      </ion-list>
+    </div>
+    <div [ngSwitch]="orderType"  *ngIf="showAuthority != 'true'">
+        <ion-list *ngSwitchCase="'approve'">
+
+          <ion-item>
+            <h2>Zoey</h2>
+          </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'sendapprove'">
+
+            <ion-item>
+              <h2>tushar</h2>
+            </ion-item>
+          </ion-list>
+      </div>
+  </ion-content>

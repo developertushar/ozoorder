@@ -3,6 +3,7 @@ import { OrderDetailsProvider } from './../providers/order-details/order-details
 import { Component , OnInit } from '@angular/core';
 import {App, NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
+import { TabsPage } from '../pages/tabs/tabs';
 
 
 
@@ -124,7 +125,7 @@ export class ProductDetails  implements OnInit {
               text: 'OK',
               handler: ()=>{
                 this.viewCtrl.dismiss();
-                this.appCtrl.getRootNav().setRoot(ServicesPage,{email: this.email,authority: this.authority,orderEmail: this.orderEmail});
+                this.appCtrl.getRootNav().setRoot(TabsPage,{email: this.email,authority: this.authority,orderEmail: this.orderEmail});
 
               }
 

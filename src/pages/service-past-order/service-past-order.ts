@@ -123,13 +123,15 @@ export class ServicePastOrderPage {
 
 
 
-    swipeEvent(e) {
+    swipeEvent(e,productData) {
       e.preventDefault();
      let toast = this.toastCtrl.create({
       message: 'sent for approval',
       duration: 1500
     });
     toast.present();
+
+    console.log(productData);
 
 
 

@@ -22,11 +22,9 @@
 
       <button ion-button full (click)="openPage(service1.page)"  *ngFor="let service1 of servicesForAll" activator="highlight" >{{service1.serviceName}}</button>
       <div *ngIf="userAuthority == 'districtmanager' || userAuthority == 'teamleader' || userAuthority == 'generalmanager'; else fieldOfficer">
-          <button ion-button full (click)="openPage(approvalCheck,userAuthority)" activator="highlight" >Approve Order</button>
           <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
       </div>
       <ng-template #fieldOfficer>
-          <button ion-button full (click)="openPage(approvalCheck,userAuthority)" activator="highlight" >Check Approval</button>
           <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
       </ng-template>
 

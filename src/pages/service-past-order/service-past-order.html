@@ -59,6 +59,10 @@
  </div>
 
  <div *ngIf="showAuthority == false;">
+    <div *ngIf="setNoRecord == true">
+        <h1>NO PAST ORDERS
+          </h1>
+     </div>
     <div *ngFor="let data  of getAllData">
       <ion-card >
           <ion-card-header>

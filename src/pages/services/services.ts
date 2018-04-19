@@ -48,10 +48,13 @@ export class ServicesPage {
   ) {
 
 
+    const email = window.localStorage.getItem('email');
+    this.orderEmail = window.localStorage.getItem('orderEmail');
+    this.userAuthority = window.localStorage.getItem('authority');
 
-    const email = this.navParams.get('email');
-    this.userAuthority = this.navParams.get('authority');
-    this.orderEmail = this.navParams.get('orderEmail');
+    // const email = this.navParams.get('email');
+    // this.userAuthority = this.navParams.get('authority');
+    // this.orderEmail = this.navParams.get('orderEmail');
     console.log(this.orderEmail + 'ORDER EMAIL');
     console.log('in service'+ email);
     console.log('in service'+ this.userAuthority);

@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { SignupPage } from './../signup/signup';
 import { ServicesPage } from './../services/services';
 import { HomePage } from './../home/home';
@@ -81,8 +82,6 @@ export class LoginPage  implements OnInit {
               this.alluserDetails = data;
 
 
-
-
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
                 if(this.alluserDetails[index].email === email.toLowerCase())
@@ -94,7 +93,7 @@ export class LoginPage  implements OnInit {
                   window.localStorage.setItem('authority',authority);
                   const emailId = email.toLowerCase().substr(0,email.toLowerCase().indexOf('@')) + 'orders';
                   window.localStorage.setItem('orderEmail',emailId);
-                  this.appCtrl.getRootNav().setRoot(ServicesPage,{email: email,authority: authority,orderEmail :emailId });
+                  this.appCtrl.getRootNav().setRoot(TabsPage,{email: email,authority: authority,orderEmail :emailId });
                   loader.dismiss();
                   return false;
                 }

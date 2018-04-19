@@ -37,6 +37,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { OrderDetailsProvider } from '../providers/order-details/order-details';
+import { SettingsPage } from '../pages/settings/settings';
 
 //interfaces
 
@@ -57,7 +58,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ProductDetails,
     IntroPage,
     PopoverPage,
-    TabsPage
+    TabsPage,
+    SettingsPage
 
   ],
   imports: [
@@ -85,7 +87,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ProductDetails,
     IntroPage,
     PopoverPage,
-    TabsPage
+    TabsPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
