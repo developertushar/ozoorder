@@ -78,15 +78,55 @@ export class FirebaseServiceProvider implements OnInit {
 
   async AddSignupDetails(username,email,phone,authority)
   {
+    console.log(authority);
 
-
-    const emailId = email.substr(0,email.indexOf('@'));
+    if(authority === 'fieldofficer')
+    {
+      const emailId = email.substr(0,email.indexOf('@'));
     this.firebaseDb.list('/userDetails/').set(emailId,{
           username: username,
           email: email,
           authority: authority,
-          phoneNo: phone
+          phoneNo: phone,
+          teamLeadId: ''
     })
+    }
+    if(authority === 'teamleader')
+    {
+      const emailId = email.substr(0,email.indexOf('@'));
+    this.firebaseDb.list('/userDetails/').set(emailId,{
+          username: username,
+          email: email,
+          authority: authority,
+          phoneNo: phone,
+          districtMangerId: ''
+    })
+    }
+    if(authority === 'districtmanager')
+    {
+      const emailId = email.substr(0,email.indexOf('@'));
+    this.firebaseDb.list('/userDetails/').set(emailId,{
+          username: username,
+          email: email,
+          authority: authority,
+          phoneNo: phone,
+          plantGeneralManagerId: ''
+    })
+    }
+    if(authority === 'generalmanager')
+    {
+      const emailId = email.substr(0,email.indexOf('@'));
+    this.firebaseDb.list('/userDetails/').set(emailId,{
+          username: username,
+          email: email,
+          authority: authority,
+          phoneNo: phone,
+    })
+    }
+
+
+
+
 
 
     return true;

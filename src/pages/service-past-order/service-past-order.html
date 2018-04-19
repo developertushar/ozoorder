@@ -21,6 +21,10 @@
 
 
  <div *ngIf="showAuthority == true;">
+     <div *ngIf="setNoRecord == true">
+        <h1>NO PAST ORDERS
+          </h1>
+     </div>
     <div *ngFor="let data  of getAllData">
       <ion-card (click)="cardClickCheckDetailEvent(data.products,data)" >
           <ion-card-header>
@@ -54,7 +58,7 @@
       </div>
  </div>
 
- <div *ngIf="showAuthority != true;">
+ <div *ngIf="showAuthority == false;">
     <div *ngFor="let data  of getAllData">
       <ion-card >
           <ion-card-header>
@@ -63,7 +67,7 @@
 
                 </ion-col>
                 <ion-col col-8>
-                    {{data.email}}
+                  {{data.orderid}}
               </ion-col>
              </ion-row>
           </ion-card-header>

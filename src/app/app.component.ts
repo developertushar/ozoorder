@@ -1,3 +1,4 @@
+import { TabsPage } from './../pages/tabs/tabs';
 import { ServicesPage } from './../pages/services/services';
 import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
@@ -46,9 +47,6 @@ export class MyApp implements OnInit{
     this.initializeApp();
 
     this.firebaseAuth.auth.onAuthStateChanged((user)=>{
-      this.nav.setRoot(LoginPage);
-
-
       if(user)
       {
         const email = window.localStorage.getItem('email');
@@ -56,6 +54,7 @@ export class MyApp implements OnInit{
         const authority = window.localStorage.getItem('authority');
         console.log(orderEmail+ 'ORDER EMAIL IN APP.COMPONENT.TS');
         this.authenticationToken = true;
+        // this.nav.setRoot(TabsPage,);
         this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});
 
       }

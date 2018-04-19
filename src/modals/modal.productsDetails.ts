@@ -52,6 +52,7 @@ export class ProductDetails  implements OnInit {
 
       this.getProductDetails = this.navParams.get('Products');
       this.email = this.getProductDetails.userEmail;
+
       this.items = [
         {name: 'Party',value: this.getProductDetails.partyName},
         {name: 'Transport Media',value: this.getProductDetails.transportMedia},
@@ -151,24 +152,6 @@ export class ProductDetails  implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-        //  console.log(this.orderId);
-
-
-
-
-
-      // this.navCtrl.setRoot(ServicesPage,{email: this.email});
-
-
-
   }
 
   delItem(productItem){
@@ -182,8 +165,6 @@ export class ProductDetails  implements OnInit {
         this.products.splice(i,1);
       }
     }
-
-
   }
 
 

@@ -113,7 +113,9 @@ export class ServicesPage {
 
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present();
+    popover.present({
+      ev: myEvent
+    });
 
   }
 

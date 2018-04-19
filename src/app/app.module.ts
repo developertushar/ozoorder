@@ -1,3 +1,4 @@
+import { TabsPage } from './../pages/tabs/tabs';
 import { PopoverPage } from './../pages/popover/popover';
 import { ProductDetails } from '../modals/modal.productsDetails';
 
@@ -27,6 +28,7 @@ import { ServiceTrackOrderPage } from './../pages/service-track-order/service-tr
 import { ServicePlaceOrderPage } from './../pages/service-place-order/service-place-order';
 import { ServiceApprovalCheckPage } from './../pages/service-approval-check/service-approval-check';
 
+
 //firebase
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireModule} from 'angularfire2';
@@ -54,7 +56,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServiceTrackOrderPage,
     ProductDetails,
     IntroPage,
-    PopoverPage
+    PopoverPage,
+    TabsPage
 
   ],
   imports: [
@@ -81,7 +84,8 @@ import { OrderDetailsProvider } from '../providers/order-details/order-details';
     ServiceTrackOrderPage,
     ProductDetails,
     IntroPage,
-    PopoverPage
+    PopoverPage,
+    TabsPage
   ],
   providers: [
     StatusBar,

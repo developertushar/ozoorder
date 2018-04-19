@@ -37,6 +37,10 @@ export class ServicePastOrderPage {
   alluserDetails :any;
 
 
+  //No orders error
+  setNoRecord :boolean;
+
+
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
@@ -59,6 +63,10 @@ export class ServicePastOrderPage {
         if(this.authority == 'fieldofficer')
         {
           this.showAuthority = true;
+        }
+        else
+        {
+          this.showAuthority = false;
         }
 
 
@@ -141,21 +149,30 @@ export class ServicePastOrderPage {
      fetchOrderDetails()
      {
 
-      for(var index=0;index < this.alluserDetails.length ; index++ )
+      if(this.alluserDetails.length == 0 )
       {
-        console.log(this.alluserDetails[index]);
-
-        // const authority = this.alluserDetails[index].transportname;
-        this.getAllData.push({
-          orderid:this.alluserDetails[index].Orderid,
-          party:this.alluserDetails[index].partyname,
-          placedate:this.alluserDetails[index].placeDate,
-          products:this.alluserDetails[index].productnames,
-          address:this.alluserDetails[index].deliveryaddress,
-          transportMedia:this.alluserDetails[index].transportmedia,
-          transportName:this.alluserDetails[index].transportname,
-        })
+        this.setNoRecord = true;
       }
+      else
+      {
+        for(var index=0;index < this.alluserDetails.length ; index++ )
+        {
+          console.log(this.alluserDetails[index]);
+
+          // const authority = this.alluserDetails[index].transportname;
+          this.getAllData.push({
+            orderid:this.alluserDetails[index].Orderid,
+            party:this.alluserDetails[index].partyname,
+            placedate:this.alluserDetails[index].placeDate,
+            products:this.alluserDetails[index].productnames,
+            address:this.alluserDetails[index].deliveryaddress,
+            transportMedia:this.alluserDetails[index].transportmedia,
+            transportName:this.alluserDetails[index].transportname,
+          })
+        }
+
+      }
+
 
      }
 

@@ -40,7 +40,6 @@ export class OrderDetailsProvider {
     // getting the date
     var date = new Date();
     const modifiedDate = date.toUTCString();
-    const newModifiedDate = modifiedDate.substr(0,modifiedDate.indexOf('G'));
 
 
 
@@ -53,7 +52,7 @@ export class OrderDetailsProvider {
       productnames: products,
       useremail: email,
       Orderid: orderId,
-      placeDate: newModifiedDate,
+      placeDate: modifiedDate,
       isApproved: '',
       approveTime: '',
       deliveryTime: ''
