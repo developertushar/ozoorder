@@ -1,3 +1,4 @@
+import { SelectParentPage } from './../select-parent/select-parent';
 import { PopoverPage } from './../popover/popover';
 //page which need to be pushed to the next page
 import { ServicePastOrderPage } from './../service-past-order/service-past-order';
@@ -24,6 +25,9 @@ export class ServicesPage {
 
 
   alluserDetails = [];
+  teamLeaders = [];
+  districtManagers = [];
+  generalMangers = [];
 
   userAuthority :string;
   orderEmail :string;
@@ -44,7 +48,7 @@ export class ServicesPage {
     public authenService :AuthServiceProvider,
     public menu :MenuController,
     public firebaseAuth: AngularFireAuth,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
   ) {
 
 
@@ -67,6 +71,30 @@ export class ServicesPage {
      for(var index=0;index < this.alluserDetails.length ; index++ )
      {
 
+      if(this.alluserDetails[index].authority == 'teamleader')
+      {
+        this.teamLeaders.push({
+          teamLeaderId: this.alluserDetails[index].email,
+          teamLeaderUsername: this.alluserDetails[index].username
+        })
+      }
+
+      if(this.alluserDetails[index].authority == 'districtmanager')
+      {
+        this.districtManagers.push({
+          districtManagerId: this.alluserDetails[index].email,
+          districtManagerName: this.alluserDetails[index].username
+        })
+      }
+
+      if(this.alluserDetails[index].authority == 'generalmanager')
+      {
+        this.generalMangers.push({
+          generalManagerId: this.alluserDetails[index].email,
+          generalManagerName: this.alluserDetails[index].username
+        })
+      }
+
        if(this.alluserDetails[index].email === email)
        {
 
@@ -79,6 +107,8 @@ export class ServicesPage {
        }
      }
     })
+
+
 
   }
 
@@ -122,5 +152,23 @@ export class ServicesPage {
 
   }
 
+
+
+  chooseDistrictManager()
+  {
+    this.navCtrl.push(SelectParentPage,{districtManagers: this.districtManagers,setToken: 'districtmanager'});
+
+  }
+
+  chooseTeamLeader()
+  {
+
+    this.navCtrl.push(SelectParentPage,{leaders: this.teamLeaders,setToken: 'teamleader'});
+
+  }
+
+  manageHierarchy(){
+
+  }
 
 }

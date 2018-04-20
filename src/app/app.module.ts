@@ -1,3 +1,4 @@
+import { SelectParentPage } from './../pages/select-parent/select-parent';
 import { TabsPage } from './../pages/tabs/tabs';
 import { PopoverPage } from './../pages/popover/popover';
 import { ProductDetails } from '../modals/modal.productsDetails';
@@ -10,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { IonicApp, IonicErrorHandler, IonicModule, ModalController, NavParams, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
@@ -59,7 +61,9 @@ import { SettingsPage } from '../pages/settings/settings';
     IntroPage,
     PopoverPage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    SelectParentPage
+
 
   ],
   imports: [
@@ -70,7 +74,8 @@ import { SettingsPage } from '../pages/settings/settings';
     HttpClientModule,
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -88,7 +93,9 @@ import { SettingsPage } from '../pages/settings/settings';
     IntroPage,
     PopoverPage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    SelectParentPage
+
   ],
   providers: [
     StatusBar,

@@ -10,6 +10,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataServiceProvider {
 
+  orderSendForApproval = [];
+
   constructor(public http: HttpClient) {
     console.log('Hello DataServiceProvider Provider');
   }
@@ -22,6 +24,18 @@ export class DataServiceProvider {
     console.log(gettingData.email+ 'under storage Details');
      window.localStorage.setItem('email',gettingData.email);
 
+  }
+
+  saveApprovalRecords(productData)
+  {
+
+    this.orderSendForApproval.push({
+      email: productData.email,
+      orderid: productData.orderid,
+
+    })
+
+    console.log(this.orderSendForApproval);
   }
 
 }

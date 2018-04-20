@@ -21,12 +21,23 @@
   <div id="button">
 
       <button ion-button full (click)="openPage(service1.page)"  *ngFor="let service1 of servicesForAll" activator="highlight" >{{service1.serviceName}}</button>
-      <div *ngIf="userAuthority == 'districtmanager' || userAuthority == 'teamleader' || userAuthority == 'generalmanager'; else fieldOfficer">
+      <div *ngIf="userAuthority == 'districtmanager'">
           <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
+          <button ion-button full activator="highlight" >Choose General Manager</button>
+        </div>
+        <div *ngIf="userAuthority == 'teamleader'">
+            <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
+            <button ion-button full (click)="chooseDistrictManager()" activator="highlight" >Choose District Manager</button>
+          </div>
+          <div *ngIf="userAuthority == 'fieldofficer'">
+            <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
+            <button ion-button full (click)="chooseTeamLeader()" activator="highlight" >Choose Team leader</button>
+          </div>
+          <div *ngIf="userAuthority == 'generalmanager'">
+              <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
+            <button ion-button full (click)="manageHierarchy()" activator="highlight" >Manage hierarchy</button>
       </div>
-      <ng-template #fieldOfficer>
-          <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
-      </ng-template>
+
 
 
 

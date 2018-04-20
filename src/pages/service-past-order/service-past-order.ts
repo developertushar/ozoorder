@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams,LoadingController, ToastController,
 import {Http,Response} from '@angular/http';
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import {AngularFireDatabase} from 'angularfire2/database';
+import { DataServiceProvider } from '../../providers/data-service/data-service';
 
 
 
@@ -36,6 +37,9 @@ export class ServicePastOrderPage {
   getData :any;
   alluserDetails :any;
 
+  //ordersSend
+  orderSendForApproval = [];
+
 
   //No orders error
   setNoRecord :boolean;
@@ -51,10 +55,13 @@ export class ServicePastOrderPage {
      public toastCtrl: ToastController,
      public firebaseService: FirebaseServiceProvider,
      public actionCtrl: ActionSheetController,
+     public dataService: DataServiceProvider,
     ) {
 
         this.email = this.navParams.get('emailId');
         this.authority = this.navParams.get('authority');
+
+
 
         console.log(this.email + 'past order');
         console.log(this.authority + 'autority');
@@ -131,7 +138,8 @@ export class ServicePastOrderPage {
     });
     toast.present();
 
-    console.log(productData);
+
+    this.dataService.saveApprovalRecords(productData);
 
 
 
@@ -170,6 +178,7 @@ export class ServicePastOrderPage {
             address:this.alluserDetails[index].deliveryaddress,
             transportMedia:this.alluserDetails[index].transportmedia,
             transportName:this.alluserDetails[index].transportname,
+            email:this.alluserDetails[index].useremail,
           })
         }
 

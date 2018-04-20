@@ -130,5 +130,11 @@ export class OrderDetailsProvider {
 
   }
 
+  getUserDetails()
+  {
+    return this.firebaseDb.list('/userDetails/').valueChanges();
+  }
+
+
 
 }

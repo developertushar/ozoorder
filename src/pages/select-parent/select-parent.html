@@ -1,0 +1,59 @@
+<!--
+  Generated template for the SelectParentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>selectParent</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+
+  <div *ngIf="setToken == 'teamleader'">
+
+      <ion-card *ngFor="let leaders of teamLeaders">
+       <ion-item>
+         <ion-row>
+          <ion-col col-12>
+              {{leaders.teamLeaderUsername}}
+          </ion-col>
+          <ion-item>
+
+              <button ion-button full  *ngIf="setLeader == leaders.teamLeaderUsername; "  (click)="buttonClickedForLeaders(leaders.teamLeaderUsername,leaders.teamLeaderId)" ngDefaultControl>{{changeOnclick}}</button>
+              <button ion-button full  *ngIf="setLeader != leaders.teamLeaderUsername; " (click)="buttonClickedForLeaders(leaders.teamLeaderUsername,leaders.teamLeaderId)" [(ngModel)]="changeclick"  ngDefaultControl>{{changeclick}}</button>
+          </ion-item>
+
+         </ion-row>
+       </ion-item>
+
+      </ion-card>
+
+  </div>
+
+  <div *ngIf="setToken == 'districtmanager'">
+
+      <ion-card  *ngFor="let distManagers of districtmanagers" >
+       <ion-item>
+         <ion-row>
+          <ion-col col-12>
+               {{distManagers.districtManagerName}}
+          </ion-col>
+          <ion-item>
+              <button ion-button full  *ngIf="setLeader == distManagers.districtManagerName; "  (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)" ngDefaultControl>{{changeOnclick}}</button>
+              <button ion-button full  *ngIf="setLeader != distManagers.districtManagerName; " (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)"  ngDefaultControl>{{changeclick}}</button>
+          </ion-item>
+
+         </ion-row>
+       </ion-item>
+
+      </ion-card>
+
+  </div>
+</ion-content>
