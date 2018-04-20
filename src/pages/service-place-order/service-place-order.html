@@ -28,13 +28,11 @@
         </ion-item>
         <ion-item item-end>
             <ion-label color="dark" >Product list</ion-label>
-                <ion-select #productNames ngModel required name="productName" multiple="true" placeholder="select Product">
-                  <ion-option value="bacon">Bacon</ion-option>
-                  <ion-option value="blackolive">Black Olives</ion-option>
-                  <ion-option value="extracheese">Extra Cheese</ion-option>
-                  <ion-option value="mushroom">Mushrooms</ion-option>
-                  <ion-option value="pepperoni">Pepperoni</ion-option>
-                  <ion-option value="sausage">Sausage</ion-option>
+                <ion-select  #productNames ngModel required name="productName" multiple="true" placeholder="select Product">
+                  <div *ngFor="let product of products">
+
+                    <ion-option  value="{{product.name}}">{{product.name | uppercase}} &nbsp;&nbsp;:Rs {{product.price}}</ion-option>
+                  </div>
                 </ion-select>
           </ion-item>
           <ion-item item-end>
@@ -52,6 +50,16 @@
                 <ion-input type="text" ngModel required name="transportMediaName" #transportName required placeholder="Name"></ion-input>
 
               </ion-item>
+              <ion-item item-end>
+                  <ion-label color="dark" >Customer Name</ion-label>
+                  <ion-input type="text" ngModel required name="customerName" #customerName required placeholder="Name"></ion-input>
+
+                </ion-item>
+                <ion-item item-end>
+                    <ion-label color="dark" >Customer Mobile</ion-label>
+                    <ion-input type="tel" ngModel required name="customerMobile" #customerMobile required placeholder="Name"></ion-input>
+
+                  </ion-item>
               <ion-item item-end>
                   <ion-label color="dark" >Delivery Address</ion-label>
 

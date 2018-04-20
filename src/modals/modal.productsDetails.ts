@@ -24,13 +24,17 @@ export class ProductDetails  implements OnInit {
   userDetails = [];
   authority :string;
   orderEmail: string
-
+  totalAmount: number = 0;
   getProductDetails :any;
 
 
   products = [] ;
   newAddress :string;
   code;
+
+  customername :any;
+  customermobile :any;
+
 
 
   items;
@@ -58,6 +62,8 @@ export class ProductDetails  implements OnInit {
         {name: 'Party',value: this.getProductDetails.partyName},
         {name: 'Transport Media',value: this.getProductDetails.transportMedia},
         {name: 'Transport Name',value: this.getProductDetails.transportMediaName},
+        {name: 'Customer Name',value: this.getProductDetails.customername},
+        {name: 'Customer Mobile',value: this.getProductDetails.customermobile},
       ]
       const getProducts = this.getProductDetails.productName;
       this.newAddress = this.getProductDetails.deliveryAddress;
@@ -70,6 +76,15 @@ export class ProductDetails  implements OnInit {
       {
         this.products.push(getProducts[i]);
       }
+
+      const totalAmount = 0;
+      for(var index=0;index < this.products.length ; index++)
+      {
+          this.totalAmount  +=  this.products[index].price;
+        }
+
+        console.log(this.totalAmount + 'total amount')
+
 
 
 
@@ -99,7 +114,7 @@ export class ProductDetails  implements OnInit {
 
   try{
     const orderId = Math.floor(Math.random() * 899999 + 100000);
-    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.newAddress,this.products,this.email,orderId);
+    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.items[3].value,this.items[4].value,this.newAddress,this.products,this.email,orderId,this.totalAmount);
     console.log(result);
     if(result)
     {

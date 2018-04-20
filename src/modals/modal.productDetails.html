@@ -23,14 +23,24 @@
               <ion-item>PRODUCTS</ion-item>
               <ion-item-sliding *ngFor="let product of products; let i of index" >
                 <ion-item>
-                   {{product |uppercase}}
+                  {{product.name |uppercase}}
+                   Rs:{{product.price}}
+
                 </ion-item>
+                <ion-label>
+
+                </ion-label>
                 <ion-item-options side="right">
                   <button ion-button color="danger" (click)="delItem(product)">
                       <ion-icon name="trash"></ion-icon>Delete</button>
                 </ion-item-options>
               </ion-item-sliding>
+              <ion-item>
+                <h2>Total Amount : {{totalAmount}}</h2>
+              </ion-item>
             </ion-list>
+
+
 
 
 

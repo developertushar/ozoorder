@@ -16,8 +16,19 @@ export class ServicePlaceOrderPage {
   email :any;
   userAuthority :string;
   orderEmail :string;
+  newProducts = [];
 
   allOrderKeys :any;
+
+    products = [
+    {name: 'bacon',price: 100},
+    {name: 'blackolive',price: 60},
+    {name: 'extracheese',price: 80},
+    {name: 'mushroom',price: 200},
+    {name: 'pepperoni',price: 120},
+    {name: 'sausage',price: 70},
+
+  ]
 
   gaming ;
   constructor(
@@ -31,7 +42,7 @@ export class ServicePlaceOrderPage {
    this.email = this.navParams.get('emailId');
    this.userAuthority = this.navParams.get('emailId');
    this.orderEmail = this.navParams.get('orderEmail');
-   console.log(this.orderEmail);
+
 
 
 
@@ -50,7 +61,26 @@ export class ServicePlaceOrderPage {
   getProductDetails(value,myForm)
   {
 
-    console.log('place order'+ this.email);
+    for(var index=0; index < value.productName.length ; index++)
+    {
+
+      for(var i=0; i < this.products.length ; i++)
+      {
+
+        if(this.products[i].name == value.productName[index] ){
+
+          this.newProducts.push({
+            name: this.products[i].name,
+            price: this.products[i].price,
+
+          })
+
+        }
+      }
+
+    }
+
+
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Save Product Details',
       buttons: [
@@ -61,13 +91,15 @@ export class ServicePlaceOrderPage {
             let profileModal = this.modalCtrl.create(ProductDetails, {
               Products : {
                 partyName: value.partyName,
-                productName: value.productName,
+                productName: this.newProducts,
                 deliveryAddress : value.deliveryAddress,
                 transportMedia: value.transportMedia,
                 transportMediaName: value.transportMediaName,
                 userEmail :this.email,
                 authority:this.userAuthority,
-                orderEmail:this.orderEmail
+                orderEmail:this.orderEmail,
+                customername: value.customerName,
+                customermobile: value.customerMobile
               }
             });
              profileModal.present();

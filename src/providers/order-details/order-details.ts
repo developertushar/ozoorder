@@ -34,7 +34,7 @@ export class OrderDetailsProvider {
   }
 
 
-  SaveOrder(partyName,transportMedia,transportName,address,products,email,orderId)
+  SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,email,orderId,totalAmount)
   {
 
     // getting the date
@@ -55,7 +55,10 @@ export class OrderDetailsProvider {
       placeDate: modifiedDate,
       isApproved: '',
       approveTime: '',
-      deliveryTime: ''
+      deliveryTime: '',
+      customername: customerName,
+      customermobile: customerMobile,
+      totalamount: totalAmount
     };
 
     const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
