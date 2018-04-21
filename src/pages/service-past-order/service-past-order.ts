@@ -126,15 +126,16 @@ export class ServicePastOrderPage {
 
     console.log(productData);
 
-    const toast1 = this.toastCtrl.create({
-      message: 'wait sending...',
-      position: 'bottom',
-      duration: 1500
-    })
-    toast1.present();
     //create a new database of pending order and when the authority accepts it then it will go to the other database
      if(this.leaderToSend !== null && this.leaderToSend !== '' && this.leaderToSend !== undefined)
      {
+
+        const toast1 = this.toastCtrl.create({
+          message: 'wait sending...',
+          position: 'bottom',
+          duration: 1500
+        })
+        toast1.present();
        this.firebaseDb.list('/pendingOrder/').push({
          orderId: productData.orderid,
          address: productData.address,
@@ -147,8 +148,6 @@ export class ServicePastOrderPage {
          party: productData.party,
          sendTo: this.leaderToSend,
          sendBy: this.email,
-
-
        }).then(()=>{
 
         toast1.dismiss();
@@ -231,7 +230,7 @@ export class ServicePastOrderPage {
                 const actionSheet = this.actionCtrl.create();
                 for(var i=0;i < products.length ; i++)
                 {
-                  actionSheet.addButton(products[i]);z
+                  actionSheet.addButton(products[i]);
 
                 }
                 actionSheet.addButton('Cancel');

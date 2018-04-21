@@ -22,9 +22,14 @@ export class ServiceApprovalCheckPage {
   showAuthority: string;
   orderEmail :string;
   orderType :string = 'approved';
-  orderType2 :string = 'approve';
-  pendingOrders = [];
+  orderType2 :string = 'approved';
+  //pending orders
   pending :any;
+  pendingOrders = [];
+
+  //aprove orders
+  approve :any;
+  approveOrders = [];
 
 
   constructor(
@@ -42,6 +47,8 @@ export class ServiceApprovalCheckPage {
     //retrieve data
 
     this.getPendingOrders(email);
+
+    this.getOrdersForTeamLeader(email);
   }
 
   ionViewDidLoad() {
@@ -75,7 +82,31 @@ export class ServiceApprovalCheckPage {
 
     })
 
-    console.log(this.pendingOrders);
+
   }
 
+  getOrdersForTeamLeader(email)
+  {
+
+    const getPendingOrder = this.firebaseDb.list('/pendingOrder/').valueChanges();
+    getPendingOrder.subscribe((data)=>{
+      // console.log('inside teamLeaderfunction')
+      // console.log(data);
+
+      this.approve= data;
+
+      for(var i=0;i < this.approve.length ; i++)
+      {
+        // console.log();
+        if(this.approve[i].sendTo == email)
+        {
+          this.approveOrders.push(this.approve[i]);
+        }
+      }
+
+
+    })
+
+    console.log(this.approveOrders);
+  }
 }
