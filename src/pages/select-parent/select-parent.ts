@@ -66,7 +66,6 @@ export class SelectParentPage {
     this.teamLeaders = this.navParams.get('leaders');
     this.districtmanagers = this.navParams.get('districtManagers');
     this.setToken = this.navParams.get('setToken');
-
     console.log('getting the leader'+ this.teamLeaders);
     console.log('getting the district'+ this.districtmanagers);
     console.log('getting the tokenmame'+ this.setToken);
@@ -87,7 +86,7 @@ export class SelectParentPage {
       if(leaders.teamLeaderUsername == name)
       {
 
-        window.localStorage.setItem('selectApprovalAuthorityLeader',name);
+        window.localStorage.setItem('selectApprovalAuthorityLeader',id);
         this.changeOnclick = 'Selected';
         this.navCtrl.pop();
         const toast = this.Toast.create({
@@ -110,7 +109,7 @@ export class SelectParentPage {
       if(managers.districtManagerName == name)
       {
 
-        window.localStorage.setItem('selectApprovalAuthorityManager',name);;
+        window.localStorage.setItem('selectApprovalAuthorityManager',id);;
         this.navCtrl.pop();
         const toast = this.Toast.create({
           message: 'Selected Successfully',

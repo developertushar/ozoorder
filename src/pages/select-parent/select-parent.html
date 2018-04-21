@@ -34,7 +34,6 @@
        </ion-item>
 
       </ion-card>
-
   </div>
 
   <div *ngIf="setToken == 'districtmanager'">
@@ -46,8 +45,9 @@
                {{distManagers.districtManagerName}}
           </ion-col>
           <ion-item>
-              <button ion-button full  *ngIf="setLeader == distManagers.districtManagerName; "  (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)" ngDefaultControl>{{changeOnclick}}</button>
-              <button ion-button full  *ngIf="setLeader != distManagers.districtManagerName; " (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)"  ngDefaultControl>{{changeclick}}</button>
+
+              <button ion-button full  *ngIf="setLeader == distManagers.districtManagerName;"  (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)" ngDefaultControl>{{changeOnclick}}</button>
+              <button ion-button full  *ngIf="setLeader != distManagers.districtManagerName;" (click)="buttonClickedForManagers(distManagers.districtManagerName,distManagers.districtManagerId)"  ngDefaultControl>{{changeclick}}</button>
           </ion-item>
 
          </ion-row>
@@ -57,3 +57,4 @@
 
   </div>
 </ion-content>
+

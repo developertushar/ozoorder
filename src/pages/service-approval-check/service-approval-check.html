@@ -42,41 +42,59 @@
 <ion-content>
 
 
-    <div [ngSwitch]="orderType"  *ngIf="showAuthority == 'true'">
-      <ion-list *ngSwitchCase="'approved'">
+      <div [ngSwitch]="orderType"  *ngIf="showAuthority == 'true'">
+        <ion-list *ngSwitchCase="'approved'">
 
-        <ion-item>
-          <h2>Zoey</h2>
-        </ion-item>
-      </ion-list>
-
-      <ion-list *ngSwitchCase="'pending'">
-
-          <ion-item>
-            <h2>tushar</h2>
-          </ion-item>
         </ion-list>
 
-      <ion-list *ngSwitchCase="'rejected'">
-        <ion-item>
-          <h2>Luna</h2>
-        </ion-item>
+        <ion-list *ngSwitchCase="'pending'">
 
-      </ion-list>
-    </div>
-    <div [ngSwitch]="orderType"  *ngIf="showAuthority != 'true'">
-        <ion-list *ngSwitchCase="'approve'">
-
-          <ion-item>
-            <h2>Zoey</h2>
-          </ion-item>
-        </ion-list>
-
-        <ion-list *ngSwitchCase="'sendapprove'">
-
-            <ion-item>
-              <h2>tushar</h2>
-            </ion-item>
+            <div *ngFor="let pendingorder  of pendingOrders">
+                <ion-card>
+                    <ion-card-header>
+                      <ion-row>
+                        <ion-col>
+                            {{pendingorder.party}}
+                          </ion-col>
+                          <ion-col col-8>
+                              {{pendingorder.orderId}}
+                        </ion-col>
+                      </ion-row>
+                      <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
+                    </ion-card-header>
+                    <ion-list>
+                      <ion-row>
+                        <ion-col col-12>
+                          <p>Customer: {{pendingorder.customerName}}</p><br>
+                          <p>Customer mobile: {{pendingorder.customerMobile}}</p>
+                        </ion-col>
+                      </ion-row>
+                    </ion-list>
+                  </ion-card>
+                </div>
           </ion-list>
+
+        <ion-list *ngSwitchCase="'rejected'">
+          <ion-item>
+            <h2>Luna</h2>
+          </ion-item>
+
+        </ion-list>
       </div>
+
+      <div [ngSwitch]="orderType"  *ngIf="showAuthority != 'true'">
+            <ion-list *ngSwitchCase="'approve'">
+
+              <ion-item>
+                <h2>Zoey</h2>
+              </ion-item>
+            </ion-list>
+
+            <ion-list *ngSwitchCase="'sendapprove'">
+
+                <ion-item>
+                  <h2>tushar</h2>
+                </ion-item>
+              </ion-list>
+        </div>
   </ion-content>

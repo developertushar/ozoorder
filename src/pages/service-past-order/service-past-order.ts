@@ -5,6 +5,7 @@ import {Http,Response} from '@angular/http';
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { ObjectToUniqueKey } from '@firebase/database/dist/esm/src/core/util/util';
 
 
 
@@ -29,7 +30,8 @@ export class ServicePastOrderPage {
   shouldShowCancel :string;
   myInput :string;
    searchQuery: string = '';
-
+   leaderToSend :string;
+   keys = [];
   email :string;
   authority: string;
   showAuthority: boolean;
@@ -40,9 +42,12 @@ export class ServicePastOrderPage {
   //ordersSend
   orderSendForApproval = [];
 
-
   //No orders error
   setNoRecord :boolean;
+  dummyData = [];
+
+  //keys selected to send
+  keySelected :any;
 
 
   constructor(
@@ -60,13 +65,7 @@ export class ServicePastOrderPage {
 
         this.email = this.navParams.get('emailId');
         this.authority = this.navParams.get('authority');
-
-
-
-        console.log(this.email + 'past order');
-        console.log(this.authority + 'autority');
-
-
+        this.leaderToSend  = window.localStorage.getItem('selectApprovalAuthorityLeader');
         if(this.authority == 'fieldofficer')
         {
           this.showAuthority = true;
@@ -75,9 +74,6 @@ export class ServicePastOrderPage {
         {
           this.showAuthority = false;
         }
-
-
-        // console.log(this.email);
 
         this.getOrderDetails();
 
@@ -101,11 +97,7 @@ export class ServicePastOrderPage {
 
     loader.present();
 
-
-    // const emailId = 'tusharorders'
-
     const emailId = this.navParams.get('orderEmail');
-    console.log(emailId);
 
 
     const allUser = this.firebaseDb.list('/Orders/'+ emailId).valueChanges();
@@ -113,18 +105,14 @@ export class ServicePastOrderPage {
     allUser.subscribe((data) => {
         this.alluserDetails = data;
 
+
         this.fetchOrderDetails();
-
-
      })
 
-     console.log(this.getAllData);
      setTimeout(() => {
       loader.dismiss();
 
     },2000)
-
-
   }
 
 
@@ -132,14 +120,60 @@ export class ServicePastOrderPage {
 
     swipeEvent(e,productData) {
       e.preventDefault();
-     let toast = this.toastCtrl.create({
-      message: 'sent for approval',
+
+
+    const emailId = this.navParams.get('orderEmail');
+
+    console.log(productData);
+
+    const toast1 = this.toastCtrl.create({
+      message: 'wait sending...',
+      position: 'bottom',
       duration: 1500
-    });
-    toast.present();
+    })
+    toast1.present();
+    //create a new database of pending order and when the authority accepts it then it will go to the other database
+     if(this.leaderToSend !== null && this.leaderToSend !== '' && this.leaderToSend !== undefined)
+     {
+       this.firebaseDb.list('/pendingOrder/').push({
+         orderId: productData.orderid,
+         address: productData.address,
+         customerMobile: productData.customerMobile,
+         customerName: productData.customerName,
+         transportMedia: productData.transportMedia,
+         transportName: productData.transportName,
+         products: productData.products,
+         placedate: productData.placedate,
+         party: productData.party,
+         sendTo: this.leaderToSend,
+         sendBy: this.email,
 
 
-    this.dataService.saveApprovalRecords(productData);
+       }).then(()=>{
+
+        toast1.dismiss();
+        let toast = this.toastCtrl.create({
+          message: 'sent for approval',
+          duration: 1500
+        });
+
+        toast.present();
+       })
+
+
+     }
+     else if(this.leaderToSend === null)
+     {
+
+        const toast = this.toastCtrl.create({
+          message: 'Please go back and select the Parent Authority First',
+          duration: 2000,
+          position:'top'
+        })
+
+        toast.present();
+     }
+
 
 
 
@@ -147,12 +181,8 @@ export class ServicePastOrderPage {
 
 
      getItems(ev :any){
-
        ev.preventDefault();
        let val = ev.target.value;
-
-
-
      }
 
 
@@ -165,11 +195,9 @@ export class ServicePastOrderPage {
       }
       else
       {
+
         for(var index=0;index < this.alluserDetails.length ; index++ )
         {
-          console.log(this.alluserDetails[index]);
-
-          // const authority = this.alluserDetails[index].transportname;
           this.getAllData.push({
             orderid:this.alluserDetails[index].Orderid,
             party:this.alluserDetails[index].partyname,
@@ -179,6 +207,8 @@ export class ServicePastOrderPage {
             transportMedia:this.alluserDetails[index].transportmedia,
             transportName:this.alluserDetails[index].transportname,
             email:this.alluserDetails[index].useremail,
+            customerName:this.alluserDetails[index].customername,
+            customerMobile:this.alluserDetails[index].customermobile,
           })
         }
 
@@ -191,7 +221,7 @@ export class ServicePastOrderPage {
      cardClickCheckDetailEvent(products,data)
      {
 
-         console.log(data);
+
         const actionSheet1 = this.actionCtrl.create({
           title: 'Details',
           buttons: [
@@ -201,7 +231,7 @@ export class ServicePastOrderPage {
                 const actionSheet = this.actionCtrl.create();
                 for(var i=0;i < products.length ; i++)
                 {
-                  actionSheet.addButton(products[i]);
+                  actionSheet.addButton(products[i]);z
 
                 }
                 actionSheet.addButton('Cancel');

@@ -18,8 +18,6 @@
 
   <ion-searchbar ></ion-searchbar>
 
-
-
  <div *ngIf="showAuthority == true;">
      <div *ngIf="setNoRecord == true">
         <h1>NO PAST ORDERS
@@ -41,6 +39,8 @@
           <ion-list>
             <ion-row>
               <ion-col col-12>
+                <p>Customer: {{data.customerName}}</p><br>
+                <p>Customer mobile: {{data.customerMobile}}</p>
                 <p>Date: {{data.placedate}}</p>
               </ion-col>
             </ion-row>

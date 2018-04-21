@@ -58,7 +58,8 @@ export class OrderDetailsProvider {
       deliveryTime: '',
       customername: customerName,
       customermobile: customerMobile,
-      totalamount: totalAmount
+      totalamount: totalAmount,
+      sendTo: ''
     };
 
     const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
