@@ -127,11 +127,7 @@ export class ServicePastOrderPage {
 
     const emailId = this.navParams.get('orderEmail');
 
-    //gettings the keys
-    const AllKeys = this.orderService.getStoreKeysPendingOrders();
-    console.log(AllKeys);
-
-    // console.log(productData);
+    console.log(productData);
 
     //create a new database of pending order and when the authority accepts it then it will go to the other database
      if(this.leaderToSend !== null && this.leaderToSend !== '' && this.leaderToSend !== undefined)
@@ -158,10 +154,7 @@ export class ServicePastOrderPage {
          authority: this.authority
        }).then((item)=>{
 
-
         this.orderService.storeKeysOfPendingOrders(this.email,productData.orderid,item.key);
-
-
 
         toast1.dismiss();
         let toast = this.toastCtrl.create({
