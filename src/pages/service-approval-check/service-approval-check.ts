@@ -1,6 +1,9 @@
+import { ServicesPage } from './../services/services';
+import { DataServiceProvider } from './../../providers/data-service/data-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase} from 'angularfire2/database';
+
 
 /**
  * Generated class for the ServiceApprovalCheckPage page.
@@ -16,6 +19,8 @@ import { AngularFireDatabase} from 'angularfire2/database';
 })
 export class ServiceApprovalCheckPage {
 
+
+
   userAuthority :string;
   email :string;
   authority: string;
@@ -29,13 +34,21 @@ export class ServiceApprovalCheckPage {
 
   //aprove orders
   approve :any;
-  approveOrders = [];
+  approval :string = 'notApproved';
+  aproveOrders = [];
+  currentKey :any;
+
+  key :any;
 
 
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
      public firebaseDb: AngularFireDatabase,
+     public dataService: DataServiceProvider,
+     public toastCtrl: ToastController,
+     public loader: LoadingController
+
   ) {
 
     this.userAuthority = window.localStorage.getItem('authority');
@@ -76,23 +89,25 @@ export class ServiceApprovalCheckPage {
         if(this.pending[i].sendBy == email)
         {
 
+          // console.log(this.pending[i].isApproved);
           this.pendingOrders.push(this.pending[i]);
         }
       }
 
-
     })
 
+
+    // console.log(this.pendingOrders);
 
   }
 
   getOrdersForTeamLeader(email)
   {
 
+
     const getPendingOrder = this.firebaseDb.list('/pendingOrder/').valueChanges();
     getPendingOrder.subscribe((data)=>{
-      // console.log('inside teamLeaderfunction')
-      // console.log(data);
+
       console.log(Object.keys(data));
 
       this.approve= data;
@@ -103,20 +118,58 @@ export class ServiceApprovalCheckPage {
 
         if(this.approve[i].sendTo == email)
         {
-          this.approveOrders.push(this.approve[i]);
+          this.aproveOrders.push(this.approve[i]);
         }
       }
+    })
+  }
+
+
+  approveOrder(approval){
+
+    const loader = this.loader.create({
+      content: 'Approving order'
+
+    })
+
+    const date = new Date();
+
+    loader.present();
+    this.firebaseDb.list('/pendingOrder/').update(approval.orderKey,{
+      ApprovedBy: approval.sendTo,
+      ApprovedAuthority: approval.authority,
+      isApproved: 'true',
+      ApprovalDate: date
+
+    }).then(()=>{
+
+      loader.dismiss();
+      this.navCtrl.setRoot(ServicesPage);
+
+      const toast = this.toastCtrl.create({
+        message: 'Successfully Approved',
+        duration: 1500,
+        position: 'top'
+      })
+      toast.present();
+
+
+
+
+    }).catch((error)=>{
+
+      const toast = this.toastCtrl.create({
+        message: 'Successfully Approved',
+        duration: 1500,
+        position: 'bottom'
+      })
+      toast.present();
 
 
     })
 
-    console.log(this.approveOrders);
-  }
 
 
-  approveOrder(approveOrder){
-
-    console.log(approveOrder);
 
   }
 
@@ -125,5 +178,12 @@ export class ServiceApprovalCheckPage {
 
     console.log('discard');
 
+  }
+
+
+  cardClickCheckDetailEvent(data){
+
+    // console.log('hey');
+    this.dataService.cardClickDetails(data);
   }
 }

@@ -44,20 +44,17 @@
 
       <div [ngSwitch]="orderType"  *ngIf="showAuthority == 'true'">
         <ion-list *ngSwitchCase="'approved'">
-
-        </ion-list>
-
-        <ion-list *ngSwitchCase="'pending'">
-
             <div *ngFor="let pendingorder  of pendingOrders">
-                <ion-card>
+                <ion-card  *ngIf="pendingorder.isApproved == 'true'" >
                     <ion-card-header>
                       <ion-row>
                         <ion-col>
-                          {{pendingorder.party}}
-                          </ion-col>
-                          <ion-col col-8>
-                              {{pendingorder.orderId}}
+                          {{pendingorder.partyname}}
+
+                        </ion-col>
+                        <ion-col col-8>
+                            {{pendingorder.Orderid}}
+
                         </ion-col>
                       </ion-row>
                       <!-- <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label> -->
@@ -65,8 +62,38 @@
                     <ion-list>
                       <ion-row>
                         <ion-col col-12>
-                          <p>Customer: {{pendingorder.customerName}}</p><br>
-                          <p>Customer mobile: {{pendingorder.customerMobile}}</p>
+                          <p>Customer: {{pendingorder.customername}}</p><br>
+                          <p>Customer mobile: {{pendingorder.customermobile}}</p>
+                          <p>Send To: {{pendingorder.sendTo}}</p>
+                        </ion-col>
+                      </ion-row>
+                    </ion-list>
+                  </ion-card>
+                </div>
+          </ion-list>
+
+        <ion-list *ngSwitchCase="'pending'">
+
+            <div *ngFor="let pendingorder  of pendingOrders">
+                <ion-card  *ngIf="pendingorder.isApproved == ''" >
+                    <ion-card-header>
+                      <ion-row>
+                        <ion-col>
+                          {{pendingorder.partyname}}
+
+                        </ion-col>
+                        <ion-col col-8>
+                            {{pendingorder.Orderid}}
+
+                        </ion-col>
+                      </ion-row>
+                      <!-- <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label> -->
+                    </ion-card-header>
+                    <ion-list>
+                      <ion-row>
+                        <ion-col col-12>
+                          <p>Customer: {{pendingorder.customername}}</p><br>
+                          <p>Customer mobile: {{pendingorder.customermobile}}</p>
                           <p>Send To: {{pendingorder.sendTo}}</p>
                         </ion-col>
                       </ion-row>
@@ -79,48 +106,79 @@
           <ion-item>
             <h2>Luna</h2>
           </ion-item>
-
         </ion-list>
       </div>
 
       <div [ngSwitch]="orderType2"  *ngIf="showAuthority != 'true'">
           <ion-list *ngSwitchCase="'approved'">
-              <div *ngFor="let approve  of approveOrders">
-                  <ion-card>
+              <div *ngFor="let approve  of aproveOrders">
+                  <ion-card >
                       <ion-card-header>
                         <ion-row>
                           <ion-col>
-                            {{approve.party}}
+                                {{approve.partyname}}
                             </ion-col>
                             <ion-col col-8>
-                                {{approve.orderId}}
+                                {{approve.Orderid}}
                           </ion-col>
                         </ion-row>
-                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
+                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click for product Details</ion-label>
                       </ion-card-header>
                       <ion-list>
                         <ion-row>
                           <ion-col col-12>
-                            <p>Customer: {{approve.customerName}}</p><br>
-                            <p>Customer mobile: {{approve.customerMobile}}</p>
+                            <p>Customer: {{approve.customername}}</p><br>
+                            <p>Customer mobile: {{approve.customermobile}}</p>
                             <p>Send By: {{approve.sendBy}}</p>
-
                           </ion-col>
                         </ion-row>
                         <ion-row>
-                          <ion-col col-6  style="background-color: rgb(11, 167, 11) " (click)="approveOrder(approve)">
-                              <ion-icon name="checkmark"></ion-icon>
+                          <ion-col   style="background-color: rgb(11, 167, 11) " (click)="approveOrder(approve)">
+                              <ion-icon name="checkmark">Approve</ion-icon>
                           </ion-col>
-                          <ion-col col-6 style="background-color: rgb(204, 23, 62)" (click)="discardOrder(approve)">
-                              <ion-icon name="close"></ion-icon>
+                          <ion-col  *ngIf="approve.isApproved != 'true'" col-6 style="background-color: rgb(204, 23, 62)" (click)="discardOrder(approve)">
+                              <ion-icon name="close">Reject</ion-icon>
                            </ion-col>
                         </ion-row>
+
                       </ion-list>
                     </ion-card>
                   </div>
           </ion-list>
 
           <ion-list *ngSwitchCase="'pending'">
+              <div *ngFor="let approve  of aproveOrders">
+                  <ion-card >
+                      <ion-card-header>
+                        <ion-row>
+                          <ion-col>
+                                {{approve.partyname}}
+                            </ion-col>
+                            <ion-col col-8>
+                                {{approve.Orderid}}
+                          </ion-col>
+                        </ion-row>
+                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click for product Details</ion-label>
+                      </ion-card-header>
+                      <ion-list>
+                        <ion-row>
+                          <ion-col col-12>
+                            <p>Customer: {{approve.customername}}</p><br>
+                            <p>Customer mobile: {{approve.customermobile}}</p>
+                            <p>Send By: {{approve.sendBy}}</p>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col *ngIf="approve.isApproved == 'true'"   style="background-color: rgb(11, 167, 11) " (click)="approveOrder(approve)">
+                              Send To Parent&nbsp;<ion-icon name="send"></ion-icon>
+                          </ion-col>
+
+                        </ion-row>
+
+                      </ion-list>
+                    </ion-card>
+                  </div>
+
 
 
         </ion-list>

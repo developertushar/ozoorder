@@ -62,22 +62,27 @@ export class OrderDetailsProvider {
       customername: customerName,
       customermobile: customerMobile,
       totalamount: totalAmount,
-      sendTo: ''
+      sendTo: '',
+      OrderKey: '',
+      ApprovalDate: ''
     };
 
-    const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
-    set.subscribe(
-      (response) =>{
-          console.log(response);
-      },
-     (error) =>{
+    const set = this.firebaseDb.list('/Orders/'+emailId).push(setTheData).then((item)=>{
 
-     }
-    )
+      this.firebaseDb.list('/Orders/'+emailId).update(item.key,{
+        OrderKey: item.key
+      })
 
+    });
+    // const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
+    // set.subscribe(
+    //   (response) =>{
+    //       console.log(response);
+    //   },
+    //  (error) =>{
 
-
-
+    //  }
+    // )
       if(set)
       {
         return true;
@@ -143,11 +148,11 @@ export class OrderDetailsProvider {
   }
 
 
-  storeKeysOfPendingOrders(email,orderid,key){
+  storeKeysOfPendingOrders(email,Orderid,key){
 
     this.pendingKeys.push({
       email: email,
-      orderId:orderid,
+      orderId:Orderid,
       OrderKey: key
     })
 

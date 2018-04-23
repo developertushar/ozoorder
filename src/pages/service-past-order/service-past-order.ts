@@ -28,29 +28,31 @@ export class ServicePastOrderPage {
 
   //search buttons
   shouldShowCancel :string;
-  myInput :string;
+    myInput :string;
    searchQuery: string = '';
    leaderToSend :string;
    keys = [];
-  email :string;
-  authority: string;
-  showAuthority: boolean;
-  getAllData = [];
-  getData :any;
-  alluserDetails :any;
+    email :string;
+    authority: string;
+    showAuthority: boolean;
+    getAllData = [];
+    getData :any;
+    alluserDetails :any;
 
-  //ordersSend
-  orderSendForApproval = [];
+    //ordersSend
+    orderSendForApproval = [];
 
-  //No orders error
-  setNoRecord :boolean;
-  dummyData = [];
+    //No orders error
+    setNoRecord :boolean;
+    dummyData = [];
 
-  //keys selected to send
-  keySelected :any;
+    //keys selected to send
+    keySelected :any;
 
-  // pending items key
-  pendingOrdersKeys = [];
+    // pending items key
+    pendingOrdersKeys = [];
+
+
 
 
   constructor(
@@ -108,8 +110,13 @@ export class ServicePastOrderPage {
     allUser.subscribe((data) => {
         this.alluserDetails = data;
 
+        console.log(this.alluserDetails);
 
-        this.fetchOrderDetails();
+        if(this.alluserDetails.length == 0 )
+        {
+          this.setNoRecord = true;
+        }
+        // this.fetchOrderDetails();
      })
 
      setTimeout(() => {
@@ -140,21 +147,28 @@ export class ServicePastOrderPage {
         })
         toast1.present();
        this.firebaseDb.list('/pendingOrder/').push({
-         orderId: productData.orderid,
-         address: productData.address,
-         customerMobile: productData.customerMobile,
-         customerName: productData.customerName,
-         transportMedia: productData.transportMedia,
-         transportName: productData.transportName,
-         products: productData.products,
-         placedate: productData.placedate,
-         party: productData.party,
+        Orderid: productData.Orderid,
+        deliveryaddress: productData.deliveryaddress,
+        customermobile: productData.customermobile,
+        customername: productData.customername,
+        transportmedia: productData.transportmedia,
+        transportname: productData.transportname,
+        productnames: productData.productnames,
+        placeDate: productData.placeDate,
+        partyname: productData.partyname,
          sendTo: this.leaderToSend,
          sendBy: this.email,
-         authority: this.authority
+         authority: this.authority,
+         isApproved: '',
+         ApprovedBy: '' ,
+         ApprovedAuthority: '',
+         orderKey:''
        }).then((item)=>{
 
-        this.orderService.storeKeysOfPendingOrders(this.email,productData.orderid,item.key);
+        this.firebaseDb.list('/pendingOrder/').update(item.key,{
+          orderKey: item.key
+        })
+        this.orderService.storeKeysOfPendingOrders(this.email,productData.Orderid,item.key);
 
         toast1.dismiss();
         let toast = this.toastCtrl.create({
@@ -191,103 +205,14 @@ export class ServicePastOrderPage {
      }
 
 
-     fetchOrderDetails()
+
+
+
+     cardClickCheckDetailEvent(data)
      {
 
-      if(this.alluserDetails.length == 0 )
-      {
-        this.setNoRecord = true;
-      }
-      else
-      {
-
-        for(var index=0;index < this.alluserDetails.length ; index++ )
-        {
-          this.getAllData.push({
-            orderid:this.alluserDetails[index].Orderid,
-            party:this.alluserDetails[index].partyname,
-            placedate:this.alluserDetails[index].placeDate,
-            products:this.alluserDetails[index].productnames,
-            address:this.alluserDetails[index].deliveryaddress,
-            transportMedia:this.alluserDetails[index].transportmedia,
-            transportName:this.alluserDetails[index].transportname,
-            email:this.alluserDetails[index].useremail,
-            customerName:this.alluserDetails[index].customername,
-            customerMobile:this.alluserDetails[index].customermobile,
-          })
-        }
-
-      }
-
-
-     }
-
-
-     cardClickCheckDetailEvent(products,data)
-     {
-
-
-        const actionSheet1 = this.actionCtrl.create({
-          title: 'Details',
-          buttons: [
-            {
-              text: 'Products',
-              handler: ()=>{
-                const actionSheet = this.actionCtrl.create();
-                for(var i=0;i < products.length ; i++)
-                {
-                  actionSheet.addButton(products[i]);
-
-                }
-                actionSheet.addButton('Cancel');
-
-
-                actionSheet.present();
-              }
-            },
-            {
-              text: 'Transport Media',
-              handler: () =>
-              {
-                const actionSheet = this.actionCtrl.create();
-                actionSheet.setTitle(data.transportMedia)
-                actionSheet.addButton('Cancel');
-
-
-                actionSheet.present();
-
-
-              }
-            },
-            {
-              text: 'Transport Name',
-              handler: () =>
-              {
-                const actionSheet = this.actionCtrl.create();
-                actionSheet.setTitle(data.transportName);
-                actionSheet.addButton('Cancel');
-                actionSheet.present();
-
-              }
-            },
-            {
-              text: 'Address',
-              handler: () =>
-              {
-                const actionSheet = this.actionCtrl.create();
-                actionSheet.setTitle(data.address);
-                actionSheet.addButton('Cancel');
-                actionSheet.present();
-
-              }
-            }
-          ]
-        })
-
-        actionSheet1.present();
-
-
-
+      // console.log(data);
+        this.dataService.cardClickDetails(data);
      }
 
 }

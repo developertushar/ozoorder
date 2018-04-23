@@ -23,15 +23,15 @@
         <h1>NO PAST ORDERS
           </h1>
      </div>
-    <div *ngFor="let data  of getAllData">
-      <ion-card (click)="cardClickCheckDetailEvent(data.products,data)" >
+    <div *ngFor="let data  of alluserDetails">
+      <ion-card (click)="cardClickCheckDetailEvent(data)" >
           <ion-card-header>
             <ion-row>
               <ion-col>
-                  {{data.party}}
+                  {{data.partyname}}
                 </ion-col>
                 <ion-col col-8>
-                    {{data.orderid}}
+                    {{data.Orderid}}
               </ion-col>
              </ion-row>
              <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
@@ -39,9 +39,9 @@
           <ion-list>
             <ion-row>
               <ion-col col-12>
-                <p>Customer: {{data.customerName}}</p><br>
-                <p>Customer mobile: {{data.customerMobile}}</p>
-                <p>Date: {{data.placedate}}</p>
+                <p>Customer: {{data.customername}}</p><br>
+                <p>Customer mobile: {{data.customermobile}}</p>
+                <p>Date: {{data.placeDate}}</p>
               </ion-col>
             </ion-row>
               <ion-row class="row-only"  >
@@ -88,7 +88,7 @@
                   </span>
 
                 </ion-col>
-                <ion-col col-6>
+                <ion-col col-6  >
                     <!-- <span>
                         <ion-icon name="checkmark-circle" class="check"></ion-icon>
                         <span>Accepted</span>
