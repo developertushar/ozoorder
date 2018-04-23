@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 import { ServicesPage } from './../../pages/services/services';
 
@@ -21,12 +22,16 @@ import 'rxjs/add/operator/catch'
 @Injectable()
 export class OrderDetailsProvider {
 
+
+  //pending keys arrays
+  pendingKeys = [];
+
   constructor(
     public https: HttpClient,
     public firebaseDb: AngularFireDatabase,
     public toastCtrl : ToastController,
     public http : Http,
-
+    public localStorage: Storage
   ) {
 
 
@@ -137,6 +142,26 @@ export class OrderDetailsProvider {
   getUserDetails()
   {
     return this.firebaseDb.list('/userDetails/').valueChanges();
+  }
+
+
+  storeKeysOfPendingOrders(email,orderid,key){
+
+    this.pendingKeys.push({
+      email: email,
+      orderId:orderid,
+      OrderKey: key
+    })
+
+    let val = JSON.stringify(this.pendingKeys);
+    window.localStorage.setItem('pendingItemKeys',val);
+    // this.localStorage.set()
+
+  }
+
+  getStoreKeysPendingOrders()
+  {
+    return window.localStorage.getItem('pendingItemKeys');
   }
 
 

@@ -75,6 +75,7 @@ export class ServiceApprovalCheckPage {
         // console.log();
         if(this.pending[i].sendBy == email)
         {
+
           this.pendingOrders.push(this.pending[i]);
         }
       }
@@ -92,12 +93,14 @@ export class ServiceApprovalCheckPage {
     getPendingOrder.subscribe((data)=>{
       // console.log('inside teamLeaderfunction')
       // console.log(data);
+      console.log(Object.keys(data));
 
       this.approve= data;
 
       for(var i=0;i < this.approve.length ; i++)
       {
         // console.log();
+
         if(this.approve[i].sendTo == email)
         {
           this.approveOrders.push(this.approve[i]);
@@ -108,5 +111,19 @@ export class ServiceApprovalCheckPage {
     })
 
     console.log(this.approveOrders);
+  }
+
+
+  approveOrder(approveOrder){
+
+    console.log(approveOrder);
+
+  }
+
+
+  discardOrder(){
+
+    console.log('discard');
+
   }
 }
