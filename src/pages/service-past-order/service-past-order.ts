@@ -124,13 +124,13 @@ export class ServicePastOrderPage {
     allUser.subscribe((data) => {
         this.alluserDetails = data;
 
-        // console.log(this.alluserDetails);
+
 
         if(this.alluserDetails.length == 0 )
         {
           this.setNoRecord = true;
         }
-        // this.fetchOrderDetails();
+
      })
 
      setTimeout(() => {
@@ -212,7 +212,8 @@ export class ServicePastOrderPage {
            ApprovedAuthority: '',
            orderKey:'',
            sendApprovalDate: '',
-           approveDate: ''
+           approveDate: '',
+           totalAmount: productData.totalamount
          }).then((item)=>{
 
           this.firebaseDb.list('/pendingOrder/').update(item.key,{
