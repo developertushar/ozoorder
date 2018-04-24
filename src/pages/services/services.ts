@@ -10,6 +10,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { PopoverController } from 'ionic-angular';
+import {AngularFireDatabase} from 'angularfire2/database';
 
 
 
@@ -49,6 +50,7 @@ export class ServicesPage {
     public menu :MenuController,
     public firebaseAuth: AngularFireAuth,
     public popoverCtrl: PopoverController,
+    public firebaseDb: AngularFireDatabase,
   ) {
 
 
@@ -62,6 +64,12 @@ export class ServicesPage {
     console.log(this.orderEmail + 'ORDER EMAIL');
     console.log('in service'+ email);
     console.log('in service'+ this.userAuthority);
+
+    // console.log('getting the pending orders')
+    // this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
+
+    //     console.log(data);
+    // })
 
 
     const getData = this.authenService.getUserDetails();

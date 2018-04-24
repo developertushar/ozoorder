@@ -57,7 +57,6 @@
 
                         </ion-col>
                       </ion-row>
-                      <!-- <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label> -->
                     </ion-card-header>
                     <ion-list>
                       <ion-row>
@@ -73,7 +72,6 @@
           </ion-list>
 
         <ion-list *ngSwitchCase="'pending'">
-
             <div *ngFor="let pendingorder  of pendingOrders">
                 <ion-card  *ngIf="pendingorder.isApproved == ''" >
                     <ion-card-header>
@@ -95,6 +93,7 @@
                           <p>Customer: {{pendingorder.customername}}</p><br>
                           <p>Customer mobile: {{pendingorder.customermobile}}</p>
                           <p>Send To: {{pendingorder.sendTo}}</p>
+                          <p>Send Date: {{approve.sendApprovalDate}}</p>
                         </ion-col>
                       </ion-row>
                     </ion-list>
@@ -130,6 +129,7 @@
                             <p>Customer: {{approve.customername}}</p><br>
                             <p>Customer mobile: {{approve.customermobile}}</p>
                             <p>Send By: {{approve.sendBy}}</p>
+
                           </ion-col>
                         </ion-row>
                         <ion-row>
@@ -166,6 +166,7 @@
                             <p>Customer: {{approve.customername}}</p><br>
                             <p>Customer mobile: {{approve.customermobile}}</p>
                             <p>Send By: {{approve.sendBy}}</p>
+                            <p>Send Date: {{approve.sendApprovalDate}}</p>
                           </ion-col>
                         </ion-row>
                         <ion-row>

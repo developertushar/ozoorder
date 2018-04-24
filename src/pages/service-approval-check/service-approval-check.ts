@@ -59,7 +59,18 @@ export class ServiceApprovalCheckPage {
 
     //retrieve data
 
-    this.getPendingOrders(email);
+    // this.getPendingOrders(email);
+
+
+    // console.log('getting the pending orders')
+    this.firebaseDb.list('/pendingOrder/',ref => ref.orderByChild('sendBy').equalTo(email)).valueChanges().subscribe((data)=>{
+
+        this.pendingOrders = data;
+        console.log(this.pendingOrders);
+    })
+
+   console.log(this.pendingOrders);
+
 
     this.getOrdersForTeamLeader(email);
   }
@@ -76,30 +87,34 @@ export class ServiceApprovalCheckPage {
   }
 
 
-  getPendingOrders(email){
+  // getPendingOrders(email){
 
-    const getPendingOrder = this.firebaseDb.list('/pendingOrder/').valueChanges();
-    getPendingOrder.subscribe((data)=>{
+  //    console.log(email);
 
-      this.pending = data;
+  //   const getPendingOrder = this.firebaseDb.list('/pendingOrder/').valueChanges();
+  //   getPendingOrder.subscribe((data)=>{
 
-      for(var i=0;i < this.pending.length ; i++)
-      {
-        // console.log();
-        if(this.pending[i].sendBy == email)
-        {
+  //     this.pending = data;
 
-          // console.log(this.pending[i].isApproved);
-          this.pendingOrders.push(this.pending[i]);
-        }
-      }
+  //     for(var i=0;i < this.pending.length ; i++)
+  //     {
+  //       // console.log();
 
-    })
+  //       if(this.pending[i].sendBy == email)
+  //       {
+
+  //         // console.log(this.pending[i].isApproved);
+  //         console.log('get All pending');
+  //         console.log(this.pending[i]);
+  //         this.pendingOrders.push(this.pending[i]);
+  //       }
+  //     }
+
+  //   })
 
 
-    // console.log(this.pendingOrders);
 
-  }
+  // }
 
   getOrdersForTeamLeader(email)
   {
@@ -108,11 +123,11 @@ export class ServiceApprovalCheckPage {
     const getPendingOrder = this.firebaseDb.list('/pendingOrder/').valueChanges();
     getPendingOrder.subscribe((data)=>{
 
-      console.log(Object.keys(data));
+      // console.log(Object.keys(data));
 
       this.approve= data;
 
-      for(var i=0;i < this.approve.length ; i++)
+      for(var i=0;i< this.approve.length ; i++)
       {
         // console.log();
 
