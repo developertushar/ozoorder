@@ -4,12 +4,6 @@ import { App,IonicPage, NavController, NavParams, LoadingController , ViewContro
 import {AngularFireAuth } from 'angularfire2/auth';
 
 
-/**
- * Generated class for the PopoverPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -49,7 +43,6 @@ export class PopoverPage {
     this.appCtrl.getRootNav().setRoot(LoginPage);
     this.viewCtrl.dismiss();
 
-
-
   }
+
 }

@@ -5,6 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 
 
 
+
 import {
    NavController,
    NavParams,
@@ -26,6 +27,11 @@ export class SignupPage {
 
   authority :string;
 
+  getData = [];
+
+  user: string;
+
+  signupToken :string;
 
 
   setRadioButton = [
@@ -42,22 +48,51 @@ export class SignupPage {
     public firebasedb: AngularFireDatabase,
     public firebaseService: FirebaseServiceProvider,
     public firebaseAuth :AngularFireAuth,
-    public loadCtrl :LoadingController
+    public loadCtrl :LoadingController,
+    public firebaseDb :AngularFireDatabase,
 
   )
   {
 
-
+    this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
+      this.getData = data;
+    })
 
   }
 
   async signupCredentials(user,myForm)
   {
 
+   this.signupToken = 'false';
 
 
+    for(var index=0;index< this.getData.length;index++)
+    {
+      if(this.getData[index].username === user.username)
+      {
+        this.signupToken = 'true'
 
-    const alert = this.alertCtrl.create();
+      }
+
+    }
+
+
+    if(this.signupToken === 'true')
+    {
+
+      const toast = this.toastCtrl.create({
+        message: 'Username Existed try different one..',
+        position: 'bottom',
+        duration: 1500
+
+      })
+
+      toast.present();
+
+    }
+    else
+    {
+       const alert = this.alertCtrl.create();
     alert.setTitle('Choose the Authorisation');
 
     for(var i=0; i<this.setRadioButton.length;i++)
@@ -84,6 +119,9 @@ export class SignupPage {
       }
     });
     alert.present();
+
+    }
+
 
   }
 

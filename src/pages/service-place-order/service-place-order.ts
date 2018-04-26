@@ -1,8 +1,13 @@
+import { Storage } from '@ionic/storage';
+import { SelectProducts } from '../../modals/selectProducts/modal.selectproduct';
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import {ProductDetails} from '../../modals/modal.productsDetails';
 import {AngularFireDatabase} from 'angularfire2/database';
+import { SelectParty } from '../../modals/selectParty/modal.selectparty';
+
 
 
 
@@ -20,15 +25,24 @@ export class ServicePlaceOrderPage {
 
   allOrderKeys :any;
 
-    products = [
-    {name: 'bacon',price: 100},
-    {name: 'blackolive',price: 60},
-    {name: 'extracheese',price: 80},
-    {name: 'mushroom',price: 200},
-    {name: 'pepperoni',price: 120},
-    {name: 'sausage',price: 70},
+  placeOrders = [
+    {name: 'hyderabad',address: 'wg 422 hyderabad'},
+    {name: 'pune',address: 'wg 422 Pune'},
+    {name: 'andrapradesh',address: 'wg 422 Andra pradesh'},
 
   ]
+
+    products = []
+
+  itemLocation :string;
+
+  party :string;
+  party1 :string;
+  selectparty :string;
+
+
+
+
 
   gaming ;
   constructor(
@@ -36,16 +50,15 @@ export class ServicePlaceOrderPage {
      public navParams: NavParams,
      public actionSheetCtrl: ActionSheetController,
      public modalCtrl: ModalController,
-     public firebaseDb: AngularFireDatabase
+     public firebaseDb: AngularFireDatabase,
+     public localStorage: Storage
+
   ) {
+
 
    this.email = this.navParams.get('emailId');
    this.userAuthority = this.navParams.get('emailId');
    this.orderEmail = this.navParams.get('orderEmail');
-
-
-
-
 
   }
 
@@ -54,31 +67,32 @@ export class ServicePlaceOrderPage {
   }
 
 
-
-
-
-
   getProductDetails(value,myForm)
   {
 
-    for(var index=0; index < value.productName.length ; index++)
-    {
-
-      for(var i=0; i < this.products.length ; i++)
+    this.products = [];
+    this.localStorage.get('savedProducts').then((data)=>{
+      // console.log();
+      this.products = JSON.parse(data);
+      console.log(this.products);
+      for(var index=0; index < this.products.length ; index++)
       {
 
-        if(this.products[i].name == value.productName[index] ){
+        this.newProducts.push({
+          name: this.products[index].productName,
+          size: this.products[index].size,
+          quantity: this.products[index].quantity,
 
-          this.newProducts.push({
-            name: this.products[i].name,
-            price: this.products[i].price,
+        })
 
-          })
-
-        }
       }
 
-    }
+    });
+
+    const getStateAndAddress =value.selectparty.split(',');
+    console.log(getStateAndAddress[0]);
+    console.log(getStateAndAddress[1]);
+
 
 
     let actionSheet = this.actionSheetCtrl.create({
@@ -90,13 +104,13 @@ export class ServicePlaceOrderPage {
           handler: () => {
             let profileModal = this.modalCtrl.create(ProductDetails, {
               Products : {
-                partyName: value.partyName,
+                partyName: getStateAndAddress[1],
                 productName: this.newProducts,
-                deliveryAddress : value.deliveryAddress,
+                deliveryAddress : getStateAndAddress[0],
                 transportMedia: value.transportMedia,
                 transportMediaName: value.transportMediaName,
                 userEmail :this.email,
-                authority:this.userAuthority,
+                authority:  this.userAuthority,
                 orderEmail:this.orderEmail,
                 customername: value.customerName,
                 customermobile: value.customerMobile
@@ -118,6 +132,19 @@ export class ServicePlaceOrderPage {
     actionSheet.present();
 
   }
+
+
+  selectParty(){
+
+    this.navCtrl.push(SelectParty);
+
+  }
+
+  selectProducts()
+  {
+    this.navCtrl.push(SelectProducts);
+  }
+
 
 
 

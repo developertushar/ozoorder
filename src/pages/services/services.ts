@@ -1,4 +1,4 @@
-import { SelectParentPage } from './../select-parent/select-parent';
+
 import { PopoverPage } from './../popover/popover';
 //page which need to be pushed to the next page
 import { ServicePastOrderPage } from './../service-past-order/service-past-order';
@@ -58,18 +58,10 @@ export class ServicesPage {
     this.orderEmail = window.localStorage.getItem('orderEmail');
     this.userAuthority = window.localStorage.getItem('authority');
 
-    // const email = this.navParams.get('email');
-    // this.userAuthority = this.navParams.get('authority');
-    // this.orderEmail = this.navParams.get('orderEmail');
     console.log(this.orderEmail + 'ORDER EMAIL');
     console.log('in service'+ email);
     console.log('in service'+ this.userAuthority);
 
-    // console.log('getting the pending orders')
-    // this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
-
-    //     console.log(data);
-    // })
 
 
     const getData = this.authenService.getUserDetails();
@@ -160,23 +152,5 @@ export class ServicesPage {
 
   }
 
-
-
-  chooseDistrictManager()
-  {
-    this.navCtrl.push(SelectParentPage,{districtManagers: this.districtManagers,setToken: 'districtmanager'});
-
-  }
-
-  chooseTeamLeader()
-  {
-
-    this.navCtrl.push(SelectParentPage,{leaders: this.teamLeaders,setToken: 'teamleader'});
-
-  }
-
-  manageHierarchy(){
-
-  }
 
 }

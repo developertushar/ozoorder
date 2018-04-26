@@ -57,7 +57,9 @@ export class DataServiceProvider {
             const actionSheet = this.actionCtrl.create();
             for(var i=0;i < data.productnames.length ; i++)
             {
-              actionSheet.addButton(data.productnames[i].name);
+              actionSheet.addButton(data.productnames[i].name + ' | quantity: ' + data.productnames[i].quantity+'g' + '  |size: ' +data.productnames[i].size+'pkt');
+
+              console.log(data.productnames[i]);
               // console.log(products[i].name);
 
             }

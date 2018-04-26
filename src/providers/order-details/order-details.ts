@@ -37,7 +37,7 @@ export class OrderDetailsProvider {
   }
 
 
-  SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,email,orderId,totalAmount)
+  SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,email,orderId)
   {
 
     // getting the date
@@ -61,7 +61,6 @@ export class OrderDetailsProvider {
       deliveryTime: '',
       customername: customerName,
       customermobile: customerMobile,
-      totalamount: totalAmount,
       sendTo: '',
       OrderKey: '',
       ApprovalDate: ''

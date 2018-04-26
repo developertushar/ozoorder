@@ -25,6 +25,8 @@ export class LoginPage  implements OnInit {
 
   gettingEmail :string;
   userDetails = [];
+  getData = [];
+  email :string;
 
 
 
@@ -41,7 +43,13 @@ export class LoginPage  implements OnInit {
     public dataService: DataServiceProvider,
     public appCtrl: App
 
-  ) {  }
+  ) {
+
+
+    this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
+      this.getData = data;
+    })
+   }
 
 
   ngOnInit()
@@ -51,22 +59,38 @@ export class LoginPage  implements OnInit {
 
 
 
-  async loginToApp(email: string,password :string)
+  async loginToApp(getEmail: string,password :string)
   {
 
-    console.log('hi');
+    // console.log(getEmail);
 
+    // const email = getEmail + '@gmail.com';
+
+
+    for(var i=0;i< this.getData.length; i++)
+    {
+      if(this.getData[i].username === getEmail )
+      {
+        this.email = this.getData[i].email;
+
+      }
+    }
     const loader = this.loader.create({
       content: 'Signing you in...',
       spinner: 'dot',
       duration: 3000
     })
 
+
+
+
     loader.present();
+
+
     try
     {
 
-      let result = await this.firebaseAuth.auth.signInWithEmailAndPassword(email,password);
+      let result = await this.firebaseAuth.auth.signInWithEmailAndPassword(this.email,password);
       if(result.uid)
       {
 
@@ -84,16 +108,16 @@ export class LoginPage  implements OnInit {
 
               for(var index=0;index < this.alluserDetails.length ; index++ )
               {
-                if(this.alluserDetails[index].email === email.toLowerCase())
+                if(this.alluserDetails[index].email === this.email.toLowerCase())
                 {
 
                   this.dataService.storeUserDetails(this.alluserDetails[index]);
                   const authority = this.alluserDetails[index].authority;
-                  window.localStorage.setItem('email',email.toLowerCase());
+                  window.localStorage.setItem('email',this.email.toLowerCase());
                   window.localStorage.setItem('authority',authority);
-                  const emailId = email.toLowerCase().substr(0,email.toLowerCase().indexOf('@')) + 'orders';
+                  const emailId = this.email.toLowerCase().substr(0,this.email.toLowerCase().indexOf('@')) + 'orders';
                   window.localStorage.setItem('orderEmail',emailId);
-                  this.appCtrl.getRootNav().setRoot(TabsPage,{email: email,authority: authority,orderEmail :emailId });
+                  this.appCtrl.getRootNav().setRoot(TabsPage,{email: this.email,authority: authority,orderEmail :emailId });
                   loader.dismiss();
                   return false;
                 }

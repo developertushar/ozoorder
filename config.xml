@@ -81,4 +81,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <allow-navigation href="http://192.168.0.6:8100" />
     <engine name="android" spec="7.0.0" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
 </widget>

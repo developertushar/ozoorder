@@ -16,13 +16,23 @@
 
   <ion-content padding>
 
+    <ion-row (click)="addProducts()">
+      <ion-col col-3>
+        <ion-icon name="add"  style="width:20%;height: 20%;"></ion-icon>
+      </ion-col>
+     <ion-col col-9>
+      <p>Add Products</p>
+     </ion-col>
+
+    </ion-row>
     <ion-row (click)="logout()">
-      <ion-col>
+      <ion-col col-3>
         <ion-icon name="power"  style="width:20%;height: 20%;"></ion-icon>
+
       </ion-col>
-      <ion-col col-8>
-        <h4>Logout</h4>
-      </ion-col>
+      <ion-col col-9>
+        <p>Logout</p>
+       </ion-col>
     </ion-row>
 
   </ion-content>

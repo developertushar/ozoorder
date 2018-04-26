@@ -24,10 +24,11 @@
               <ion-item-sliding *ngFor="let product of products; let i of index" >
                 <ion-item>
                   {{product.name |uppercase}}
-                   Rs:{{product.price}}
+                   size:{{product.size}}pkt
+                   quantity:{{product.quantity}}
 
                 </ion-item>
-                <ion-label>
+              <ion-label>
 
                 </ion-label>
                 <ion-item-options side="right">
@@ -36,7 +37,6 @@
                 </ion-item-options>
               </ion-item-sliding>
               <ion-item>
-                <h2>Total Amount : {{totalAmount}}</h2>
               </ion-item>
             </ion-list>
 

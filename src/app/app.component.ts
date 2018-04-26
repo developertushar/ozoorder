@@ -49,10 +49,7 @@ export class MyApp implements OnInit{
     this.firebaseAuth.auth.onAuthStateChanged((user)=>{
       if(user)
       {
-        // const email = window.localStorage.getItem('email');
-        // const orderEmail = window.localStorage.getItem('orderEmail');
-        // const authority = window.localStorage.getItem('authority');
-        // console.log(orderEmail+ 'ORDER EMAIL IN APP.COMPONENT.TS');
+
         this.authenticationToken = true;
         // this.nav.setRoot(TabsPage,);
         // this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});

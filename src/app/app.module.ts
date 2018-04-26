@@ -1,4 +1,4 @@
-import { SelectParentPage } from './../pages/select-parent/select-parent';
+
 import { TabsPage } from './../pages/tabs/tabs';
 import { PopoverPage } from './../pages/popover/popover';
 import { ProductDetails } from '../modals/modal.productsDetails';
@@ -40,6 +40,8 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { OrderDetailsProvider } from '../providers/order-details/order-details';
 import { SettingsPage } from '../pages/settings/settings';
+import { SelectParty } from '../modals/selectParty/modal.selectparty';
+import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
 
 //interfaces
 
@@ -62,7 +64,10 @@ import { SettingsPage } from '../pages/settings/settings';
     PopoverPage,
     TabsPage,
     SettingsPage,
-    SelectParentPage
+    SelectParty,
+    SelectProducts
+
+
 
 
   ],
@@ -94,7 +99,10 @@ import { SettingsPage } from '../pages/settings/settings';
     PopoverPage,
     TabsPage,
     SettingsPage,
-    SelectParentPage
+    SelectParty,
+    SelectProducts
+
+
 
   ],
   providers: [

@@ -18,27 +18,39 @@
 
   <form id="signupForm"  #myForm="ngForm"  (ngSubmit)="getProductDetails(myForm.value,myForm)">
     <ion-list>
-      <ion-item item-end>
+      <ion-item item-end >
           <ion-label color="dark" >Select Party</ion-label>
-          <ion-select interface="popover" ngModel required name="partyName" placeholder="select Party">
-              <ion-option value="A">A</ion-option>
-              <ion-option value="B">B</ion-option>
-              <ion-option value="C">C</ion-option>
+
+          <ion-select interface="popover" name="selectparty"  [(ngModel)]="party"  placeholder="Please select Transport">
+            <span *ngFor="let item of placeOrders"   >
+                <ion-option  value="{{item.address}},{{item.name}}"  >{{item.name}}</ion-option>
+
+            </span>
+
             </ion-select>
+            <!-- <ion-select interface="popover" name="transportMedia"  [(ngModel)]="select" placeholder="Please select Transport">
+                <ion-option value="bus">Bus</ion-option>
+                <ion-option value="train">Train</ion-option>
+                <ion-option value="car">Car</ion-option>
+                <ion-option value="bike">Bike</ion-option>
+              </ion-select> -->
+
+
         </ion-item>
         <ion-item item-end>
-            <ion-label color="dark" >Product list</ion-label>
-                <ion-select  #productNames ngModel required name="productName" multiple="true" placeholder="select Product">
-                  <div *ngFor="let product of products">
-
-                    <ion-option  value="{{product.name}}">{{product.name | uppercase}} &nbsp;&nbsp;:Rs {{product.price}}</ion-option>
-                  </div>
-                </ion-select>
+            <ion-row (click)="selectProducts()">
+                <ion-col col-10>
+                    <h2>Select Products</h2>
+                </ion-col>
+                <ion-col col-2>
+                    <ion-icon name="arrow-dropright" style="position: relative;left:10%"></ion-icon>
+                </ion-col>
+              </ion-row>
           </ion-item>
           <ion-item item-end>
               <ion-label color="dark" >Transport Type</ion-label>
               <ion-select interface="popover" name="transportMedia" ngModel placeholder="Please select Transport">
-                  <ion-option value="bus">Bus</ion-option>
+                  <ion-option value="bus" selected>Bus</ion-option>
                   <ion-option value="train">Train</ion-option>
                   <ion-option value="car">Car</ion-option>
                   <ion-option value="bike">Bike</ion-option>
@@ -68,7 +80,7 @@
                   <ion-card-content>
 
                 <ion-item item-end>
-                    <ion-textarea name="deliveryAddress" ngModel required  placeholder="Enter the Order delivery address" #deliveryAddress></ion-textarea>
+                    <ion-textarea name="deliveryAddress" value="{{party}}" ngModel required  placeholder="Enter the Order delivery address" #deliveryAddress></ion-textarea>
                 </ion-item>
               </ion-card-content>
               </ion-card>

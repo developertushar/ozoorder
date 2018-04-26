@@ -8,7 +8,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 
 //services
-  OrderDetailsProvider
 
 
 @Component({
@@ -77,13 +76,9 @@ export class ProductDetails  implements OnInit {
         this.products.push(getProducts[i]);
       }
 
-      const totalAmount = 0;
-      for(var index=0;index < this.products.length ; index++)
-      {
-          this.totalAmount  +=  this.products[index].price;
-        }
 
-        console.log(this.totalAmount + 'total amount')
+
+
 
 
 
@@ -114,7 +109,7 @@ export class ProductDetails  implements OnInit {
 
   try{
     const orderId = Math.floor(Math.random() * 899999 + 100000);
-    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.items[3].value,this.items[4].value,this.newAddress,this.products,this.email,orderId,this.totalAmount);
+    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.items[3].value,this.items[4].value,this.newAddress,this.products,this.email,orderId);
     console.log(result);
     if(result)
     {

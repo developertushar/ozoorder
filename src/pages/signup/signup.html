@@ -12,13 +12,13 @@
                   <ion-label floating class="colorItem">
                     <ion-icon name="person-add"></ion-icon>
                     <span class="username">Username</span></ion-label>
-                  <ion-input name="username" type="text" required ngModel></ion-input>
+                  <ion-input name="username" type="text" [(ngModel)]="user" required ngModel></ion-input>
                 </ion-item>
                 <ion-item class="email">
                     <ion-label floating class="colorItem">
                       <ion-icon name="mail"></ion-icon>
                       Email</ion-label>
-                    <ion-input name="email"  type="text" required ngModel></ion-input>
+                    <ion-input name="email"  value="{{user}}@gmail.com" type="text" required ngModel></ion-input>
                   </ion-item>
                   <ion-item class="mobile">
                     <ion-label floating class="colorItem">
