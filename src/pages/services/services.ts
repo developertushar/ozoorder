@@ -7,10 +7,11 @@ import { ServiceTrackOrderPage } from './../service-track-order/service-track-or
 import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { PopoverController } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 
 
@@ -22,6 +23,9 @@ import {AngularFireDatabase} from 'angularfire2/database';
 })
 export class ServicesPage {
 
+
+  @ViewChild('myElement') myElem;
+  private animator: AnimationBuilder;
 
 
 
@@ -51,8 +55,11 @@ export class ServicesPage {
     public firebaseAuth: AngularFireAuth,
     public popoverCtrl: PopoverController,
     public firebaseDb: AngularFireDatabase,
+    public animationService: AnimationService,
   ) {
 
+
+    this.animator = animationService.builder();
 
     const email = window.localStorage.getItem('email');
     this.orderEmail = window.localStorage.getItem('orderEmail');
@@ -139,6 +146,8 @@ export class ServicesPage {
 
   openPage(page,authority)
   {
+
+    this.animator.setType('rubberBand').show(this.myElem.nativeElement);
     // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';?
     this.navCtrl.push(page,{emailId: this.email,authority:this.userAuthority,orderEmail: this.orderEmail });
   }

@@ -3,13 +3,15 @@ import { SignupPage } from './../signup/signup';
 import { ServicesPage } from './../services/services';
 import { HomePage } from './../home/home';
 import { AngularFireList } from 'angularfire2/database';
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit, ViewChild } from '@angular/core';
 import {App, NavController, Platform, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
+
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 
 
@@ -21,6 +23,8 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 
 
 export class LoginPage  implements OnInit {
+  @ViewChild('myElement') myElem;
+  private animator: AnimationBuilder;
   signuppage = SignupPage
 
   gettingEmail :string;
@@ -41,10 +45,13 @@ export class LoginPage  implements OnInit {
     public toastCtrl: ToastController,
     public loader :LoadingController,
     public dataService: DataServiceProvider,
-    public appCtrl: App
+    public appCtrl: App,
+    public animationService: AnimationService,
 
   ) {
 
+
+    this.animator = animationService.builder();
 
     this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
       this.getData = data;
@@ -55,7 +62,9 @@ export class LoginPage  implements OnInit {
   ngOnInit()
   {
 
+    this.animator.setType('bounceIn').show(this.myElem.nativeElement);
   }
+
 
 
 
@@ -66,15 +75,6 @@ export class LoginPage  implements OnInit {
 
     // const email = getEmail + '@gmail.com';
 
-
-    for(var i=0;i< this.getData.length; i++)
-    {
-      if(this.getData[i].username === getEmail )
-      {
-        this.email = this.getData[i].email;
-
-      }
-    }
     const loader = this.loader.create({
       content: 'Signing you in...',
       spinner: 'dot',
@@ -87,16 +87,32 @@ export class LoginPage  implements OnInit {
     loader.present();
 
 
+
+
+
     try
     {
+
+
+
+        for(var i=0;i< this.getData.length; i++)
+    {
+      if(this.getData[i].username === getEmail )
+      {
+        this.email = this.getData[i].email;
+
+      }
+    }
+
 
       let result = await this.firebaseAuth.auth.signInWithEmailAndPassword(this.email,password);
       if(result.uid)
       {
 
 
-        try{
 
+
+        try{
 
 
           const allUser = this.firebaseService.getUserDetails();
@@ -124,17 +140,10 @@ export class LoginPage  implements OnInit {
               }
            })
 
-
-
-
-
-
-
-
-
         }
         catch(e)
         {
+          console.log(e);
           const toast = this.toastCtrl.create({
             message: e,
             duration:1000,
@@ -150,18 +159,20 @@ export class LoginPage  implements OnInit {
     catch(e)
     {
 
-
-        const toast = this.toastCtrl.create({
+      console.log(e.message);
+      const toast = this.toastCtrl.create({
           message: e.message,
-          position:'bottom',
+          position:'Check your username and try again !Not valid',
           duration: 1000
         });
         toast.present();
 
+      }
 
 
 
-    }
+
+
 
 
   }

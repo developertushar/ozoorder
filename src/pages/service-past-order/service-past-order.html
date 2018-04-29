@@ -17,63 +17,65 @@
 <ion-content padding>
 
   <ion-searchbar ></ion-searchbar>
+<div>
 
- <div *ngIf="showAuthority == true;">
-     <div *ngIf="setNoRecord == true">
-        <h1>NO PAST ORDERS
-          </h1>
+  <div *ngIf="showAuthority == true;">
+    <div *ngIf="setNoRecord == true">
+      <h1>NO PAST ORDERS
+      </h1>
      </div>
-    <div *ngFor="let data  of alluserDetails">
+     <div *ngFor="let data  of alluserDetails">
       <ion-card  (click)="cardClickCheckDetailEvent(data)" >
-          <ion-card-header>
-            <ion-row>
-              <ion-col>
+        <ion-card-header>
+          <ion-row>
+            <ion-col>
                   {{data.partyname}}
                 </ion-col>
                 <ion-col col-8>
-                    {{data.Orderid}}
-              </ion-col>
-             </ion-row>
-             <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
-          </ion-card-header>
-          <ion-list>
-            <ion-row>
-              <ion-col col-12>
-                <p>Customer: {{data.customername}}</p><br>
-                <p>Customer mobile: {{data.customermobile}}</p>
-                <p>Date: {{data.placeDate}}</p>
-              </ion-col>
-            </ion-row>
-              <ion-row class="row-only"  >
-                <ion-col (swipe)="swipeEvent($event,data)">
-                    &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
-                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
-                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
-                   &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
-                    &nbsp;swipe left request Approval
+                  {{data.Orderid}}
                 </ion-col>
               </ion-row>
-          </ion-list>
-        </ion-card>
+              <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label>
+            </ion-card-header>
+            <ion-list>
+              <ion-row>
+                <ion-col col-12>
+                  <p>Customer: {{data.customername}}</p><br>
+                  <p>Customer mobile: {{data.customermobile}}</p>
+                  <p>Date: {{data.placeDate}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="row-only"  >
+                <ion-col (swipe)="swipeEvent($event,data)">
+                  &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                  &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                  &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                  &nbsp;<ion-icon class="swipe-arrow" name="arrow-dropleft"></ion-icon>
+                  &nbsp;swipe left request Approval
+                </ion-col>
+              </ion-row>
+            </ion-list>
+          </ion-card>
+        </div>
       </div>
- </div>
 
- <div *ngIf="showAuthority == false;">
-    <div *ngIf="setNoRecord == true">
-        <h1>NO PAST ORDERS
+
+      <div *ngIf="showAuthority == false;">
+        <div *ngIf="setNoRecord == true">
+          <h1>NO PAST ORDERS
           </h1>
-     </div>
-    <div *ngFor="let data  of getAllData">
-      <ion-card >
-          <ion-card-header>
-            <ion-row>
-              <ion-col>
+        </div>
+        <div *ngFor="let data  of getAllData">
+          <ion-card >
+            <ion-card-header>
+              <ion-row>
+                <ion-col>
 
                 </ion-col>
                 <ion-col col-8>
                   {{data.orderid}}
-              </ion-col>
-             </ion-row>
+                </ion-col>
+              </ion-row>
           </ion-card-header>
           <ion-list>
               <ion-row class="row-only"  >
@@ -103,7 +105,9 @@
           </ion-list>
         </ion-card>
       </div>
- </div>
+  </div>
+
+</div>
 
 
 </ion-content>

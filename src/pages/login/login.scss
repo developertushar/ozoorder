@@ -6,7 +6,7 @@ page-login {
 
 
 
-   button.login-button{
+   .login-button{
      color: white;
      border-color: white;
      position: relative;
@@ -19,7 +19,7 @@ page-login {
   }
 
     //button hover
-    button.login-button:hover{
+    .login-button:hover{
       border-color:#3c638a ;
       color:black;
       position: relative;
@@ -33,7 +33,7 @@ page-login {
    ion-card-content{
      ion-list{
 
-        ion-item.username , ion-item.password {
+       .username ,.password {
           background-color:rgba(255,255,255,0.0);
             width: 70%;
             position: relative;
@@ -43,11 +43,15 @@ page-login {
 
 
        ion-item{
-        ion-label.colorItem{
+        .colorItem{
          ion-icon{
-           color: white;
+           color: black;
 
          }
+        }
+
+        .username,.password{
+          color: white;
         }
       }
 

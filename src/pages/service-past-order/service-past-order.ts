@@ -1,13 +1,15 @@
 import { ServicesPage } from './../services/services';
 import { ServiceApprovalCheckPage } from './../service-approval-check/service-approval-check';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController, ToastController, ActionSheetController} from 'ionic-angular';
 import {Http,Response} from '@angular/http';
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { ObjectToUniqueKey } from '@firebase/database/dist/esm/src/core/util/util';
+import { AnimationService, AnimationBuilder } from 'css-animator';
+
 
 
 
@@ -25,6 +27,8 @@ import { ObjectToUniqueKey } from '@firebase/database/dist/esm/src/core/util/uti
   templateUrl: 'service-past-order.html',
 })
 export class ServicePastOrderPage {
+  @ViewChild('myElement') myElem;
+  private animator: AnimationBuilder;
 
 
 
@@ -72,7 +76,11 @@ export class ServicePastOrderPage {
      public firebaseService: FirebaseServiceProvider,
      public actionCtrl: ActionSheetController,
      public dataService: DataServiceProvider,
+     public animationService: AnimationService,
     ) {
+
+
+      this.animator = animationService.builder();
 
         this.email = this.navParams.get('emailId');
         this.authority = this.navParams.get('authority');
@@ -101,6 +109,8 @@ export class ServicePastOrderPage {
 
   ionViewDidLoad() {
 
+
+
   }
 
 
@@ -108,6 +118,8 @@ export class ServicePastOrderPage {
 
    getOrderDetails()
   {
+
+
 
     const loader = this.loading.create({
       content: 'Loading Orders..',
@@ -280,6 +292,7 @@ export class ServicePastOrderPage {
      {
 
       // console.log(data);
+
         this.dataService.cardClickDetails(data);
      }
 

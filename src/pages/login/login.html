@@ -1,29 +1,36 @@
 
 <ion-content  id="bg" style="background-image: url('assets/imgs/bg1.jpg')">
-        <ion-card-header class="header">
-          <img style="height:30%;width: 30%;position: relative;left:30%" src="assets/imgs/logo.png" alt="">
-        </ion-card-header>
-        <ion-card-content>
-              <ion-list>
+       <div #myElement >
+
+
+         <ion-card-header class="header"   >
+           <img   style="height:30%;width: 30%;position: relative;left:30%" src="assets/imgs/logo.png" alt="">
+          </ion-card-header>
+        <ion-card-content >
+          <ion-list>
                 <ion-item  class="username">
                   <ion-label floating class="colorItem">
                     <ion-icon name="person-add"></ion-icon>
-                    username</ion-label>
-                  <ion-input #email type="text" ></ion-input>
-                </ion-item>
+                    <span class="username">Username</span></ion-label>
+                    <ion-input #email type="text" ></ion-input>
+                  </ion-item>
 
-                <ion-item class="password">
-                  <ion-label floating class="colorItem">
+                  <ion-item class="password">
+                    <ion-label floating class="colorItem">
                       <ion-icon name="key"></ion-icon>
-                      Password</ion-label>
-                  <ion-input #password type="password"></ion-input>
-                </ion-item>
-            </ion-list>
-            <br><br>
-        </ion-card-content>
+                      <span class="password">Password</span></ion-label>
+                      <ion-input #password type="password"></ion-input>
+                    </ion-item>
+                  </ion-list>
+                  <br><br>
+                </ion-card-content>
 
-        <button class="login-button" ion-button outline align-items-center (click)="loginToApp(email.value,password.value)">Login</button>
-        <button class="login-button" ion-button outline align-items-center [navPush]="signuppage">Signup</button>
+                <button class="login-button" ion-button outline align-items-center (click)="loginToApp(email.value,password.value)">Login</button>
+                <button class="login-button" ion-button outline align-items-center [navPush]="signuppage">Signup</button>
+
+              </div>
+
+
 
 
 

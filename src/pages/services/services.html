@@ -5,33 +5,30 @@
   Ionic pages and navigation.
 -->
 <ion-header >
-    <ion-navbar class="navbar" color="primary" >
-      <button ion-button menuToggle >
-        <ion-icon name="menu"></ion-icon>
-      </button>
+    <ion-navbar class="navbar" color="secondary" >
       <ion-title>Services </ion-title>
       <ion-icon class="popover" name="more" color="light" (click)="presentPopover($event)"></ion-icon>
     </ion-navbar>
   </ion-header>
 
-<ion-content padding>
+<ion-content padding >
 
 
   <div id="button">
 
-      <button ion-button full (click)="openPage(service1.page)"  *ngFor="let service1 of servicesForAll" activator="highlight" >{{service1.serviceName}}</button>
+      <button ion-button full  color="secondary" (click)="openPage(service1.page)"  *ngFor="let service1 of servicesForAll" activator="highlight" >{{service1.serviceName}}</button>
       <div *ngIf="userAuthority == 'districtmanager'">
-          <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
+          <button ion-button full  color="secondary"  (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
         </div>
         <div *ngIf="userAuthority == 'teamleader'">
-            <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
+            <button ion-button full color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
           </div>
           <div *ngIf="userAuthority == 'fieldofficer'">
-            <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
+            <button ion-button full  color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
           </div>
           <div *ngIf="userAuthority == 'generalmanager'">
-              <button ion-button full (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
-            <button ion-button full  activator="highlight" >Manage hierarchy</button>
+              <button ion-button full  color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
+            <button ion-button full  color="secondary"  activator="highlight" >Manage hierarchy</button>
       </div>
 
 

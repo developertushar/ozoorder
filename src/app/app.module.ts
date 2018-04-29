@@ -17,13 +17,15 @@ import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
 import { SplashScreen  } from '@ionic-native/splash-screen';
 
+//animation
+import { AnimationService, AnimatesDirective } from 'css-animator';
+
 
 
 // native plugins
 import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
-import { SplashPage } from '../pages/splash/splash';
 import {IntroPage} from '../pages/intro/intro';
 import { ServicePastOrderPage } from './../pages/service-past-order/service-past-order';
 import { ServiceTrackOrderPage } from './../pages/service-track-order/service-track-order';
@@ -53,7 +55,6 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     LoginPage,
     SignupPage,
     HomePage,
-    SplashPage,
     ServicesPage,
     ServicePastOrderPage,
     ServiceApprovalCheckPage,
@@ -65,9 +66,8 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     TabsPage,
     SettingsPage,
     SelectParty,
-    SelectProducts
-
-
+    SelectProducts,
+    AnimatesDirective
 
 
   ],
@@ -88,7 +88,6 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     LoginPage,
     SignupPage,
     HomePage,
-    SplashPage,
     ServicesPage,
     ServicePastOrderPage,
     ServiceApprovalCheckPage,
@@ -115,7 +114,8 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     AuthServiceProvider,
     OrderDetailsProvider,
     ModalController,
-    HttpModule
+    HttpModule,
+    AnimationService
   ]
 })
 export class AppModule {}

@@ -1,6 +1,5 @@
 import { TabsPage } from './../pages/tabs/tabs';
 import { ServicesPage } from './../pages/services/services';
-import { SplashPage } from './../pages/splash/splash';
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild ,OnInit} from '@angular/core';
 import { Nav, Platform, ModalController, MenuController, Tabs } from 'ionic-angular';
@@ -26,6 +25,9 @@ import {AngularFireAuth} from 'angularfire2/auth';
 export class MyApp implements OnInit{
   @ViewChild(Nav) nav: Nav;
 
+
+   name :string;
+
   //user authentication token to verify the process
 
   authenticationToken :boolean = false;
@@ -50,9 +52,10 @@ export class MyApp implements OnInit{
       if(user)
       {
 
-        this.authenticationToken = true;
-        // this.nav.setRoot(TabsPage,);
-        // this.nav.setRoot(ServicesPage,{email: email,authority: authority,orderEmail: orderEmail});
+
+
+
+       this.authenticationToken = true;
         this.nav.setRoot(TabsPage);
 
       }
@@ -89,9 +92,9 @@ export class MyApp implements OnInit{
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
 
-      let splash = this.modal.create(SplashPage);
-      splash.present();
-      // this.splashScreen.hide();
+
+
+      this.splashScreen.hide();
 
   })
   }

@@ -29,8 +29,12 @@ export class ServicePlaceOrderPage {
     {name: 'hyderabad',address: 'wg 422 hyderabad'},
     {name: 'pune',address: 'wg 422 Pune'},
     {name: 'andrapradesh',address: 'wg 422 Andra pradesh'},
-
   ]
+
+
+
+  // only for sales officer
+
 
     products = []
 

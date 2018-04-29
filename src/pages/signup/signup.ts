@@ -41,6 +41,73 @@ export class SignupPage {
     {typeButton: 'radio',labelName: 'Distict Manager',getValue: 'districtmanager',checked: false },
   ]
 
+  // ALL list of headquators
+
+  headquators = [
+    'TELANGANA',
+    'WRANGAL&KARIMNAGAR',
+    'NEKKONDA',
+    'WARANGAL',
+    'KARIMNAGAR',
+    'JAMMIKUNTA',
+    'MAHABOOBABAD',
+    'NARSAMPETA',
+    'BHOOPALAPALLY',
+    'PARAKAL',
+    'ADILABAD & NIZAMABAD',
+    'ADILABAD',
+    'MANCHIRYALA',
+    'BAINSA',
+    'GAJWEL',
+    'NIZAMABAD',
+    'KHAMMAM & NALGONDA',
+    'MAHABOOBNAGAR',
+    'MIRYALGUDA',
+    'NANDIGAMA',
+    'SURYAPAET',
+    'MYLAVARAM',
+    'KHAMMAM & LAKKAVARAM AND JGRG',
+    'KHAMMAM',
+    'BHADRACHALAM',
+    'WYRA',
+    'JANGAREDDYGUDEM AND LAKKAVARAM',
+    'ANDHARA PRADESH',
+    'NELLORE',
+    'NELLORE1',
+    'KAVALI2',
+    'MADHANAPALLY',
+    'SRIKALAHASTHI',
+    'KAVALI1',
+    'NAYUDUPETA',
+    'GUNTOOR',
+    'PIDUGURALA',
+    'DHARSI',
+    'R C PURAM',
+    'MANDAPETA',
+    'KATRENIKONA',
+    'PEDDAPURAM',
+    'WESTGODHAVARI',
+    'KURNOOL',
+    'MAHARASTRA',
+    'ODISHA & WESTBENGAL',
+    'WESTBENGAL',
+    'ODISHA',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ]
+
   constructor(
     public alertCtrl :AlertController,
     public toastCtrl: ToastController,
@@ -62,6 +129,8 @@ export class SignupPage {
 
   async signupCredentials(user,myForm)
   {
+
+    console.log(user.headquator);
 
    this.signupToken = 'false';
 

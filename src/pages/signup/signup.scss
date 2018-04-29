@@ -38,25 +38,64 @@ page-signup {
 
 
   ion-card-content{
+
+
     ion-list{
 
-       ion-item.username , ion-item.password,
-       ion-item.email, ion-item.mobile, ion-item.confirmpassword
-        {
-         background-color:rgba(255,255,255,0.0);
-           width: 70%;
-           position: relative;
-           left: 10%;
+
+
+
+      .email,.username,.password,.mobile,.selectHeadquators
+      {
+        background-color:rgba(255,255,255,0.0);
+             width: 80%;
+             position: relative;
+             left: 5%;
+             color: rgb(230, 213, 213);
+
+      }
+
+
+
+
+
+
+
+       .headquator{
+
+        width: 100vh;
+        position: relative;
+        left: 0%;
+        background-color:rgba(255,255,255,0.0);
 
        }
 
-       ion-item{
-         ion-label.colorItem{
-          ion-icon{
-            color: white;
+
+
+       ion-item {
+          .colorItem{
+            color: black;
+          }
+
+
+          .user{
+            color: black;
+          }
+
+        .head{
+          background-color: rgb(89, 89, 105);
+          width: 400px;
+          position: relative;
+          border: 1px solid white;
+          left: 2%;
+          // background-color:rgba(255,255,255,0.0);
 
           }
-         }
+
+        .select-items{
+          background-color: red;
+        }
+
        }
 
 

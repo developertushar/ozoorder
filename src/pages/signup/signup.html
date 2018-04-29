@@ -9,32 +9,39 @@
         <ion-card-content>
               <ion-list>
                 <ion-item class="username">
-                  <ion-label floating class="colorItem">
-                    <ion-icon name="person-add"></ion-icon>
+                  <ion-label floating >
+                    <ion-icon class="colorItem" name="person-add"></ion-icon>
                     <span class="username">Username</span></ion-label>
-                  <ion-input name="username" type="text" [(ngModel)]="user" required ngModel></ion-input>
+                  <ion-input class="user" name="username" type="text" [(ngModel)]="user" required ngModel></ion-input>
                 </ion-item>
                 <ion-item class="email">
-                    <ion-label floating class="colorItem">
-                      <ion-icon name="mail"></ion-icon>
-                      Email</ion-label>
-                    <ion-input name="email"  value="{{user}}@gmail.com" type="text" required ngModel></ion-input>
+                    <ion-label floating >
+                      <ion-icon class="colorItem" name="mail"></ion-icon>
+                      <span class="email">Email</span></ion-label>
+                    <ion-input  class="user" name="email"  value="{{user}}@gmail.com" type="text" required ngModel></ion-input>
                   </ion-item>
-                  <ion-item class="mobile">
-                    <ion-label floating class="colorItem">
-                        <ion-icon name="call"></ion-icon>
-                        Mobile No</ion-label>
-                    <ion-input name="mobile" type="number" required ngModel></ion-input>
+                  <ion-item class="password">
+                    <ion-label  floating >
+                        <ion-icon  class="colorItem" name="key"></ion-icon>
+                        <span class="password">Password</span></ion-label>
+                    <ion-input class="user" name="password"  type="password"  required ngModel></ion-input>
                   </ion-item>
+                  <br>
+                  <ion-item no-lines class="selectHeadquators">
+                      <ion-label >Select Headquators</ion-label>
+                  </ion-item>
+                  <ion-item class="headquator">
 
 
-                <ion-item class="password">
-                  <ion-label  floating class="colorItem">
-                      <ion-icon name="key"></ion-icon>
-                      Password</ion-label>
-                  <ion-input name="password"  type="password"  required ngModel></ion-input>
-                </ion-item>
+                        <ion-select class="head" interface="popover" placeholder="Heaquators"  #selectItem name="headquator" ngModel >
+                            <div  *ngFor="let items of headquators">
+                              <ion-option class="select-items" value="{{items.toLowerCase()}}" selected>{{items}}</ion-option>
+                            </div>
+                          </ion-select>
+
+                  </ion-item>
             </ion-list>
+
             <br><br>
             <button class="login-button"  ion-button outline type="submit" [disabled]="!myForm.valid"  title="fi">SIGNUP </button>
         </ion-card-content>
