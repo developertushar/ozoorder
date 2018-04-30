@@ -1,4 +1,5 @@
 
+
 import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { Component, ViewChild } from '@angular/core';
 
@@ -35,78 +36,17 @@ export class SignupPage {
 
 
   setRadioButton = [
-    {typeButton: 'radio',labelName: 'General Manager',getValue: 'generalmanager',checked: true},
-    {typeButton: 'radio',labelName: 'Team Leader',getValue: 'teamleader',checked: false },
-    {typeButton: 'radio',labelName: 'Field Officer',getValue: 'fieldofficer',checked: false },
-    {typeButton: 'radio',labelName: 'Distict Manager',getValue: 'districtmanager',checked: false },
+    {typeButton: 'radio',labelName: 'PLANT',getValue: 'plant',checked: false },
+    {typeButton: 'radio',labelName: 'REGIONAL MANAGER',getValue: 'regionalmanager',checked: true},
+    {typeButton: 'radio',labelName: 'AREA SALES MANAGER',getValue: 'areasalesmanager',checked: false },
+    {typeButton: 'radio',labelName: 'SALES OFFICER',getValue: 'salesofficer',checked: false },
   ]
 
   // ALL list of headquators
 
-  headquators = [
-    'TELANGANA',
-    'WRANGAL&KARIMNAGAR',
-    'NEKKONDA',
-    'WARANGAL',
-    'KARIMNAGAR',
-    'JAMMIKUNTA',
-    'MAHABOOBABAD',
-    'NARSAMPETA',
-    'BHOOPALAPALLY',
-    'PARAKAL',
-    'ADILABAD & NIZAMABAD',
-    'ADILABAD',
-    'MANCHIRYALA',
-    'BAINSA',
-    'GAJWEL',
-    'NIZAMABAD',
-    'KHAMMAM & NALGONDA',
-    'MAHABOOBNAGAR',
-    'MIRYALGUDA',
-    'NANDIGAMA',
-    'SURYAPAET',
-    'MYLAVARAM',
-    'KHAMMAM & LAKKAVARAM AND JGRG',
-    'KHAMMAM',
-    'BHADRACHALAM',
-    'WYRA',
-    'JANGAREDDYGUDEM AND LAKKAVARAM',
-    'ANDHARA PRADESH',
-    'NELLORE',
-    'NELLORE1',
-    'KAVALI2',
-    'MADHANAPALLY',
-    'SRIKALAHASTHI',
-    'KAVALI1',
-    'NAYUDUPETA',
-    'GUNTOOR',
-    'PIDUGURALA',
-    'DHARSI',
-    'R C PURAM',
-    'MANDAPETA',
-    'KATRENIKONA',
-    'PEDDAPURAM',
-    'WESTGODHAVARI',
-    'KURNOOL',
-    'MAHARASTRA',
-    'ODISHA & WESTBENGAL',
-    'WESTBENGAL',
-    'ODISHA',
 
+  headquators :any;
 
-
-
-
-
-
-
-
-
-
-
-
-
-  ]
 
   constructor(
     public alertCtrl :AlertController,
@@ -125,12 +65,14 @@ export class SignupPage {
       this.getData = data;
     })
 
+    this.headquators = this.firebaseService.getTheHeadquators();
+
   }
 
   async signupCredentials(user,myForm)
   {
 
-    console.log(user.headquator);
+    console.log(user);
 
    this.signupToken = 'false';
 
@@ -140,11 +82,8 @@ export class SignupPage {
       if(this.getData[index].username === user.username)
       {
         this.signupToken = 'true'
-
       }
-
     }
-
 
     if(this.signupToken === 'true')
     {
@@ -182,8 +121,9 @@ export class SignupPage {
 
 
         this.authority = data;
+        console.log(this.authority);
 
-        this.getAuthenticated(user.email,user.password,user.mobile ,this.authority,user.username );
+        this.getAuthenticated(user.email,user.password,user.username,user.headquator,this.authority);
 
       }
     });
@@ -196,9 +136,14 @@ export class SignupPage {
 
 
 
-      async getAuthenticated(email :string,password: string,mobile :number,authority :string,username :string )
+      async getAuthenticated(email :string,password: string,username :string,headquator :string,authority :string)
       {
 
+        console.log(email + 'email');
+        console.log(password + 'password');
+        console.log(username + 'username');
+        console.log(headquator + 'headquator');
+        console.log(authority + 'authority');
 
         const load = this.loadCtrl.create({
           content: 'Signing you up...',
@@ -208,7 +153,7 @@ export class SignupPage {
 
         load.present();
 
-        const result = await  this.firebaseService.setAuthentication(email.toLowerCase(),password,mobile,this.authority,username);
+        const result = await  this.firebaseService.setAuthentication(email.toLowerCase(),password,authority,headquator,username);
          try{
 
 
@@ -219,7 +164,7 @@ export class SignupPage {
 
 
 
-            const setToDatabase = await this.firebaseService.AddSignupDetails(username,email.toLowerCase(),mobile,authority);
+            const setToDatabase = await this.firebaseService.AddSignupDetails(email.toLowerCase(),authority,headquator,username);
             if(setToDatabase === true)
             {
               load.dismiss();

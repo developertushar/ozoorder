@@ -23,7 +23,7 @@
       </ion-segment>
     </ion-toolbar>
 
-    <ion-toolbar no-border-top *ngIf="showAuthority != 'true'">
+    <ion-toolbar no-border-top *ngIf="showAuthority === 'false'">
         <ion-segment [(ngModel)]="orderType2">
           <ion-segment-button value="approved">
             <ion-icon name="checkmark-circle" class="check"></ion-icon>
@@ -35,9 +35,7 @@
         </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
-
   </ion-header>
-
 
 <ion-content>
 
@@ -45,12 +43,12 @@
       <div [ngSwitch]="orderType"  *ngIf="showAuthority == 'true'">
         <ion-list *ngSwitchCase="'approved'">
 
-            <div  *ngFor="let pendingorder  of pendingOrders">
-                <ion-card  *ngIf="pendingorder.isApproved == 'true'" >
+            <!-- <div  *ngFor="let pendingorder  of pendingOrders">
+                <ion-card  *ngIf="pendingorder.isApproved === 'true'" >
                     <ion-card-header>
                       <ion-row>
                         <ion-col>
-                          {{pendingorder.partyname}}
+                          {{pendingorder.Heaquator}}
 
                         </ion-col>
                         <ion-col col-8>
@@ -71,16 +69,18 @@
                       </ion-row>
                     </ion-list>
                   </ion-card>
-                </div>
+                </div> -->
           </ion-list>
 
         <ion-list *ngSwitchCase="'pending'">
+
             <div  *ngFor="let pendingorder  of pendingOrders">
-                <ion-card  *ngIf="pendingorder.isApproved == ''" >
+
+                <ion-card  *ngIf="pendingorder.isApproved === ''" >
                     <ion-card-header>
                       <ion-row>
                         <ion-col>
-                          {{pendingorder.partyname}}
+                          {{pendingorder.Heaquator}}
 
                         </ion-col>
                         <ion-col col-8>
@@ -88,15 +88,15 @@
 
                         </ion-col>
                       </ion-row>
-                      <!-- <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;">click for product Details</ion-label> -->
+
                     </ion-card-header>
                     <ion-list>
                       <ion-row>
                         <ion-col col-12>
                           <p>Customer: {{pendingorder.customername}}</p><br>
                           <p>Customer mobile: {{pendingorder.customermobile}}</p>
-                          <p>Send To: {{pendingorder.sendTo}}</p>
-                          <p>Send Date: {{pendingorder.sendApprovalDate}}</p>
+                          <p>Send By: {{pendingorder.sendBy}}</p>
+                          <p>Send Date: {{pendingorder.placeDate}}</p>
                         </ion-col>
                       </ion-row>
                     </ion-list>
@@ -135,8 +135,9 @@
         </ion-list>
       </div>
 
-      <div [ngSwitch]="orderType2"  *ngIf="showAuthority != 'true'">
+      <div [ngSwitch]="orderType2"  *ngIf="showAuthority === 'false'">
           <ion-list *ngSwitchCase="'approved'">
+            <div *ngIf="isSalesOfficer === 'true'">
               <div *ngFor="let approve  of aproveOrders">
                   <ion-card >
                       <ion-card-header>
@@ -148,7 +149,7 @@
                                 {{approve.Orderid}}
                           </ion-col>
                         </ion-row>
-                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click for product Details</ion-label>
+                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click to Modify Product</ion-label>
                       </ion-card-header>
                       <ion-list>
                         <ion-row>
@@ -173,6 +174,7 @@
                       </ion-list>
                     </ion-card>
                   </div>
+                </div>
           </ion-list>
 
           <ion-list *ngSwitchCase="'pending'">

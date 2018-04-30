@@ -1,3 +1,4 @@
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { Storage } from '@ionic/storage';
 import { SelectProducts } from '../../modals/selectProducts/modal.selectproduct';
 
@@ -33,16 +34,16 @@ export class ServicePlaceOrderPage {
 
 
 
-  // only for sales officer
 
-
-    products = []
+  products = []
 
   itemLocation :string;
 
   party :string;
   party1 :string;
   selectparty :string;
+
+  headquators :any;
 
 
 
@@ -55,6 +56,7 @@ export class ServicePlaceOrderPage {
      public actionSheetCtrl: ActionSheetController,
      public modalCtrl: ModalController,
      public firebaseDb: AngularFireDatabase,
+     public firebaseService: FirebaseServiceProvider,
      public localStorage: Storage
 
   ) {
@@ -63,6 +65,9 @@ export class ServicePlaceOrderPage {
    this.email = this.navParams.get('emailId');
    this.userAuthority = this.navParams.get('emailId');
    this.orderEmail = this.navParams.get('orderEmail');
+
+  // console.log(this.navParams.get(OrderTomodified))
+   this.headquators = this.firebaseService.getTheHeadquators();
 
   }
 
@@ -73,6 +78,13 @@ export class ServicePlaceOrderPage {
 
   getProductDetails(value,myForm)
   {
+
+    console.log(value);
+
+     const getStateAndAddress =value.headquator.split(',');
+    console.log(getStateAndAddress[0]);
+    console.log(getStateAndAddress[1]);
+
 
     this.products = [];
     this.localStorage.get('savedProducts').then((data)=>{
@@ -93,9 +105,6 @@ export class ServicePlaceOrderPage {
 
     });
 
-    const getStateAndAddress =value.selectparty.split(',');
-    console.log(getStateAndAddress[0]);
-    console.log(getStateAndAddress[1]);
 
 
 
@@ -108,10 +117,10 @@ export class ServicePlaceOrderPage {
           handler: () => {
             let profileModal = this.modalCtrl.create(ProductDetails, {
               Products : {
-                partyName: getStateAndAddress[1],
                 productName: this.newProducts,
                 deliveryAddress : getStateAndAddress[0],
                 transportMedia: value.transportMedia,
+                headquator: getStateAndAddress[1],
                 transportMediaName: value.transportMediaName,
                 userEmail :this.email,
                 authority:  this.userAuthority,

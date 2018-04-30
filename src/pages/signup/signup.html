@@ -33,9 +33,9 @@
                   <ion-item class="headquator">
 
 
-                        <ion-select class="head" interface="popover" placeholder="Heaquators"  #selectItem name="headquator" ngModel >
+                        <ion-select class="head" interface="popover" placeholder="Heaquators"  #selectItem name="headquator" required ngModel >
                             <div  *ngFor="let items of headquators">
-                              <ion-option class="select-items" value="{{items.toLowerCase()}}" selected>{{items}}</ion-option>
+                              <ion-option class="select-items" value="{{items.name.toLowerCase()}}" selected>{{items.name}}</ion-option>
                             </div>
                           </ion-select>
 

@@ -17,16 +17,16 @@
   <div id="button">
 
       <button ion-button full  color="secondary" (click)="openPage(service1.page)"  *ngFor="let service1 of servicesForAll" activator="highlight" >{{service1.serviceName}}</button>
-      <div *ngIf="userAuthority == 'districtmanager'">
+      <div *ngIf="userAuthority == 'areasalesmanager'">
           <button ion-button full  color="secondary"  (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
         </div>
         <div *ngIf="userAuthority == 'teamleader'">
             <button ion-button full color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
           </div>
-          <div *ngIf="userAuthority == 'fieldofficer'">
+          <div *ngIf="userAuthority == 'salesofficer'">
             <button ion-button full  color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Orders</button>
           </div>
-          <div *ngIf="userAuthority == 'generalmanager'">
+          <div *ngIf="userAuthority == 'regionalmanager'">
               <button ion-button full  color="secondary" (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Past Approved Orders</button>
             <button ion-button full  color="secondary"  activator="highlight" >Manage hierarchy</button>
       </div>

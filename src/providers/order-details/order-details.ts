@@ -40,6 +40,7 @@ export class OrderDetailsProvider {
   SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,email,orderId)
   {
 
+
     // getting the date
     var date = new Date();
     const modifiedDate = date.toUTCString();
@@ -48,7 +49,7 @@ export class OrderDetailsProvider {
 
     const emailId = email.substr(0,email.indexOf('@')) + 'orders';
     const setTheData = {
-      partyname : partyName,
+      Headquator : partyName,
       transportmedia: transportMedia,
       transportname: transportName,
       deliveryaddress: address,
@@ -63,7 +64,8 @@ export class OrderDetailsProvider {
       customermobile: customerMobile,
       sendTo: '',
       OrderKey: '',
-      ApprovalDate: ''
+      ApprovalDate: '',
+      sendBy: email
     };
 
     const set = this.firebaseDb.list('/Orders/'+emailId).push(setTheData).then((item)=>{
@@ -73,16 +75,10 @@ export class OrderDetailsProvider {
       })
 
     });
-    // const set = this.http.post('https://ozoorderfinal.firebaseio.com/Orders/'+emailId+'.json' ,setTheData);
-    // set.subscribe(
-    //   (response) =>{
-    //       console.log(response);
-    //   },
-    //  (error) =>{
 
-    //  }
-    // )
-      if(set)
+    const pending = this.firebaseDb.list('/pendingOrder/').push(setTheData);
+
+      if(set && pending)
       {
         return true;
       }

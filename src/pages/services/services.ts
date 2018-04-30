@@ -11,7 +11,6 @@ import { Component, ViewChild } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { PopoverController } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
-import { AnimationService, AnimationBuilder } from 'css-animator';
 
 
 
@@ -24,8 +23,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 export class ServicesPage {
 
 
-  @ViewChild('myElement') myElem;
-  private animator: AnimationBuilder;
+
 
 
 
@@ -55,11 +53,11 @@ export class ServicesPage {
     public firebaseAuth: AngularFireAuth,
     public popoverCtrl: PopoverController,
     public firebaseDb: AngularFireDatabase,
-    public animationService: AnimationService,
+
   ) {
 
 
-    this.animator = animationService.builder();
+
 
     const email = window.localStorage.getItem('email');
     this.orderEmail = window.localStorage.getItem('orderEmail');
@@ -71,6 +69,8 @@ export class ServicesPage {
 
 
 
+
+
     const getData = this.authenService.getUserDetails();
     getData.subscribe((data)=>{
 
@@ -78,7 +78,7 @@ export class ServicesPage {
      for(var index=0;index < this.alluserDetails.length ; index++ )
      {
 
-      if(this.alluserDetails[index].authority == 'teamleader')
+      if(this.alluserDetails[index].authority == 'salesofficer')
       {
         this.teamLeaders.push({
           teamLeaderId: this.alluserDetails[index].email,
@@ -86,7 +86,7 @@ export class ServicesPage {
         })
       }
 
-      if(this.alluserDetails[index].authority == 'districtmanager')
+      if(this.alluserDetails[index].authority == 'areasalesmanager')
       {
         this.districtManagers.push({
           districtManagerId: this.alluserDetails[index].email,
@@ -94,7 +94,7 @@ export class ServicesPage {
         })
       }
 
-      if(this.alluserDetails[index].authority == 'generalmanager')
+      if(this.alluserDetails[index].authority == 'regionalmanager')
       {
         this.generalMangers.push({
           generalManagerId: this.alluserDetails[index].email,
@@ -137,8 +137,8 @@ export class ServicesPage {
   servicesForSpecific = [
     {serviceName: 'Approve Order',page: ServicePlaceOrderPage,forSpecific: 'all'},
     {serviceName: 'Past Approved Orders',page: ServiceTrackOrderPage,forSpecific: 'all'},
-    {serviceName: 'Check Approval',page: ServicePlaceOrderPage,forSpecific: 'fieldofficer'},
-    {serviceName: 'Past Orders',page: ServiceTrackOrderPage,forSpecific: 'fieldofficer'},
+    {serviceName: 'Check Approval',page: ServicePlaceOrderPage,forSpecific: 'salesofficer'},
+    {serviceName: 'Past Orders',page: ServiceTrackOrderPage,forSpecific: 'salesofficer'},
 
 
   ]
@@ -147,8 +147,7 @@ export class ServicesPage {
   openPage(page,authority)
   {
 
-    this.animator.setType('rubberBand').show(this.myElem.nativeElement);
-    // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';?
+    // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';
     this.navCtrl.push(page,{emailId: this.email,authority:this.userAuthority,orderEmail: this.orderEmail });
   }
 

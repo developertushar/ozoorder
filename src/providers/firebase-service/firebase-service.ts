@@ -49,7 +49,7 @@ export class FirebaseServiceProvider implements OnInit {
 
 
 
-  async setAuthentication(email :string,password :string,mobile :number,authority :string,username :string)
+  async setAuthentication(email :string,password :string,authority :string,headquator :string,username :string)
   {
 
     console.log(email);
@@ -76,61 +76,224 @@ export class FirebaseServiceProvider implements OnInit {
   }
 
 
-  async AddSignupDetails(username,email,phone,authority)
+  async AddSignupDetails(email :string,authority :string,headquator :string,username :string)
   {
-    console.log(authority);
 
-    if(authority === 'fieldofficer')
-    {
-      const emailId = email.substr(0,email.indexOf('@'));
+
+    const emailId = email.substr(0,email.indexOf('@'));
     this.firebaseDb.list('/userDetails/').set(emailId,{
           username: username,
           email: email,
           authority: authority,
-          phoneNo: phone,
-          teamLeadId: ''
+          headquator: headquator
+
     })
-    }
-    if(authority === 'teamleader')
-    {
-      const emailId = email.substr(0,email.indexOf('@'));
-    this.firebaseDb.list('/userDetails/').set(emailId,{
-          username: username,
-          email: email,
-          authority: authority,
-          phoneNo: phone,
-          districtMangerId: ''
-    })
-    }
-    if(authority === 'districtmanager')
-    {
-      const emailId = email.substr(0,email.indexOf('@'));
-    this.firebaseDb.list('/userDetails/').set(emailId,{
-          username: username,
-          email: email,
-          authority: authority,
-          phoneNo: phone,
-          plantGeneralManagerId: ''
-    })
-    }
-    if(authority === 'generalmanager')
-    {
-      const emailId = email.substr(0,email.indexOf('@'));
-    this.firebaseDb.list('/userDetails/').set(emailId,{
-          username: username,
-          email: email,
-          authority: authority,
-          phoneNo: phone,
-    })
-    }
-
-
-
-
-
 
     return true;
     // return true;
+  }
+
+
+  getTheHeadquators()
+  {
+    var headquators = [
+      {
+        name: 'TELANGANA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'WRANGAL&KARIMNAGAR',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NEKKONDA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'WARANGAL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KARIMNAGAR',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'JAMMIKUNTA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MAHABOOBABAD',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NARSAMPETA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'BHOOPALAPALLY',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'PARAKAL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'ADILABAD & NIZAMABAD',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'ADILABAD',
+        headquatorAddress: 'wg 422'
+      },
+
+      {
+        name: 'MANCHIRYALA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'BAINSA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'GAJWEL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NIZAMABAD',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KHAMMAM & NALGONDA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MAHABOOBNAGAR',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MIRYALGUDA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NANDIGAMA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'SURYAPAET',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MYLAVARAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KHAMMAM & LAKKAVARAM AND JGRG',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KHAMMAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'BHADRACHALAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'WYRA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'JANGAREDDYGUDEM AND LAKKAVARAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'ANDHARA PRADESH',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NELLORE',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NELLORE1',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KAVALI2',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MADHANAPALLY',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'SRIKALAHASTHI',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KAVALI1',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'NAYUDUPETA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'GUNTOOR',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'PIDUGURALA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'DHARSI',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'R C PURAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MANDAPETA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KATRENIKONA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'PEDDAPURAM',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'WESTGODHAVARI',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'KURNOOL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'MAHARASTRA',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'ODISHA & WESTBENGAL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'WESTBENGAL',
+        headquatorAddress: 'wg 422'
+      },
+      {
+        name: 'ODISHA',
+        headquatorAddress: 'wg 422'
+      },
+    ].sort();
+
+    return headquators;
+
   }
 
 

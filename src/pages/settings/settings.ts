@@ -46,7 +46,7 @@ export class SettingsPage {
               name: this.alluserDetails[index].username,
               authority: this.alluserDetails[index].authority,
               email: this.alluserDetails[index].email,
-              phoneNo: this.alluserDetails[index].phoneNo,
+              headquator: this.alluserDetails[index].headquator,
             })
 
           }

@@ -11,7 +11,6 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
-import { AnimationService, AnimationBuilder } from 'css-animator';
 
 
 
@@ -23,8 +22,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 
 
 export class LoginPage  implements OnInit {
-  @ViewChild('myElement') myElem;
-  private animator: AnimationBuilder;
+
   signuppage = SignupPage
 
   gettingEmail :string;
@@ -32,9 +30,6 @@ export class LoginPage  implements OnInit {
   getData = [];
   email :string;
 
-
-
-  alluserDetails = [];
 
   constructor(
     public navCtrl: NavController,
@@ -46,14 +41,16 @@ export class LoginPage  implements OnInit {
     public loader :LoadingController,
     public dataService: DataServiceProvider,
     public appCtrl: App,
-    public animationService: AnimationService,
+
 
   ) {
 
 
-    this.animator = animationService.builder();
 
-    this.firebaseDb.list('/userDetails/').valueChanges().subscribe((data)=>{
+
+
+    const allUser = this.firebaseService.getUserDetails();
+    allUser.subscribe((data)=>{
       this.getData = data;
     })
    }
@@ -62,7 +59,7 @@ export class LoginPage  implements OnInit {
   ngOnInit()
   {
 
-    this.animator.setType('bounceIn').show(this.myElem.nativeElement);
+
   }
 
 
@@ -71,9 +68,7 @@ export class LoginPage  implements OnInit {
   async loginToApp(getEmail: string,password :string)
   {
 
-    // console.log(getEmail);
 
-    // const email = getEmail + '@gmail.com';
 
     const loader = this.loader.create({
       content: 'Signing you in...',
@@ -114,21 +109,15 @@ export class LoginPage  implements OnInit {
 
         try{
 
-
-          const allUser = this.firebaseService.getUserDetails();
-
-
-          allUser.subscribe((data) => {
-              this.alluserDetails = data;
-
-
-              for(var index=0;index < this.alluserDetails.length ; index++ )
+              for(var index=0;index < this.getData.length ; index++ )
               {
-                if(this.alluserDetails[index].email === this.email.toLowerCase())
+                if(this.getData[index].email === this.email.toLowerCase())
                 {
 
-                  this.dataService.storeUserDetails(this.alluserDetails[index]);
-                  const authority = this.alluserDetails[index].authority;
+
+
+                  this.dataService.storeUserDetails(this.getData[index]);
+                  const authority = this.getData[index].authority;
                   window.localStorage.setItem('email',this.email.toLowerCase());
                   window.localStorage.setItem('authority',authority);
                   const emailId = this.email.toLowerCase().substr(0,this.email.toLowerCase().indexOf('@')) + 'orders';
@@ -138,7 +127,7 @@ export class LoginPage  implements OnInit {
                   return false;
                 }
               }
-           })
+          //  })
 
         }
         catch(e)

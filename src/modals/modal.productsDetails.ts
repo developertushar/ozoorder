@@ -1,3 +1,4 @@
+import { FirebaseServiceProvider } from './../providers/firebase-service/firebase-service';
 import { ServicesPage } from './../pages/services/services';
 import { OrderDetailsProvider } from './../providers/order-details/order-details';
 import { Component , OnInit } from '@angular/core';
@@ -34,6 +35,7 @@ export class ProductDetails  implements OnInit {
   customername :any;
   customermobile :any;
 
+  noProducts :string;
 
 
   items;
@@ -46,6 +48,7 @@ export class ProductDetails  implements OnInit {
     public navCtrl: NavController,
     public orderDetailService: OrderDetailsProvider,
     public firebaseDb: AngularFireDatabase,
+    public firebaseService: FirebaseServiceProvider,
     public loader: LoadingController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
@@ -54,11 +57,16 @@ export class ProductDetails  implements OnInit {
 
   ) {
 
+      this.noProducts = 'false';
       this.getProductDetails = this.navParams.get('Products');
       this.email = this.getProductDetails.userEmail;
 
+
+
+
+
       this.items = [
-        {name: 'Party',value: this.getProductDetails.partyName},
+        {name: 'Heaquator',value: this.getProductDetails.headquator},
         {name: 'Transport Media',value: this.getProductDetails.transportMedia},
         {name: 'Transport Name',value: this.getProductDetails.transportMediaName},
         {name: 'Customer Name',value: this.getProductDetails.customername},
@@ -74,6 +82,11 @@ export class ProductDetails  implements OnInit {
       for(var i=0;i < getProducts.length ; i++)
       {
         this.products.push(getProducts[i]);
+      }
+
+      if(this.products.length == 0)
+      {
+        this.noProducts = 'true';
       }
 
 

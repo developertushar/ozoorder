@@ -27,7 +27,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
   templateUrl: 'service-past-order.html',
 })
 export class ServicePastOrderPage {
-  @ViewChild('myElement') myElem;
+  // @ViewChild('myElement') myElem;
   private animator: AnimationBuilder;
 
 
@@ -80,12 +80,12 @@ export class ServicePastOrderPage {
     ) {
 
 
-      this.animator = animationService.builder();
+      // this.animator = animationService.builder();
 
         this.email = this.navParams.get('emailId');
         this.authority = this.navParams.get('authority');
         this.leaderToSend  = window.localStorage.getItem('selectApprovalAuthorityLeader');
-        if(this.authority == 'fieldofficer')
+        if(this.authority == 'salesofficer')
         {
           this.showAuthority = true;
         }

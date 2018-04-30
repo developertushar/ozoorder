@@ -21,20 +21,13 @@
       <ion-item item-end >
           <ion-label color="dark" >Select Party</ion-label>
 
-          <ion-select interface="popover" name="selectparty"  [(ngModel)]="party"  placeholder="Please select Transport">
-            <span *ngFor="let item of placeOrders"   >
-                <ion-option  value="{{item.address}},{{item.name}}"  >{{item.name}}</ion-option>
+          <ion-select interface="popover" name="headquator"  [(ngModel)]="party" placeholder="Please select Transport">
+            <span *ngFor="let headquator of headquators">
+                <ion-option  value="{{headquator.headquatorAddress}},{{headquator.name}}"  >{{headquator.name}}</ion-option>
 
             </span>
 
-            </ion-select>
-            <!-- <ion-select interface="popover" name="transportMedia"  [(ngModel)]="select" placeholder="Please select Transport">
-                <ion-option value="bus">Bus</ion-option>
-                <ion-option value="train">Train</ion-option>
-                <ion-option value="car">Car</ion-option>
-                <ion-option value="bike">Bike</ion-option>
-              </ion-select> -->
-
+        </ion-select>
 
         </ion-item>
         <ion-item item-end>

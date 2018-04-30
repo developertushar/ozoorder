@@ -1,3 +1,4 @@
+import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
 import { ServicesPage } from './../services/services';
 import { DataServiceProvider } from './../../providers/data-service/data-service';
 import { Component } from '@angular/core';
@@ -20,7 +21,7 @@ import { AngularFireDatabase} from 'angularfire2/database';
 export class ServiceApprovalCheckPage {
 
 
-
+  areaSalesOfficer  = [];
   userAuthority :string;
   email :string;
   authority: string;
@@ -43,6 +44,7 @@ export class ServiceApprovalCheckPage {
   setMessage :string;
   setNoRecord :boolean;
 
+  isSalesOfficer :string;
 
   constructor(
     public navCtrl: NavController,
@@ -54,39 +56,33 @@ export class ServiceApprovalCheckPage {
 
   ) {
 
+    this.showAuthority = 'false'
     this.userAuthority = window.localStorage.getItem('authority');
     const email = window.localStorage.getItem('email');
     this.orderEmail = window.localStorage.getItem('orderEmail');
 
     console.log(email + 'getting email');
-
-    //retrieve data
-
-    // this.getPendingOrders(email);
-
-
-    // console.log('getting the pending orders')
     this.firebaseDb.list('/pendingOrder/',ref => ref.orderByChild('sendBy').equalTo(email)).valueChanges().subscribe((data)=>{
 
-        this.pendingOrders = data;
-        console.log(this.pendingOrders);
+
+       this.pendingOrders = data;
     })
 
    console.log(this.pendingOrders);
 
+   if(this.userAuthority == 'salesofficer')
+   {
+     this.showAuthority = 'true';
+   }
+
 
     this.getOrdersForTeamLeader(email);
+
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServiceApprovalCheckPage');
-
-
-     if(this.userAuthority == 'fieldofficer')
-     {
-       this.showAuthority = 'true';
-     }
-
   }
 
 
@@ -98,14 +94,28 @@ export class ServiceApprovalCheckPage {
   getOrdersForTeamLeader(email)
   {
 
+    this.isSalesOfficer = 'false';
+    console.log(email);
 
-    const getPendingOrder = this.firebaseDb.list('/pendingOrder/',ref=> ref.orderByChild('sendTo').equalTo(email)).valueChanges();
-    getPendingOrder.subscribe((orders)=>{
+    this.firebaseDb.list('userDetails', ref=> ref.orderByChild('authority').equalTo('areasalesmanager'))
+    .valueChanges().subscribe((data)=>{
 
-      // console.log(Object.keys(data));
-      this.aproveOrders = orders;
+        this.areaSalesOfficer = data;
+        for(var i=0;i<this.areaSalesOfficer.length ; i++)
+        {
+          if(this.areaSalesOfficer[i].email === email)
+          {
+            this.isSalesOfficer = 'true';
+            this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
+                 this.aproveOrders = data;
+            })
+
+          }
+        }
 
     })
+
+
   }
 
 
@@ -144,7 +154,7 @@ export class ServiceApprovalCheckPage {
     }).catch((error)=>{
 
       const toast = this.toastCtrl.create({
-        message: 'Successfully Approved',
+        message: error,
         duration: 1500,
         position: 'bottom'
       })
@@ -210,7 +220,8 @@ export class ServiceApprovalCheckPage {
 
   cardClickCheckDetailEvent(data){
 
-    // console.log('hey');
-    this.dataService.cardClickDetails(data);
+    console.log(data);
+    // this.navCtrl.push(ServicePlaceOrderPage,{OrderTomodified: data});
+
   }
 }
