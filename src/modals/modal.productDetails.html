@@ -7,48 +7,38 @@
 
 <ion-content>
 
-         <ion-list>
-          <ion-item item-end *ngFor="let item of items">
-            <ion-label color="dark" >{{item.name |uppercase}}:{{item.value}}</ion-label>
-          </ion-item>
+  <div  *ngFor="let item of getProductDetails">
 
-          <ion-item>
-              <ion-label color="dark"> ADDRESS:</ion-label><br>
-                <ion-textarea [disabled]="true" color="dark" [value]="newAddress" ></ion-textarea>
-          </ion-item>
+    <ion-list item-end>
+      <ion-item >
+        <ion-label color="dark" >Headquator: {{item.headquator |lowercase}}</ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label color="dark" >Customer Name: {{item.customername |lowercase}}</ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label color="dark" >Customer Mobile: {{item.customermobile |lowercase}}</ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label color="dark" >Transoort Media: {{item.transportMedia |lowercase}}</ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label color="dark" >Transport Name: {{item.transportMediaName |lowercase}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="dark"> Address:{{item.deliveryAddress}}</ion-label><br>
 
-        </ion-list>
+      </ion-item>
+      <ion-item>
+          <ion-label color="dark">Products:</ion-label><br>
 
-          <ion-list>
-              <ion-item>PRODUCTS</ion-item>
-              <ion-item *ngIf="noProducts === 'true'">
-                <h1>Sorry No Products</h1>
-              </ion-item>
-              <ion-item-sliding *ngFor="let product of products; let i of index" >
+        </ion-item>
+        <div *ngFor="let product of item.productName">
 
-                    <ion-item>
-                        {{product.name |uppercase}}
-                         size:{{product.size}}pkt
-                         quantity:{{product.quantity}}
+            <ion-item>{{product.name}}|{{product.quantity}}|{{product.size}}
+            </ion-item>
 
-                      </ion-item>
-
-                <ng-template #elsePart>
-                  No products Selected
-
-                </ng-template>
-
-              <ion-label>
-
-                </ion-label>
-                <ion-item-options side="right">
-                  <button ion-button color="danger" (click)="delItem(product)">
-                      <ion-icon name="trash"></ion-icon>Delete</button>
-                </ion-item-options>
-              </ion-item-sliding>
-              <ion-item>
-              </ion-item>
-            </ion-list>
+        </div>
 
 
 
@@ -57,7 +47,21 @@
 
 
 
-    <button ion-button full  (click)="placeOrder()">Confirm Order</button> <br>
-    <button ion-button full (click)="closeModal()">Cancel Order</button>
+
+
+    </ion-list>
+
+
+
+
+
+
+
+
+
+
+    <button ion-button full  (click)="placeOrder(item,item.productName)">Confirm Order</button> <br>
+    <button ion-button full (click)="closeModal(item,item.productName)">Cancel Order</button>
+  </div>
 </ion-content>
 

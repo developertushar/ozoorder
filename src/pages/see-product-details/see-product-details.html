@@ -1,0 +1,168 @@
+<ion-header>
+    <ion-navbar color="secondary" >
+      <ion-title item-center>Product Summary</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content>
+    <i>Press and hold the each item to modify</i>
+
+
+    <div  *ngFor="let item of getProductDetails">
+
+      <ion-list item-end>
+
+        <ion-item (press)="ModifyDetails('headquator',item.Headquator,item)">
+            <ion-label color="dark" >Headquator: {{item.Headquator |lowercase}}</ion-label>
+          </ion-item>
+           <ion-item (press)="ModifyDetails('customername',item.customername,item)" >
+            <ion-label color="dark" >Customer Name: {{item.customername |lowercase}}</ion-label>
+          </ion-item>
+          <ion-item (press)="ModifyDetails('customermobile',item.customermobile,item)" >
+            <ion-label color="dark" >Customer Mobile: {{item.customermobile |lowercase}}</ion-label>
+          </ion-item>
+          <ion-item (press)="ModifyDetails('transportmediatype',item.transportmedia,item)" >
+            <ion-label color="dark" >Transoort Media: {{item.transportmedia |lowercase}}</ion-label>
+          </ion-item>
+          <ion-item  (press)="ModifyDetails('transportname',item.transportname,item)">
+            <ion-label color="dark" >Transport Name: {{item.transportname |lowercase}}</ion-label>
+          </ion-item>
+          <ion-item  (press)="ModifyDetails('deliveryaddress',item.deliveryaddress,item)">
+            <ion-label color="dark"> Address:{{item.deliveryaddress}}</ion-label><br>
+
+          </ion-item>
+
+          <ion-item>
+              <ion-label color="dark">Products
+                  <i><button ion-button color="secondary" (click)="changeProduct()">Add products</button></i>
+              </ion-label><br>
+          </ion-item>
+
+          <!-- adding the details -->
+
+           <div *ngIf="newSaveProducts.length != 0">
+
+              <ion-row >
+                  <ion-col col-5>
+                    <h4>Products</h4>
+                  </ion-col>
+                  <ion-col col-2>
+                    <h4>Size</h4>
+                  </ion-col>
+                  <ion-col col-5>
+                      <h4>Quantity</h4>
+                    </ion-col>
+              </ion-row>
+
+              <ion-list *ngFor="let product of newSaveProducts ; let i = index">
+
+                  <ion-list>
+                      <ion-row>
+                        <ion-col col-4>
+                          <p >{{i+1}}.{{product.name}}</p>
+
+                          </ion-col>
+                          <ion-col col-2>
+                              <input type="text" style="border: 2px solid black;
+                              width: 104%;
+                              height: 53%;
+                              position: relative;
+                              top: 13%;
+                              left: -12%;" name="size" required   #size>
+                          </ion-col>
+                          <ion-col col-4 style="position: relative;">
+                            <ion-select interface="popover"  #selectItem name="transportMedia" ngModel placeholder="Please select Transport">
+                              <div *ngFor="let items of product.packageSize">
+                                <ion-option value="{{items}}" selected>{{items}}</ion-option>
+                              </div>
+
+
+                            </ion-select>
+                            <ion-col col-2>
+                                <button ion-button style="height: auto;
+                                width: 20%;
+                                position: relative;
+                                float: right;
+                                left: 35%;
+                                top: -50%;" (click)="getOrderProductDetails(product.name,size.value,selectItem.value,item)">Add</button>
+                            </ion-col>
+                          </ion-col>
+
+
+                      </ion-row>
+                      <hr>
+
+                    </ion-list>
+              </ion-list>
+
+           </div>
+
+
+          <!-- details end -->
+
+          <ion-item>
+            <ion-label>
+              Saved Prducts
+            </ion-label>
+          </ion-item>
+
+            <ion-row >
+              <ion-col col-5>
+                <h4>Products</h4>
+              </ion-col>
+              <ion-col col-2>
+                <h4>Size</h4>
+              </ion-col>
+              <ion-col col-5>
+                  <h4>Quantity</h4>
+                </ion-col>
+            </ion-row>
+
+              <div *ngFor="let item of item.productnames; let i = index">
+
+                  <ion-list>
+                      <ion-item-sliding >
+
+                      <ion-item>
+
+
+                        <ion-row>
+                          <ion-icon col-4>
+                              {{i+1}}.{{item.name}}
+                            </ion-icon>
+                            <ion-icon col-2>
+                                {{item.size}}pkt
+
+                              </ion-icon >
+                              <ion-icon col-6>
+                                  {{item.quantity}}g
+
+                            </ion-icon >
+                        </ion-row>
+                      </ion-item>
+                        <ion-item-options side="right">
+                          <button ion-button color="secondary">
+                            Edit
+                          </button>
+                          <button ion-button color="danger">
+                              Delete
+                          </button>
+                        </ion-item-options>
+                      </ion-item-sliding>
+
+
+                  </ion-list>
+
+                </div>
+
+
+
+
+      </ion-list>
+        <button ion-button full color="secondary" (click)="updateAllDetails()">Update Order</button>
+
+
+    </div>
+</ion-content>
+

@@ -5,6 +5,7 @@ import { Component , OnInit } from '@angular/core';
 import {App, NavController, Platform, NavParams, ToastController, LoadingController,ViewController, AlertController, Toast } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -25,7 +26,7 @@ export class ProductDetails  implements OnInit {
   authority :string;
   orderEmail: string
   totalAmount: number = 0;
-  getProductDetails :any;
+  getProductDetails = [];
 
 
   products = [] ;
@@ -53,41 +54,15 @@ export class ProductDetails  implements OnInit {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public appCtrl: App,
+    public localStorage: Storage,
 
 
   ) {
 
       this.noProducts = 'false';
-      this.getProductDetails = this.navParams.get('Products');
-      this.email = this.getProductDetails.userEmail;
+      this.getProductDetails.push(this.navParams.get('Products'));
+      console.log(this.getProductDetails);
 
-
-
-
-
-      this.items = [
-        {name: 'Heaquator',value: this.getProductDetails.headquator},
-        {name: 'Transport Media',value: this.getProductDetails.transportMedia},
-        {name: 'Transport Name',value: this.getProductDetails.transportMediaName},
-        {name: 'Customer Name',value: this.getProductDetails.customername},
-        {name: 'Customer Mobile',value: this.getProductDetails.customermobile},
-      ]
-      const getProducts = this.getProductDetails.productName;
-      this.newAddress = this.getProductDetails.deliveryAddress;
-      this.authority = this.getProductDetails.authority;
-      this.orderEmail = this.getProductDetails.orderEmail;
-
-
-      // console.log(getProducts);
-      for(var i=0;i < getProducts.length ; i++)
-      {
-        this.products.push(getProducts[i]);
-      }
-
-      if(this.products.length == 0)
-      {
-        this.noProducts = 'true';
-      }
 
 
 
@@ -107,22 +82,30 @@ export class ProductDetails  implements OnInit {
 
 
 
-  closeModal()
+  closeModal(item,products)
   {
+    for(var i=0;i<products.length;i++)
+    {
+      products.splice(i,1);
+    }
 
+    console.log(products);
+    // console.log(typeof(products));
+    // products.clear();
 
+    this.localStorage.remove('savedProducts');
     this.navCtrl.pop();
 
 
   }
 
-  placeOrder()
+  placeOrder(item,products)
   {
    // firebase database of orderDetail
-
+console.log(item);
   try{
     const orderId = Math.floor(Math.random() * 899999 + 100000);
-    const result = this.orderDetailService.SaveOrder(this.items[0].value,this.items[1].value,this.items[2].value,this.items[3].value,this.items[4].value,this.newAddress,this.products,this.email,orderId);
+    const result = this.orderDetailService.SaveOrder(item.headquator,item.transportMedia,item.transportMediaName,item.customername,item.customermobile,item.deliveryAddress,products,orderId,item.authority,item.userEmail);
     console.log(result);
     if(result)
     {

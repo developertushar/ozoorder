@@ -1,4 +1,3 @@
-
 import { PopoverPage } from './../popover/popover';
 //page which need to be pushed to the next page
 import { ServicePastOrderPage } from './../service-past-order/service-past-order';
@@ -139,14 +138,11 @@ export class ServicesPage {
     {serviceName: 'Past Approved Orders',page: ServiceTrackOrderPage,forSpecific: 'all'},
     {serviceName: 'Check Approval',page: ServicePlaceOrderPage,forSpecific: 'salesofficer'},
     {serviceName: 'Past Orders',page: ServiceTrackOrderPage,forSpecific: 'salesofficer'},
-
-
   ]
 
 
   openPage(page,authority)
   {
-
     // const emailOfOrders = this.email.slice(0,this.email.indexOf('@')) + 'orders';
     this.navCtrl.push(page,{emailId: this.email,authority:this.userAuthority,orderEmail: this.orderEmail });
   }

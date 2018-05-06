@@ -1,3 +1,5 @@
+import { SeeProductDetailsPage } from './../pages/see-product-details/see-product-details';
+import { ModifiedProductsPage } from '../pages/modified-products/modified-products';
 
 import { TabsPage } from './../pages/tabs/tabs';
 import { PopoverPage } from './../pages/popover/popover';
@@ -16,6 +18,8 @@ import { IonicApp, IonicErrorHandler, IonicModule, ModalController, NavParams, N
 import { MyApp } from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
 import { SplashScreen  } from '@ionic-native/splash-screen';
+
+
 
 //animation
 import { AnimationService, AnimatesDirective } from 'css-animator';
@@ -67,7 +71,9 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     SettingsPage,
     SelectParty,
     SelectProducts,
-    AnimatesDirective
+    AnimatesDirective,
+    ModifiedProductsPage,
+    SeeProductDetailsPage
 
 
   ],
@@ -76,11 +82,13 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    HttpClientModule,
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     HttpModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -99,10 +107,9 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     TabsPage,
     SettingsPage,
     SelectParty,
-    SelectProducts
-
-
-
+    SelectProducts,
+    ModifiedProductsPage,
+    SeeProductDetailsPage
   ],
   providers: [
     StatusBar,
@@ -114,8 +121,9 @@ import { SelectProducts } from '../modals/selectProducts/modal.selectproduct';
     AuthServiceProvider,
     OrderDetailsProvider,
     ModalController,
-    HttpModule,
-    AnimationService
+    AnimationService,
+    HttpClientModule,
+
   ]
 })
 export class AppModule {}

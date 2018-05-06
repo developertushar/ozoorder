@@ -23,7 +23,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 
 export class LoginPage  implements OnInit {
 
-  signuppage = SignupPage
+  signuppage =   SignupPage
 
   gettingEmail :string;
   userDetails = [];

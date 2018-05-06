@@ -1,22 +1,19 @@
+import { SeeProductDetailsPage } from './../see-product-details/see-product-details';
 import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
 import { ServicesPage } from './../services/services';
 import { DataServiceProvider } from './../../providers/data-service/data-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, IonicApp } from 'ionic-angular';
 import { AngularFireDatabase} from 'angularfire2/database';
+import { ModifiedProductsPage } from '../modified-products/modified-products';
+import { ProductDetails } from './../../modals/modal.productsDetails';
 
-
-/**
- * Generated class for the ServiceApprovalCheckPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-service-approval-check',
   templateUrl: 'service-approval-check.html',
+
 })
 export class ServiceApprovalCheckPage {
 
@@ -40,21 +37,24 @@ export class ServiceApprovalCheckPage {
   currentKey :any;
 
   key :any;
-
+  nav :any;
   setMessage :string;
   setNoRecord :boolean;
 
   isSalesOfficer :string;
 
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
      public navParams: NavParams,
      public firebaseDb: AngularFireDatabase,
      public dataService: DataServiceProvider,
      public toastCtrl: ToastController,
-     public loader: LoadingController
+     public loader: LoadingController,
+     public app: IonicApp
 
   ) {
+
+    this.nav = navCtrl;
 
     this.showAuthority = 'false'
     this.userAuthority = window.localStorage.getItem('authority');
@@ -159,8 +159,6 @@ export class ServiceApprovalCheckPage {
         position: 'bottom'
       })
       toast.present();
-
-
     })
 
 
@@ -217,11 +215,18 @@ export class ServiceApprovalCheckPage {
 
   }
 
+  cardClickCheckProductDetails(data)
+  {
 
-  cardClickCheckDetailEvent(data){
-
-    console.log(data);
-    // this.navCtrl.push(ServicePlaceOrderPage,{OrderTomodified: data});
+    this.navCtrl.push(SeeProductDetailsPage,{Products: data});
 
   }
+
+  cardClickModifyDetails()
+  {
+
+    this.navCtrl.push(ModifiedProductsPage);
+
+  }
+
 }

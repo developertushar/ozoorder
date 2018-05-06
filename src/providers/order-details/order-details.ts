@@ -37,11 +37,10 @@ export class OrderDetailsProvider {
   }
 
 
-  SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,email,orderId)
+  SaveOrder(partyName,transportMedia,transportName,customerName,customerMobile,address,products,orderId,authority,email)
   {
 
 
-    // getting the date
     var date = new Date();
     const modifiedDate = date.toUTCString();
 
@@ -65,8 +64,32 @@ export class OrderDetailsProvider {
       sendTo: '',
       OrderKey: '',
       ApprovalDate: '',
-      sendBy: email
+      sendBy: email,
+      authority: authority
     };
+
+    const pendingData = {
+      Headquator : partyName,
+      transportmedia: transportMedia,
+      transportname: transportName,
+      deliveryaddress: address,
+      productnames: products,
+      useremail: email,
+      Orderid: orderId,
+      placeDate: modifiedDate,
+      isApproved: '',
+      approveTime: '',
+      deliveryTime: '',
+      customername: customerName,
+      customermobile: customerMobile,
+      sendTo: '',
+      OrderKey: '',
+      ApprovalDate: '',
+      sendBy: email,
+      isModified: '',
+      isModifiedBy: '',
+      authority: authority
+    }
 
     const set = this.firebaseDb.list('/Orders/'+emailId).push(setTheData).then((item)=>{
 
@@ -76,7 +99,14 @@ export class OrderDetailsProvider {
 
     });
 
-    const pending = this.firebaseDb.list('/pendingOrder/').push(setTheData);
+    const pending = this.firebaseDb.list('/pendingOrder/').push(pendingData).then((item)=>{
+
+
+      this.firebaseDb.list('/pendingOrder/').update(item.key,{
+        OrderKey: item.key
+      })
+
+    });
 
       if(set && pending)
       {

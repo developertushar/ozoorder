@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { SelectProducts } from '../../modals/selectProducts/modal.selectproduct';
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import {ProductDetails} from '../../modals/modal.productsDetails';
 import {AngularFireDatabase} from 'angularfire2/database';
@@ -57,14 +57,17 @@ export class ServicePlaceOrderPage {
      public modalCtrl: ModalController,
      public firebaseDb: AngularFireDatabase,
      public firebaseService: FirebaseServiceProvider,
-     public localStorage: Storage
+     public localStorage: Storage,
+     public toastCtrl: ToastController
 
   ) {
 
-
-   this.email = this.navParams.get('emailId');
-   this.userAuthority = this.navParams.get('emailId');
+   this.localStorage.remove('savedProducts');
+   this.email = window.localStorage.getItem('email');
+   this.userAuthority = this.navParams.get('authority');
    this.orderEmail = this.navParams.get('orderEmail');
+
+  console.log(this.email);
 
   // console.log(this.navParams.get(OrderTomodified))
    this.headquators = this.firebaseService.getTheHeadquators();
@@ -90,59 +93,82 @@ export class ServicePlaceOrderPage {
     this.localStorage.get('savedProducts').then((data)=>{
       // console.log();
       this.products = JSON.parse(data);
-      console.log(this.products);
-      for(var index=0; index < this.products.length ; index++)
+      if(this.products == null)
+      {
+        const toast = this.toastCtrl.create({
+          message: 'No Product Selected',
+          position: 'bottom',
+          duration: 1500
+        })
+
+        toast.present();
+      }
+      else
       {
 
-        this.newProducts.push({
-          name: this.products[index].productName,
-          size: this.products[index].size,
-          quantity: this.products[index].quantity,
+        console.log(this.products);
 
-        })
+
+        for(var index=0; index < this.products.length ; index++)
+        {
+
+          this.newProducts.push({
+            name: this.products[index].productName,
+            size: this.products[index].size,
+            quantity: this.products[index].quantity,
+
+          })
+
+        }
+
+
+        let actionSheet = this.actionSheetCtrl.create({
+          title: 'Save Product Details',
+          buttons: [
+            {
+              text: 'Yes, Save and Place',
+              role: 'destructive',
+              handler: () => {
+                let profileModal = this.modalCtrl.create(ProductDetails, {
+                  Products : {
+                    productName: this.newProducts,
+                    deliveryAddress : getStateAndAddress[0],
+                    transportMedia: value.transportMedia,
+                    headquator: getStateAndAddress[1],
+                    transportMediaName: value.transportMediaName,
+                    userEmail :this.email,
+                    authority:  this.userAuthority,
+                    orderEmail:this.orderEmail,
+                    customername: value.customerName,
+                    customermobile: value.customerMobile
+                  }
+                });
+                 profileModal.present();
+              }
+            },
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+
+              }
+            }
+          ]
+        });
+
+        actionSheet.present();
 
       }
 
+      // this.products = [];
+
+
     });
 
 
 
 
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Save Product Details',
-      buttons: [
-        {
-          text: 'Yes, Save and Place',
-          role: 'destructive',
-          handler: () => {
-            let profileModal = this.modalCtrl.create(ProductDetails, {
-              Products : {
-                productName: this.newProducts,
-                deliveryAddress : getStateAndAddress[0],
-                transportMedia: value.transportMedia,
-                headquator: getStateAndAddress[1],
-                transportMediaName: value.transportMediaName,
-                userEmail :this.email,
-                authority:  this.userAuthority,
-                orderEmail:this.orderEmail,
-                customername: value.customerName,
-                customermobile: value.customerMobile
-              }
-            });
-             profileModal.present();
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
 
-          }
-        }
-      ]
-    });
-
-    actionSheet.present();
 
   }
 

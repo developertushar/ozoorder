@@ -138,6 +138,7 @@
       <div [ngSwitch]="orderType2"  *ngIf="showAuthority === 'false'">
           <ion-list *ngSwitchCase="'approved'">
             <div *ngIf="isSalesOfficer === 'true'">
+
               <div *ngFor="let approve  of aproveOrders">
                   <ion-card >
                       <ion-card-header>
@@ -149,7 +150,7 @@
                                 {{approve.Orderid}}
                           </ion-col>
                         </ion-row>
-                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click to Modify Product</ion-label>
+                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckProductDetails(approve)">click to see Product Details</ion-label>
                       </ion-card-header>
                       <ion-list>
                         <ion-row>
@@ -157,7 +158,7 @@
                             <p>Customer: {{approve.customername}}</p><br>
                             <p>Customer mobile: {{approve.customermobile}}</p>
                             <p>Send By: {{approve.sendBy}}</p>
-                            <p  *ngIf="approve.isApproved != 'true'">Send Date: {{approve.sendApprovalDate}}</p>
+                            <p  *ngIf="approve.isApproved != 'true'">Send Date: {{approve.placeDate}}</p>
                             <p *ngIf="approve.isApproved == 'true'">Approval Date</p>
 
                           </ion-col>
@@ -189,7 +190,7 @@
                                 {{approve.Orderid}}
                           </ion-col>
                         </ion-row>
-                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  (click)="cardClickCheckDetailEvent(approve)">click for product Details</ion-label>
+                        <ion-label style="font-style:italic; font-size: 68%;color:grey;position: relative;left:68px;"  >click for product Details</ion-label>
                       </ion-card-header>
                       <ion-list>
                         <ion-row>

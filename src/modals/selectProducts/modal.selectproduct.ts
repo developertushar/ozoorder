@@ -1,6 +1,7 @@
+import { DataServiceProvider } from './../../providers/data-service/data-service';
 import { Storage } from '@ionic/storage';
 import { OnInit, Component } from '@angular/core';
-import { AlertController, ToastController, LoadingController, NavController } from 'ionic-angular';
+import { AlertController, ToastController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { ThrowStmt } from '@angular/compiler';
 
 
@@ -11,120 +12,11 @@ import { ThrowStmt } from '@angular/compiler';
 
 export class SelectProducts implements OnInit{
 
-  products = [
-    {
-      name: 'Sarpanch',
-      packageSize: ['4kg x 6','1kg x 10']
-    },
-    {
-      name: 'Sarpanch Gold',
-      packageSize: ['4kg x 6','1kg x 10']
-    },
-    {
-      name: 'Hi - Result',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Effence',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Rambo',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Ozo More',
-      packageSize: ['200ml x 20','100ml x 40']
-    },
-    {
-      name: 'Super Lift',
-      packageSize: ['50ml x 40','20mlx100']
-    },
-    {
-      name: 'Micra',
-      packageSize: ['400gm x 20']
-    },
-    {
-      name: 'Ozo Power',
-      packageSize: ['90gm x 20','45gm x 40','22.5gm x 80']
-    },
-    {
-      name: 'Samrat',
-      packageSize: ['100gm x 40']
-    },
-    {
-      name: 'Zudo',
-      packageSize: ['90ml x 40','45ml x 80']
-    },
-    {
-      name: 'Supreme',
-      packageSize: ['100ml x 50','1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Mega Polo',
-      packageSize: ['150gm x 40']
-    },
-    {
-      name: 'Ecopia',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Ozo Speed',
-      packageSize: ['200ml x 20','100ml x 40','50ml x 80']
-    },
-    {
-      name: 'Ozo - 9',
-      packageSize: ['100ml x 20','50ml x 40','7ml x 100']
-    },
-    {
-      name: 'Rio',
-      packageSize: ['200gm x 20','100gm x 40','50gm x 80','10gm x 100']
-    },
-    {
-      name: 'Focus',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Shine',
-      packageSize: ['1000ml x 10','500ml x 20','250ml x 40']
-    },
-    {
-      name: 'Ozo - Hero',
-      packageSize: ['100ml+100gm x 20','50ml+50gm x 40']
-    },
-    {
-      name: 'Mirakill',
-      packageSize: ['500ml x 20','250ml x 40','125ml x 80']
-    },
-    {
-      name: 'Tri Act',
-      packageSize: ['100+100+100 x 20','50+50+50 x 40']
-    },
-    {
-      name: 'Virtex',
-      packageSize: ['100ml +100gm x 20','50ml +50gm x 40']
-    },
-    {
-      name: 'Anti Virus',
-      packageSize: ['100ml x 40','50ml x 80']
-    },
-    {
-      name: 'Wilt Off',
-      packageSize: ['500ml +500ml x 20']
-    },
-    {
-      name: 'Ozo Grand',
-      packageSize: ['200gm x 40','10gm x 100']
-    },
-    {
-      name: 'Misky',
-      packageSize: ['50gm x 40']
-    },
 
-
-  ]
 
   //new saved products
+  getModifiedProductToken :string;
+  products :any;
   newSaveProducts = [];
   newProducts = []
   newAddedProducts = [];
@@ -136,16 +28,22 @@ export class SelectProducts implements OnInit{
     private toastCtrl :ToastController,
     public localStorage: Storage,
     public loading: LoadingController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public dataService: DataServiceProvider
 
   ) {
 
   //     set a key/value
   // window.localStorage.setItem('hey','hey');
 
+  this.products = this.dataService.getProducts();
 
+  // this.getModifiedProductToken = this.navParams.get('setToken');
+  // console.log(this.getModifiedProductToken);
+  // if(this.getModifiedProductToken)
+  // {}
 
-  // console.log(window.localStorage.getItem('hey'));
 
   }
   ngOnInit(){
