@@ -30,6 +30,7 @@ export class ServiceApprovalCheckPage {
   pending :any;
   pendingOrders = [];
 
+  modifiedData :any;
   //aprove orders
   approve :string;
   approval :string = 'notApproved';
@@ -40,6 +41,9 @@ export class ServiceApprovalCheckPage {
   nav :any;
   setMessage :string;
   setNoRecord :boolean;
+  emailId :string;
+
+  modifyToken: string;
 
   isSalesOfficer :string;
 
@@ -59,15 +63,24 @@ export class ServiceApprovalCheckPage {
     this.showAuthority = 'false'
     this.userAuthority = window.localStorage.getItem('authority');
     const email = window.localStorage.getItem('email');
+    this.emailId = email;
+    console.log(this.emailId);
     this.orderEmail = window.localStorage.getItem('orderEmail');
 
     console.log(email + 'getting email');
-    this.firebaseDb.list('/pendingOrder/',ref => ref.orderByChild('sendBy').equalTo(email)).valueChanges().subscribe((data)=>{
-
-
-       this.pendingOrders = data;
+    const load = this.loader.create({
+      content: 'Loading Orders..',
+      spinner: 'dot'
     })
 
+    load.present().then(()=>{
+
+      this.firebaseDb.list('/pendingOrder/',ref => ref.orderByChild('sendBy').equalTo(email)).valueChanges().subscribe((data)=>{
+        this.pendingOrders = data;
+        load.dismiss();
+     })
+
+    })
    console.log(this.pendingOrders);
 
    if(this.userAuthority == 'salesofficer')
@@ -121,6 +134,8 @@ export class ServiceApprovalCheckPage {
 
   approveOrder(approval){
 
+    console.log(approval);
+
     const loader = this.loader.create({
       content: 'Approving order'
 
@@ -130,11 +145,12 @@ export class ServiceApprovalCheckPage {
     const modifiedDate = date.toUTCString();
 
     loader.present();
-    this.firebaseDb.list('/pendingOrder/').update(approval.orderKey,{
-      ApprovedBy: approval.sendTo,
-      ApprovedAuthority: approval.authority,
+    this.firebaseDb.list('/pendingOrder/').update(approval.OrderKey,{
+
+      ApprovedBy: [this.emailId],
+      approvalAuthority: this.userAuthority,
       isApproved: 'true',
-      ApprovalDate: modifiedDate
+      approveTime: modifiedDate
 
     }).then(()=>{
 
@@ -160,6 +176,7 @@ export class ServiceApprovalCheckPage {
       })
       toast.present();
     })
+
 
 
 
@@ -217,16 +234,96 @@ export class ServiceApprovalCheckPage {
 
   cardClickCheckProductDetails(data)
   {
+    this.modifyToken = 'false';
+    this.firebaseDb.list('/modifiedProduct/').valueChanges().subscribe((getData)=>{
+      this.modifiedData = getData;
 
-    this.navCtrl.push(SeeProductDetailsPage,{Products: data});
+      if(this.modifiedData.length === 0 || this.modifiedData === undefined  )
+      {
+        this.firebaseDb.list('/modifiedProduct/').push({
+          orderId: data.Orderid,
+          transportmedia: '',
+          transportname: '',
+          isModifiedBy: '',
+          customermobile: '',
+          customername: '',
+          deliveryaddress: '',
+          OrderKey: '',
+          Headquator: '',
+          modifiedProducts: ''
+        }).then((item)=>{
 
-  }
+           this.key = item.key;
+          //  console.log(this.key);
+           this.firebaseDb.list('/modifiedProduct/').update(item.key,{
+            OrderKey: item.key
+           })
+
+        })
+
+      }
+
+      if(this.modifiedData.length > 0)
+      {
+
+        for(var i=0;i< this.modifiedData.length;i++)
+        {
+          if(this.modifiedData[i].orderId === data.Orderid)
+          {
+              this.key = this.modifiedData[i].OrderKey;
+              this.modifyToken = 'true';
+
+          }
+        }
+        if(this.modifyToken !== 'true')
+        {
+          this.firebaseDb.list('/modifiedProduct/').push({
+            orderId: data.Orderid,
+            transportmedia: '',
+            transportname: '',
+            isModifiedBy: '',
+            customermobile: '',
+            customername: '',
+            deliveryaddress: '',
+            OrderKey: '',
+            Headquator: '',
+            modifiedProducts: ''
+            }).then((item)=>{
+
+             this.key = item.key;
+             this.firebaseDb.list('/modifiedProduct/').update(item.key,{
+               OrderKey: item.key
+             })
+          })
+        }
+      }
+
+
+
+
+
+
+  })
+
+
+  this.navCtrl.push(SeeProductDetailsPage,{Products: data,orderId: data.Orderid});
+
+
+
+   }
 
   cardClickModifyDetails()
   {
 
+
     this.navCtrl.push(ModifiedProductsPage);
 
+  }
+
+
+  checkModifiedProductDetails(orderId)
+  {
+    this.navCtrl.push(ModifiedProductsPage, {orderId: orderId});
   }
 
 }

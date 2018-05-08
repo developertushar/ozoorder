@@ -1,5 +1,5 @@
-<ion-header>
-    <ion-navbar color="primary" >
+<ion-header >
+    <ion-navbar color="secondary" >
       <ion-title item-center>Product Summary</ion-title>
     </ion-navbar>
   </ion-header>
@@ -60,8 +60,8 @@
 
 
 
-    <button ion-button full  (click)="placeOrder(item,item.productName)">Confirm Order</button> <br>
-    <button ion-button full (click)="closeModal(item,item.productName)">Cancel Order</button>
+    <button ion-button full color="buttonColor"  (click)="placeOrder(item,item.productName)">Confirm Order</button> <br>
+    <button ion-button full color="buttonColor" (click)="closeModal(item,item.productName)">Cancel Order</button>
   </div>
 </ion-content>
 

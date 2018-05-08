@@ -47,6 +47,7 @@ export class OrderDetailsProvider {
 
 
     const emailId = email.substr(0,email.indexOf('@')) + 'orders';
+    const userName = email.substr(0,email.indexOf('@'));
     const setTheData = {
       Headquator : partyName,
       transportmedia: transportMedia,
@@ -56,6 +57,7 @@ export class OrderDetailsProvider {
       useremail: email,
       Orderid: orderId,
       placeDate: modifiedDate,
+      approvalAuthority: '',
       isApproved: '',
       approveTime: '',
       deliveryTime: '',
@@ -63,8 +65,8 @@ export class OrderDetailsProvider {
       customermobile: customerMobile,
       sendTo: '',
       OrderKey: '',
-      ApprovalDate: '',
       sendBy: email,
+      username: userName,
       authority: authority
     };
 
@@ -76,6 +78,7 @@ export class OrderDetailsProvider {
       productnames: products,
       useremail: email,
       Orderid: orderId,
+      approvalAuthority: '',
       placeDate: modifiedDate,
       isApproved: '',
       approveTime: '',
@@ -84,11 +87,11 @@ export class OrderDetailsProvider {
       customermobile: customerMobile,
       sendTo: '',
       OrderKey: '',
-      ApprovalDate: '',
       sendBy: email,
       isModified: '',
       isModifiedBy: '',
-      authority: authority
+      authority: authority,
+      isApprovedBy: ''
     }
 
     const set = this.firebaseDb.list('/Orders/'+emailId).push(setTheData).then((item)=>{
@@ -188,8 +191,10 @@ export class OrderDetailsProvider {
   }
 
 
-  getStoreKeysOfPendingOrders(){
-
+  getUserName(email)
+  {
+    const userName = email.substr(0,email.indexOf('@'));
+    return userName;
 
   }
 

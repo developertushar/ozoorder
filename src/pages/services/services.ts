@@ -1,3 +1,4 @@
+import { OrderDetailsProvider } from './../../providers/order-details/order-details';
 import { PopoverPage } from './../popover/popover';
 //page which need to be pushed to the next page
 import { ServicePastOrderPage } from './../service-past-order/service-past-order';
@@ -52,6 +53,7 @@ export class ServicesPage {
     public firebaseAuth: AngularFireAuth,
     public popoverCtrl: PopoverController,
     public firebaseDb: AngularFireDatabase,
+    public OrderDetailsService: OrderDetailsProvider,
 
   ) {
 
@@ -61,6 +63,11 @@ export class ServicesPage {
     const email = window.localStorage.getItem('email');
     this.orderEmail = window.localStorage.getItem('orderEmail');
     this.userAuthority = window.localStorage.getItem('authority');
+
+      // this.username = this.OrderDetailsService.getUserName(email);
+
+    // console.log(this.username);
+    // window.localStorage.setItem('username', this.username);
 
     console.log(this.orderEmail + 'ORDER EMAIL');
     console.log('in service'+ email);

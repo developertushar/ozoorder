@@ -119,37 +119,34 @@
                 </ion-col>
             </ion-row>
 
-              <div *ngFor="let item of item.productnames; let i = index">
+              <div *ngFor="let product of item.productnames; let i = index">
 
                   <ion-list>
-                      <ion-item-sliding >
+                      <ion-item-sliding>
 
                       <ion-item>
 
 
                         <ion-row>
                           <ion-icon col-4>
-                              {{i+1}}.{{item.name}}
+                              {{i+1}}.{{product.name}}
                             </ion-icon>
                             <ion-icon col-2>
-                                {{item.size}}pkt
+                                {{product.size}}pkt
 
                               </ion-icon >
                               <ion-icon col-6>
-                                  {{item.quantity}}g
+                                  {{product.quantity}}g
 
                             </ion-icon >
                         </ion-row>
                       </ion-item>
                         <ion-item-options side="right">
-                          <button ion-button color="secondary">
-                            Edit
-                          </button>
-                          <button ion-button color="danger">
+                          <button ion-button color="danger" (click)="deleteProduct(product,item)">
                               Delete
                           </button>
                         </ion-item-options>
-                      </ion-item-sliding>
+                    </ion-item-sliding>
 
 
                   </ion-list>
@@ -160,9 +157,11 @@
 
 
       </ion-list>
-        <button ion-button full color="secondary" (click)="updateAllDetails()">Update Order</button>
+        <button ion-button full color="secondary" (click)="updateAllDetails(item)">Update Order</button>
 
 
-    </div>
+
+
+  </div>
 </ion-content>
 

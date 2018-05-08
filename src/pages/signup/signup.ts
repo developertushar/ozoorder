@@ -66,6 +66,7 @@ export class SignupPage {
     })
 
     this.headquators = this.firebaseService.getTheHeadquators();
+    console.log(this.headquators)
 
   }
 

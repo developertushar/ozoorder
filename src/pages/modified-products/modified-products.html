@@ -6,12 +6,37 @@
 -->
 <ion-header >
   <ion-navbar color="secondary">
-    <ion-title>ModifiedProducts</ion-title>
+    <ion-title>Modified Product Details</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
+
+
+    <ion-card *ngFor="let product of modifiedProductDetails">
+      <ion-card-header>
+        Order Id:{{product.Orderid}}
+      </ion-card-header>
+
+      <ion-list>
+        <ion-item>
+          <ion-row>
+              <ion-icon name="contact"></ion-icon>
+              Customer Name:{{product.customername}}
+          </ion-row>
+          <ion-row>
+              <ion-icon name="contact"></ion-icon>
+              Customer Mobile:{{product.customername}}
+          </ion-row>
+          <ion-row>
+              <ion-icon name="contact"></ion-icon>
+              Customer Name:{{product.customername}}
+          </ion-row>
+
+        </ion-item>
+      </ion-list>
+    </ion-card>
 
 
 

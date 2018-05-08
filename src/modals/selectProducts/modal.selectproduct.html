@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar color="primary" >
+    <ion-navbar color="secondary" >
       <ion-title item-center>Select Products</ion-title>
     </ion-navbar>
   </ion-header>
@@ -9,7 +9,7 @@
 
   <ion-list>
 
-    <button ion-button (click)="selectProduct()">Select Products</button>
+    <button ion-button (click)="selectProduct()" color="buttonColor">Select Products</button>
   </ion-list>
 
 
@@ -59,7 +59,7 @@
                       position: relative;
                       float: right;
                       left: 35%;
-                      top: -50%;" (click)="getOrderProductDetails(product.name,size.value,selectItem.value)">Add</button>
+                      top: -50%;" color="secondary" (click)="getOrderProductDetails(product.name,size.value,selectItem.value)">Add</button>
                   </ion-col>
                 </ion-col>
 
@@ -99,7 +99,7 @@
 
     </div>
 
-    <button ion-button full (click)="saveProducts()">Save Products</button>
+    <button ion-button full  color="secondary" (click)="saveProducts()">Save Products</button>
 
 
 

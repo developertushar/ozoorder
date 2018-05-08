@@ -9,12 +9,7 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { OrderDetailsProvider } from '../../providers/order-details/order-details';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-/**
- * Generated class for the SeeProductDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -25,6 +20,7 @@ export class SeeProductDetailsPage {
 
   appCtrl: any;
   orderId :any;
+  newOrderKey :any;
   email :any;
   userDetails = [];
   authority :string;
@@ -39,9 +35,13 @@ export class SeeProductDetailsPage {
   customername :any;
   customermobile :any;
 
+  getData :any;
+
   noProducts :string;
   newAddedProducts = [];
   setTokenforDuplicateAddingOfProduct :string;
+  key :any;
+  modifiedData :any;
 
   transportmedia = [
     {type: 'radio',label: 'Car',value: 'car',checked: false},
@@ -54,8 +54,11 @@ export class SeeProductDetailsPage {
   headquators = [];
   newSaveProducts = [] ;
   newProducts = [];
+  modifyToken :string;
 
   items;
+  productId :any;
+  orderKey :string;
 
   alluserDetails = [];
   constructor(
@@ -74,24 +77,63 @@ export class SeeProductDetailsPage {
   ) {
 
 
+    this.email = window.localStorage.getItem('email');
+    // console.log(this.email);
     this.noProducts = 'false';
     this.products = this.dataService.getProducts();
 
 
     this.getProductDetails.push(this.navParams.get('Products'));
+
     console.log(this.getProductDetails);
 
+    this.productId = this.navParams.get('orderId');
 
+
+    console.log(this.productId);
     this.headquators = this.firebaseService.getTheHeadquators();
+    // this.getOrderKey(this.productId);
+
+    this.firebaseDb.list('/modifiedProduct/').valueChanges().subscribe((data)=>{
+      this.getData  = data;
+
+        for(var j=0;j< this.getData.length; j++)
+         {
+              if(this.getData[j].orderId == this.productId)
+              {
+
+                this.orderKey = this.getData[j].OrderKey;
 
 
+              }
+         }
 
+      })
+
+    // console.log(this.newOrderKey);
+
+
+    // console.log(this.newOrderKey);
 
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SeeProductDetailsPage');
+
+
+
+  }
+
+  getOrderKey(productid)
+  {
+
+    console.log(productid);
+
+
+
+
+
   }
 
 
@@ -120,6 +162,9 @@ export class SeeProductDetailsPage {
 
     ModifyDetails(caseSwitch,value,item)
     {
+      console.log(this.orderKey);
+
+
 
         switch (caseSwitch) {
 
@@ -130,6 +175,7 @@ export class SeeProductDetailsPage {
 
               for(var i=0;i<this.headquators.length ; i++)
               {
+
                alert1.addInput({
                  type: 'radio',
                  label:  this.headquators[i].name,
@@ -147,6 +193,11 @@ export class SeeProductDetailsPage {
                    {
                       if(this.getProductDetails[i].Headquator === value)
                       {
+                        this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                          Headquator: getData
+                        }).then(()=>{
+
+                          this.firebaseDb.list('/modifiedProduct/')
                           this.getProductDetails[i].Headquator = getData;
                           const toast = this.toastCtrl.create({
                             message: 'Successfully Updated',
@@ -154,6 +205,9 @@ export class SeeProductDetailsPage {
                             duration: 1000
                           })
                           toast.present();
+
+                        })
+
                       }
                    }
                }
@@ -186,6 +240,9 @@ export class SeeProductDetailsPage {
                  {
                     if(this.getProductDetails[i].transportmedia === value)
                     {
+                      this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                        transportmedia: getData
+                      })
                         this.getProductDetails[i].transportmedia = getData;
                         const toast = this.toastCtrl.create({
                           message: 'Successfully Updated',
@@ -193,18 +250,11 @@ export class SeeProductDetailsPage {
                           duration: 1000
                         })
                         toast.present();
+
+
                     }
                  }
-                //  this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
-                //   transportmedia: getData
-                // }).then(()=>{
-                //   const toast = this.toastCtrl.create({
-                //     message: 'Transport Media Updated ',
-                //     position: 'top',
-                //     duration:1000
-                //   });
-                //   toast.present();
-                // })
+
 
                }
              })
@@ -236,19 +286,23 @@ export class SeeProductDetailsPage {
                   handler: (getData) => {
                     console.log(getData.transportname);
 
-                 for(var i=0;i<this.getProductDetails.length ; i++)
-                 {
-                    if(this.getProductDetails[i].transportname === value)
-                    {
-                        this.getProductDetails[i].transportname = getData.transportname;
-                        const toast = this.toastCtrl.create({
-                          message: 'Successfully Updated',
-                          position: 'bottom',
-                          duration: 1000
-                        })
-                        toast.present();
-                    }
-                 }
+                       for(var i=0;i<this.getProductDetails.length ; i++)
+                       {
+                          if(this.getProductDetails[i].transportname === value)
+                          {
+                            this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                              transportname: getData.transportname
+                            })
+                              this.getProductDetails[i].transportname = getData.transportname;
+                              const toast = this.toastCtrl.create({
+                                message: 'Successfully Updated',
+                                position: 'bottom',
+                                duration: 1000
+                              })
+                              toast.present();
+
+                          }
+                       }
                     // this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
                     //   transportname: getData.transportname
                     // }).then(()=>{
@@ -263,7 +317,7 @@ export class SeeProductDetailsPage {
                 }
               ]
             });
-            prompt1.present();
+              prompt1.present();
                   break;
 
             case "customername":
@@ -292,6 +346,9 @@ export class SeeProductDetailsPage {
                        {
                           if(this.getProductDetails[i].customername === value)
                           {
+                            this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                              customername: getData.customername
+                            })
                               this.getProductDetails[i].customername = getData.customername;
                               const toast = this.toastCtrl.create({
                                 message: 'Successfully Updated',
@@ -299,18 +356,10 @@ export class SeeProductDetailsPage {
                                 duration: 1000
                               })
                               toast.present();
+
                           }
                        }
-                          // this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
-                          //   transportname: getData.transportname
-                          // }).then(()=>{
-                          //   const toast = this.toastCtrl.create({
-                          //     message: 'Transport Media Updated',
-                          //     position: 'top',
-                          //     duration:1000
-                          //   });
-                          //   toast.present();
-                          // })
+
                         }
                       }
                     ]
@@ -344,6 +393,9 @@ export class SeeProductDetailsPage {
                              {
                                 if(this.getProductDetails[i].customermobile === value)
                                 {
+                                  this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                                    customermobile: getData.customermobile
+                                  })
                                     this.getProductDetails[i].customermobile = getData.customermobile;
                                     const toast = this.toastCtrl.create({
                                       message: 'Successfully Updated',
@@ -351,18 +403,10 @@ export class SeeProductDetailsPage {
                                       duration: 1000
                                     })
                                     toast.present();
+
                                 }
                              }
-                                // this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
-                                //   transportname: getData.transportname
-                                // }).then(()=>{
-                                //   const toast = this.toastCtrl.create({
-                                //     message: 'Transport Media Updated',
-                                //     position: 'top',
-                                //     duration:1000
-                                //   });
-                                //   toast.present();
-                                // })
+
                               }
                             }
                           ]
@@ -395,6 +439,9 @@ export class SeeProductDetailsPage {
                                    {
                                       if(this.getProductDetails[i].deliveryaddress === value)
                                       {
+                                        this.firebaseDb.list('/modifiedProduct/').update(this.orderKey, {
+                                          deliveryaddress: getData.deliveryaddress
+                                        })
                                           this.getProductDetails[i].deliveryaddress = getData.deliveryaddress;
                                           const toast = this.toastCtrl.create({
                                             message: 'Successfully Updated',
@@ -402,18 +449,10 @@ export class SeeProductDetailsPage {
                                             duration: 1000
                                           })
                                           toast.present();
+
                                       }
                                    }
-                                      // this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
-                                      //   transportname: getData.transportname
-                                      // }).then(()=>{
-                                      //   const toast = this.toastCtrl.create({
-                                      //     message: 'Transport Media Updated',
-                                      //     position: 'top',
-                                      //     duration:1000
-                                      //   });
-                                      //   toast.present();
-                                      // })
+
                                     }
                                   }
                                 ]
@@ -421,7 +460,13 @@ export class SeeProductDetailsPage {
                               prompt4.present();
                                     break;
 
+                    case "default":
+                          () => {
+
+                          }
+
           } //switch end
+
 
 
     } //function end
@@ -547,8 +592,139 @@ export class SeeProductDetailsPage {
 
 
 
-       updateAllDetails()
+       updateAllDetails(item)
        {
+        const username = window.localStorage.getItem('username');
+        // console.log(item.isModifiedBy);
+        var date = new Date();
+        const modifiedDate = date.toUTCString();
+        if(item.isModifiedBy.length <= 0)
+        {
+
+          item.isModifiedBy = [];
+
+          item.isModifiedBy.push({
+             modifierName: username,
+             modifiedData: item.productnames,
+             modifiedDate:modifiedDate
+           })
+
+
+          //  this.firebaseDb.list('/modifiedProduct/').update(this.orderKey,{
+          //   isModifiedBy:
+
+
+          //  })
+
+           console.log(item.isModifiedBy);
+
+        }
+        else
+        {
+
+          console.log('running this part');
+
+          item.isModifiedBy.push({
+                modifierName: username,
+                modifiedData: item.productnames,
+                modifiedDate:modifiedDate,
+                customername: '',
+                deliveryaddress: '',
+                transportmedia: '',
+                transportname: '',
+                Headquator: '',
+                customermobile: ''
+
+              })
+
+              console.log(item.isModifiedBy);
+
+        }
+
+        if(item.productnames.length <=0 )
+        {
+          const toast = this.toastCtrl.create({
+            message: 'No products Selected',
+            duration: 1300,
+            position: 'top'
+          })
+
+          toast.present();
+        }
+        else
+        {
+
+
+
+
+
+          const load = this.loader.create({
+            content: 'Updating order',
+          })
+
+          load.present().then(()=>{
+
+             console.log(item.isModifiedBy);
+             this.firebaseDb.list('/modifiedProduct/').update(this.orderKey,{
+              isModifiedBy: item.isModifiedBy
+             }).then(()=>{
+               this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
+                isModified: 'true'
+               }).then(()=>{
+                        const toast = this.toastCtrl.create({
+                          message: 'Order Updated',
+                          duration: 1500,
+                          position: 'bottom'
+                        })
+                        toast.present();
+                        this.navCtrl.pop();
+                     }).catch((error)=>{
+
+                       const toast = this.toastCtrl.create({
+                         message: error,
+                         duration: 1500,
+                         position: 'bottom'
+                       })
+                       toast.present();
+                       this.navCtrl.pop();
+                     })
+                  })
+
+               })
+               load.dismiss();
+
+
+            // this.firebaseDb.list('/pendingOrder/').update(item.OrderKey,{
+            //   isModifiedBy: item.isModifiedBy
+              // isModified: 'true';
+            // }).then(()=>{
+            //   load.dismiss();
+
+            //
+            // })
+
+
+
+
+        }
+
+
+       }
+
+
+       deleteProduct(item,order)
+       {
+      console.log(order.productnames);
+      console.log(item);
+       for(var index=0;index <  order.productnames.length;index++){
+
+        if(order.productnames[index].name === item.name)
+        {
+          order.productnames.splice(index,1);
+        }
+
+       }
+
 
        }
 
