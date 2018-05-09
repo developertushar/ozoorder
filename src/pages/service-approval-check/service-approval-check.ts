@@ -1,3 +1,4 @@
+import { OrderDetailsProvider } from './../../providers/order-details/order-details';
 import { SeeProductDetailsPage } from './../see-product-details/see-product-details';
 import { ServicePlaceOrderPage } from './../service-place-order/service-place-order';
 import { ServicesPage } from './../services/services';
@@ -45,7 +46,17 @@ export class ServiceApprovalCheckPage {
 
   modifyToken: string;
 
+
   isSalesOfficer :string;
+  isAreaSalesManager :string;
+  regionalManager :any;
+  isRegionalManager:any;
+  areaSalesManager :any;
+  approved = [];
+  isApprovedBy :string;
+  plant :any;
+  isPlant :string;
+
 
   constructor(
     private navCtrl: NavController,
@@ -54,7 +65,8 @@ export class ServiceApprovalCheckPage {
      public dataService: DataServiceProvider,
      public toastCtrl: ToastController,
      public loader: LoadingController,
-     public app: IonicApp
+     public app: IonicApp,
+     public orderDetailService: OrderDetailsProvider
 
   ) {
 
@@ -77,6 +89,7 @@ export class ServiceApprovalCheckPage {
 
       this.firebaseDb.list('/pendingOrder/',ref => ref.orderByChild('sendBy').equalTo(email)).valueChanges().subscribe((data)=>{
         this.pendingOrders = data;
+        console.log(this.pendingOrders);
         load.dismiss();
      })
 
@@ -119,6 +132,68 @@ export class ServiceApprovalCheckPage {
           if(this.areaSalesOfficer[i].email === email)
           {
             this.isSalesOfficer = 'true';
+            this.isRegionalManager = 'false';
+            this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
+                 this.aproveOrders = data;
+            })
+
+          }
+        }
+
+    })
+
+    this.firebaseDb.list('userDetails', ref=> ref.orderByChild('authority').equalTo('regionalmanager'))
+    .valueChanges().subscribe((data)=>{
+      console.log(data);
+
+        this.regionalManager = data;
+        for(var i=0;i<this.regionalManager.length ; i++)
+        {
+          if(this.regionalManager[i].email === email)
+          {
+            this.isRegionalManager = 'true';
+            this.areaSalesManager = 'false';
+
+            this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
+                 this.aproveOrders = data;
+            })
+
+          }
+        }
+
+    })
+
+    this.firebaseDb.list('userDetails', ref=> ref.orderByChild('authority').equalTo('regionalmanager'))
+    .valueChanges().subscribe((data)=>{
+      console.log(data);
+
+        this.areaSalesManager = data;
+        for(var i=0;i<this.areaSalesManager.length ; i++)
+        {
+          if(this.areaSalesManager[i].email === email)
+          {
+            this.isAreaSalesManager = 'true';
+
+            this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
+                 this.aproveOrders = data;
+            })
+
+          }
+        }
+
+    })
+
+    this.firebaseDb.list('userDetails', ref=> ref.orderByChild('authority').equalTo('plant'))
+    .valueChanges().subscribe((data)=>{
+      console.log(data);
+
+        this.plant = data;
+        for(var i=0;i<this.plant.length ; i++)
+        {
+          if(this.plant[i].email === email)
+          {
+            this.isPlant = 'true';
+
             this.firebaseDb.list('/pendingOrder/').valueChanges().subscribe((data)=>{
                  this.aproveOrders = data;
             })
@@ -133,8 +208,17 @@ export class ServiceApprovalCheckPage {
 
 
   approveOrder(approval){
+    this.isApprovedBy = 'false';
+    var userName = this.orderDetailService.getUserName(this.emailId);
 
-    console.log(approval);
+
+    // console.log(this.approved);
+    this.approved = [
+      {
+        name: userName,
+        authority: this.userAuthority
+      }
+    ]
 
     const loader = this.loader.create({
       content: 'Approving order'
@@ -144,12 +228,76 @@ export class ServiceApprovalCheckPage {
     var date = new Date();
     const modifiedDate = date.toUTCString();
 
+
     loader.present();
     this.firebaseDb.list('/pendingOrder/').update(approval.OrderKey,{
 
-      ApprovedBy: [this.emailId],
+
+      ApprovedBy:this.approved,
       approvalAuthority: this.userAuthority,
       isApproved: 'true',
+      approveTime: modifiedDate
+
+    }).then(()=>{
+
+      loader.dismiss();
+      // this.navCtrl.setRoot(ServicesPage);
+
+      const toast = this.toastCtrl.create({
+        message: 'Successfully Approved',
+        duration: 1500,
+        position: 'top'
+      })
+      toast.present();
+
+
+
+
+    }).catch((error)=>{
+
+      const toast = this.toastCtrl.create({
+        message: error,
+        duration: 1500,
+        position: 'bottom'
+      })
+      toast.present();
+    })
+
+
+
+
+
+  }
+
+  approveOrderRegional(approval){
+    this.isApprovedBy = 'false';
+    var userName = this.orderDetailService.getUserName(this.emailId);
+
+
+    // console.log(this.approved);
+    this.approved = [
+      {
+        name: userName,
+        authority: this.userAuthority
+      }
+    ]
+
+    const loader = this.loader.create({
+      content: 'Approving order'
+
+    })
+
+    var date = new Date();
+    const modifiedDate = date.toUTCString();
+
+
+    loader.present();
+    this.firebaseDb.list('/pendingOrder/').update(approval.OrderKey,{
+
+
+      ApprovedByRegionals:this.approved,
+      approvalAuthority: this.userAuthority,
+      isApprovedByRegional: 'true',
       approveTime: modifiedDate
 
     }).then(()=>{

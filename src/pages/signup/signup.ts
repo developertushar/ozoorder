@@ -40,6 +40,7 @@ export class SignupPage {
     {typeButton: 'radio',labelName: 'REGIONAL MANAGER',getValue: 'regionalmanager',checked: true},
     {typeButton: 'radio',labelName: 'AREA SALES MANAGER',getValue: 'areasalesmanager',checked: false },
     {typeButton: 'radio',labelName: 'SALES OFFICER',getValue: 'salesofficer',checked: false },
+    {typeButton: 'radio',labelName: 'PLANT',getValue: 'plant',checked: false },
   ]
 
   // ALL list of headquators

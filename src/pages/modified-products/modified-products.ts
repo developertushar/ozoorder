@@ -30,8 +30,10 @@ export class ModifiedProductsPage {
     })
 
    loader.present().then(()=>{
-    this.firebaseDb.list('/pendingOrder/', ref=> ref.orderByChild('Orderid').equalTo(this.orderId)).valueChanges().subscribe((data)=>{
+    this.firebaseDb.list('/modifiedProduct/', ref=> ref.orderByChild('orderId').equalTo(this.orderId)).valueChanges().subscribe((data)=>{
         this.modifiedProductDetails = data;
+        console.log(this.modifiedProductDetails);
+
       })
    }).then(()=>{
      loader.dismiss();

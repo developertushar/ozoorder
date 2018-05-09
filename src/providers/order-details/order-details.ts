@@ -82,6 +82,7 @@ export class OrderDetailsProvider {
       placeDate: modifiedDate,
       isApproved: '',
       approveTime: '',
+      isApprovedByRegional: '',
       deliveryTime: '',
       customername: customerName,
       customermobile: customerMobile,
@@ -90,6 +91,7 @@ export class OrderDetailsProvider {
       sendBy: email,
       isModified: '',
       isModifiedBy: '',
+      isRejectedBy: '',
       authority: authority,
       isApprovedBy: ''
     }

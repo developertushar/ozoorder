@@ -33,9 +33,9 @@
           <ion-label color="dark">Products:</ion-label><br>
 
         </ion-item>
-        <div *ngFor="let product of item.productName">
+        <div *ngFor="let product of item.productName; let i=index">
 
-            <ion-item>{{product.name}}|{{product.quantity}}|{{product.size}}
+            <ion-item>{{i+1}}.{{product.name}}|{{product.quantity}}|{{product.size}}pkt
             </ion-item>
 
         </div>

@@ -16,23 +16,47 @@
 
     <ion-card *ngFor="let product of modifiedProductDetails">
       <ion-card-header>
-        Order Id:{{product.Orderid}}
+        Order Id:{{product.OrderId}}
       </ion-card-header>
+
+
 
       <ion-list>
         <ion-item>
-          <ion-row>
+          <ion-row *ngIf="product.customername" >
               <ion-icon name="contact"></ion-icon>
               Customer Name:{{product.customername}}
           </ion-row>
-          <ion-row>
-              <ion-icon name="contact"></ion-icon>
-              Customer Mobile:{{product.customername}}
+          <ion-row *ngIf="product.customermobile">
+              <ion-icon name="call"></ion-icon>
+              Customer Mobile:{{product.customermobile}}
           </ion-row>
-          <ion-row>
-              <ion-icon name="contact"></ion-icon>
-              Customer Name:{{product.customername}}
+          <ion-row *ngIf="product.Headquator">
+              <ion-icon name="home"></ion-icon>
+              Customer Name:{{product.Headquator}}
           </ion-row>
+          <ion-row *ngIf="product.transportmedia">
+              <ion-icon name="car"></ion-icon>
+              Customer Name:{{product.transportmedia}}
+          </ion-row>
+          <ion-row *ngIf="product.transportname">
+              <ion-icon name="text"></ion-icon>
+              Customer Name:{{product.transportname}}
+          </ion-row>
+
+          <ion-row *ngFor="let m of product.isModifiedBy">
+
+             <div>
+                Date of Modify:
+                <p>{{m.modifiedDate}}</p>
+             </div>
+          </ion-row>
+
+
+
+
+
+
 
         </ion-item>
       </ion-list>

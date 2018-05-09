@@ -606,7 +606,8 @@ export class SeeProductDetailsPage {
           item.isModifiedBy.push({
              modifierName: username,
              modifiedData: item.productnames,
-             modifiedDate:modifiedDate
+             modifiedDate:modifiedDate,
+             modifiedBy: username
            })
 
 

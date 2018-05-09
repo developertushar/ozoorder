@@ -31,6 +31,13 @@
             <button ion-button full  color="buttonColor"  activator="highlight" >Manage hierarchy</button>
       </div>
 
+      <div *ngIf="userAuthority == 'plant'">
+          <div>
+              <button ion-button full  color="buttonColor"  (click)="openPage(pastOrder,userAuthority)" activator="highlight" >Hierarchy</button>
+          </div>
+
+      </div>
+
 
 
 
